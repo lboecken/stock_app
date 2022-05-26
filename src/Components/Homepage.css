@@ -1,17 +1,34 @@
 .bg-image-homepage {
-    background: url(/src/Images/penguin-ht-1.png) no-repeat center !important;
+    background: url("/src/Images/penguin-ht-1.png") no-repeat !important;
     text-align: center;
     min-height: 100vh;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
     font-size: calc(10px + 2vmin);
     color: white;
+    
+    
+  
+    font-family: "Numans", sans-serif;
+  
   }
+
+  /* html,
+body {
+  background-image: url("/src/Images/penguin-ht-1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  font-family: "Numans", sans-serif;
+} */
 
   a {
     color: white;
     text-decoration: none;
   }
   
+  /* .maincontainer {
+    background-color: white !important;
+  } */

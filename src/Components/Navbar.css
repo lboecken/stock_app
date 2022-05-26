@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css?family=Numans");
+
+
+.navbar-brand {
+  color:whitesmoke !important;
+  font-size: 20px !important;
+  font-family: "Numans", sans-serif;
+}
+img {
+  width: 70px;
+}
+
+img:hover {
+  filter: opacity(0.5) drop-shadow(0 0 0 #a5a5a5);
+}
+
+.nav-item {
+  color: whitesmoke !important;
+  font-size: 15px !important;
+  font-family: "Numans", sans-serif;
+}
+
+.nav-link {
+  font-family: "Numans", sans-serif;
+  color: whitesmoke !important;
+  margin-right: 30px;
+}
+
+.nav-link:hover {
+  color: #ffc312 !important;
+}
+
+.nav-link.active {
+  font-family: "Numans", sans-serif;
+  color: #ffc312 !important;
+}
+
+.navbar-toggler {
+  margin-left: -50px;
+ 
+}
+
+
+.navbar-collapse {
+  text-align: center;
+  color: whitesmoke !important;
+}
+
+
+@media (max-width: 1200px) {
+  .navbar-collapse {
+      text-align: left;
+     
+  }
+  }
