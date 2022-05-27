@@ -10,7 +10,7 @@ import pwdIcon from "../Images/passwordIcon.png";
 const SignInForm = () => {
   return (
 
-    <div className="maincontainer">
+    <div className="maincontainer bg-image-signin">
     <div className="container-fluid">
       <div className="row no-gutter">
       <NavBar />
@@ -20,9 +20,9 @@ const SignInForm = () => {
   
 		<div class="card">
     <div className="text-center pt-3">
-        <img src={logo} className="penguin-logo" alt="penguin-logo"></img>
+        <img src={logo} className="penguin-logo-signin" alt="penguin-logo"></img>
       </div>
-			<div>
+			<div className='title-spacing'>
 				<h3>Sign In</h3>
 			</div>
 			<div class="card-body">

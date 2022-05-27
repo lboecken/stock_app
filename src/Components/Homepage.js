@@ -1,22 +1,25 @@
 import React from 'react'
 import "../Components/Homepage.css"
 import NavBar from "./Navbar";
+import { Button } from "react-bootstrap";
+import {  Nav} from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
 
 
 const Homepage = () => {
   return (
-    <div className='bg-image-homepage'>
-    <div className="maincontainer">
+    
+    <div className="maincontainer bg-image-homepage">
     <div className="container-fluid">
       <div className="row no-gutter">
       <NavBar />
         <div>
     
-          {/* <div className="login d-flex py-5"> */}
+          
             <div className="container">
               <div className="row">
                 <div className="title">
-                  <h1 className="display-5 ">Welcome to Trade Penguin!</h1>
+                  <h1 className="display-5 text-margin">Welcome to Trade Penguin!</h1>
                   <br></br>
                   <p className=" align-items-center justify-content-center mb-4">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore 
@@ -33,13 +36,33 @@ const Homepage = () => {
                 </div>
               </div>
             </div>
+
+            <div className='button-flex'>
+
+            <Nav.Link as={NavLink} to="/register" >
+            <Button className='btn p-3 get-started-btn mx-auto'>New Here? <br></br>
+            Get Started!</Button>
+                  
+                </Nav.Link>
+
+            <Nav.Link as={NavLink} to="/signin" className="text-nowrap">
+                  
+            <div className='button-spacing'>
+
+            <Button className='btn p-3 mx-auto get-started-btn' to="/signin">Returning?<br></br>
+            View Portfolio</Button>
+            </div>
+                </Nav.Link>
+
+            </div>
+
           </div>
     
         </div>
        
       </div>
     </div>
-   </div>
+   
   )
 }
 

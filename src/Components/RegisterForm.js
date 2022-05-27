@@ -21,7 +21,7 @@ const RegisterForm = () => {
   const wrongDetails = false;
 
   return (
-    <div className="maincontainer">
+    <div className="maincontainer bg-image-register">
       <div className="container-fluid">
         <div className="row no-gutter">
         
@@ -33,11 +33,11 @@ const RegisterForm = () => {
                 <div className="text-center pt-3">
                   <img
                     src={logo}
-                    className="penguin-logo"
+                    className="penguin-logo-register"
                     alt="penguin-logo"
                   ></img>
                 </div>
-                <div>
+                <div className="title-spacing">
                   <h3>Register</h3>
                 </div>
                 <div class="card-body">

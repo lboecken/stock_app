@@ -7,7 +7,8 @@
   font-family: "Numans", sans-serif;
 }
 img {
-  width: 70px;
+  width: 50px;
+  padding-right: 10px;
 }
 
 img:hover {
@@ -52,4 +53,8 @@ img:hover {
       text-align: left;
      
   }
+  }
+
+  .navbar-bg {
+    background-color: rgba(0, 0, 0, 0.7) !important;
   }
