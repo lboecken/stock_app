@@ -12,7 +12,7 @@ const NavBar = () => {
       <Navbar collapseOnSelect expand="xl" variant="dark" className='navbar-bg'>
         
         <Navbar.Brand as={Link} to="/" className='justify-content-baseline'>
-          <Tilty className="tilty shadow-2" scale={1.05}>
+          <Tilty max="1" scale={1.05}>
             <img src={logo} alt="penguin-icon" />
           Trade Penguin
           </Tilty>

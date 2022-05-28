@@ -10,6 +10,15 @@
   
   }
 
+  .background-body {
+    min-height: 100vh;
+    /* text-align: center; */
+    font-size: calc(10px + 2vmin);
+    color: white;
+    width: 100%;
+    font-family: "Numans", sans-serif;
+  }
+
   a {
     color: white;
     text-decoration: none;
@@ -27,18 +36,27 @@
 
 }
 
+#video {
+  position: fixed;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  /* height: 100% */
+}
+
 .button-spacing {
   padding-left: 50px;
   font-size: 2.5rem !important;
 }
 
 .get-started-btn {
-  background-color:  #ffc312 !important;
+  background-color:  #ffd041 !important;
   color: rgb(19, 19, 19) !important;
   border-radius: 20px !important;
   /* padding-left: 20px !important; */
   overflow-wrap: break-word !important;
-  font-size: 1.5rem !important
+  font-size: 1.2rem !important;
+  width: 250px;
 }
 
 .get-started-btn:hover {
@@ -47,7 +65,7 @@
 
 @media only screen and (max-width: 670px) {
   .get-started-btn {
-    /* width: 170px !important; */
+    width: 170px !important;
     /* overflow-wrap: break-word !important; */
     font-size: 0.7rem !important;
     /* padding: 0% !important */

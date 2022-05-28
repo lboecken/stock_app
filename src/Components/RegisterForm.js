@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import userIcon from "../Images/userIcon.png";
 import pwdIcon from "../Images/passwordIcon.png";
+import Fade from 'react-reveal/Fade';
 
 const RegisterForm = () => {
   const handleClick = () => {
@@ -26,7 +27,7 @@ const RegisterForm = () => {
         <div className="row no-gutter">
         
           <NavBar />
-
+          <Fade bottom duration={1000} delay={100} distance="30px">
           <div class="container">
             <div class="d-flex justify-content-center h-100">
               <div class="card">
@@ -94,6 +95,7 @@ const RegisterForm = () => {
               </div>
             </div>
           </div>
+          </Fade>
         </div>
       </div>
     </div>
