@@ -7,6 +7,10 @@
 .bg-image-homepage {
   background: url("/src/Images/penguin-ht-1.png") no-repeat center;
   background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+
   min-height: 100vh;
   text-align: center;
   /* width: 100%; */

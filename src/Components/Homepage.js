@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../Components/Homepage.css";
-import NavBar from "./Navbar";
+import NavBar from "./HomepageNavbar";
 import { Button } from "react-bootstrap";
 // import { Nav } from "react-bootstrap";
 // import { Link, NavLink } from "react-router-dom";
@@ -10,11 +10,11 @@ import Tilty from "react-tilty";
 // import backgroundVideo from "../Images/penguin-video-3.mp4"
 import SignInForm from "../Components/SignInForm";
 import RegisterForm from "../Components/RegisterForm";
-import { useNavigate } from "react-router-dom";
+
 
 const Homepage = () => {
-  
-  let navigate = useNavigate();
+
+ 
 
   const scrollBottom = () => {
     const element = document.getElementById("buttonb");
