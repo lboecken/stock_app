@@ -1,7 +1,6 @@
 import React from 'react'
-import "../Components/Dashboard.css"
-import "../Components/DashboardNavbar"
-import DashboardNavBar from './DashboardNavbar';
+import "../Components/Dashboard/Dashboard.css"
+import DashboardNavBar from './Dashboard/DashboardNavbar';
 
 
 const PortfolioPage = () => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../Components/Homepage.css";
-import NavBar from "./HomepageNavbar";
+import "../Homepage/Homepage.css";
+import NavBar from "../Homepage/HomepageNavbar";
 import { Button } from "react-bootstrap";
 // import { Nav } from "react-bootstrap";
 // import { Link, NavLink } from "react-router-dom";
@@ -8,8 +8,8 @@ import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom";
 import Tilty from "react-tilty";
 // import backgroundVideo from "../Images/penguin-video-3.mp4"
-import SignInForm from "../Components/SignInForm";
-import RegisterForm from "../Components/RegisterForm";
+import SignInForm from "../SignInForm/SignInForm";
+import RegisterForm from "../RegisterForm/RegisterForm";
 
 
 const Homepage = () => {

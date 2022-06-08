@@ -1,12 +1,13 @@
 import React from "react";
-import "../Components/RegisterForm.css";
-import logo from "../Images/penguin-logo.png";
-import userIcon from "../Images/userIcon.png";
-import pwdIcon from "../Images/passwordIcon.png";
+import "../SignInForm/SignInForm.css";
+import logo from "../../Images/penguin-logo.png";
+import userIcon from "../../Images/userIcon.png";
+import pwdIcon from "../../Images/passwordIcon.png";
 import Fade from "react-reveal/Fade";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
-const RegisterForm = () => {
+const SignInForm = () => {
   let navigate = useNavigate();
 
   return (
@@ -25,7 +26,7 @@ const RegisterForm = () => {
                     ></img>
                   </div>
                   <div className="title-spacing">
-                    <h3>Register</h3>
+                    <h3>Sign In</h3>
                   </div>
                   <div class="card-body">
                     <form>
@@ -66,8 +67,8 @@ const RegisterForm = () => {
                       <div class="form-group">
                         <input
                           type="submit"
-                          value="Register"
-                          class="btn float-right login_btn"
+                          value="Sign In"
+                          className="btn float-right login_btn"
                           onClick={() => {
                             navigate("/dashboard");
                           }}
@@ -78,7 +79,7 @@ const RegisterForm = () => {
                   </div>
                   <div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                      {/* Already have an account?<a href="/signin">Sign In</a> */}
+                      {/* Don't have an account?<a href="/register">Sign Up!</a> */}
                     </div>
                   </div>
                 </div>
@@ -91,4 +92,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default SignInForm;

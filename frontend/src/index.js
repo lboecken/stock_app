@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import {BrowserRouter, Routes, Route, useOutlet, useOutletContext, Navigate, Outlet } from 'react-router-dom';
-import SignInForm from './Components/SignInForm';
-import RegisterForm from './Components/RegisterForm';
-import Homepage from './Components/Homepage';
-import Dashboard from './Components/Dashboard'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import SignInForm from './Components/SignInForm/SignInForm';
+import RegisterForm from './Components/RegisterForm/RegisterForm';
+import Homepage from './Components/Homepage/Homepage';
+import Dashboard from './Components/Dashboard/Dashboard'
 import TradePage from './Components/TradePage';
 import PortfolioPage from './Components/PortfolioPage';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

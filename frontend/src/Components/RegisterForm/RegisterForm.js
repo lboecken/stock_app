@@ -1,13 +1,13 @@
 import React from "react";
-import "../Components/SignInForm.css";
-import logo from "../Images/penguin-logo.png";
-import userIcon from "../Images/userIcon.png";
-import pwdIcon from "../Images/passwordIcon.png";
+// import "../Components/RegisterForm.css";
+import "../RegisterForm/RegisterForm.css";
+import logo from "../../Images/penguin-logo.png";
+import userIcon from "../../Images/userIcon.png";
+import pwdIcon from "../../Images/passwordIcon.png";
 import Fade from "react-reveal/Fade";
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
 
-const SignInForm = () => {
+const RegisterForm = () => {
   let navigate = useNavigate();
 
   return (
@@ -26,7 +26,7 @@ const SignInForm = () => {
                     ></img>
                   </div>
                   <div className="title-spacing">
-                    <h3>Sign In</h3>
+                    <h3>Register</h3>
                   </div>
                   <div class="card-body">
                     <form>
@@ -67,8 +67,8 @@ const SignInForm = () => {
                       <div class="form-group">
                         <input
                           type="submit"
-                          value="Sign In"
-                          className="btn float-right login_btn"
+                          value="Register"
+                          class="btn float-right login_btn"
                           onClick={() => {
                             navigate("/dashboard");
                           }}
@@ -79,7 +79,7 @@ const SignInForm = () => {
                   </div>
                   <div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                      {/* Don't have an account?<a href="/register">Sign Up!</a> */}
+                      {/* Already have an account?<a href="/signin">Sign In</a> */}
                     </div>
                   </div>
                 </div>
@@ -92,4 +92,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default RegisterForm;

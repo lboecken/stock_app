@@ -2,7 +2,7 @@ import React from "react";
 import "./DashboardNavbar.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../Images/penguin-logo-full.png";
+import logo from "../../Images/penguin-logo-full.png";
 import Tilty from "react-tilty";
 
 const DashboardNavBar = () => {

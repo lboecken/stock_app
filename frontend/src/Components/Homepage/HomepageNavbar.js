@@ -1,8 +1,9 @@
 import React from "react";
-import "./HomepageNavbar.css";
+// import "./HomepageNavbar.css";
+import "../Homepage/HomepageNavbar.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../Images/penguin-logo-full.png";
+import logo from "../../Images/penguin-logo-full.png";
 import Tilty from "react-tilty";
 import { Fade } from "react-reveal";
 
