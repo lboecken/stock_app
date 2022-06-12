@@ -7,7 +7,7 @@ import {
   ModalHeader,
   ModalTitle,
 } from "react-bootstrap";
-import NumericInput from "react-numeric-input";
+import InputSpinner from "react-bootstrap-input-spinner";
 import { useState } from "react";
 import "./Modals.css";
 
@@ -22,7 +22,7 @@ const BuyModal = (props) => {
       <ModalHeader closeButton>
         <ModalTitle>Apple Inc.</ModalTitle>
       </ModalHeader>
-      <ModalBody className=" body-text">
+      <ModalBody className="body-text">
         <div className="d-flex justify-content-between align-items-center">
           <div>
             <p className="">Current Share Price</p>
@@ -40,19 +40,17 @@ const BuyModal = (props) => {
         </div>
 
         {/* <input placeholder="Number of Shares to Buy" type="number" className=></input> */}
-       <div>
-       Number of Shares to Buy: 
-       </div> 
-        <div className="number-input">
-
-
-        <NumericInput
-          className="number-input"
-          placeholder={0}
-          min={0}
-          max={2000}
-          size={6}
-        />
+        <div>Number of Shares to Buy:</div>
+        <div id="spinner" className="mt-3">
+          <InputSpinner
+            // editable={false}
+            type={"real"}
+            precision={2}
+            max={100}
+            min={0}
+            step={1}
+            value={0}
+          />
         </div>
       </ModalBody>
       <ModalFooter>

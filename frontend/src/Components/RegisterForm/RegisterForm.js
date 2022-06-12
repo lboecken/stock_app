@@ -30,9 +30,9 @@ const RegisterForm = () => {
                   </div>
                   <div class="card-body">
                     <form>
-                      <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
+                      <div className="input-group form-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
                             {" "}
                             <img
                               className="userIcon"
@@ -43,13 +43,13 @@ const RegisterForm = () => {
                         </div>
                         <input
                           type="text"
-                          class="form-control"
+                          className="form-control"
                           placeholder="username"
                         ></input>
                       </div>
-                      <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
+                      <div className="input-group form-group">
+                        <div className="input-group-prepend">
+                          <span className="input-group-text">
                             <img
                               className="userIcon"
                               alt="userIcon"
@@ -59,7 +59,7 @@ const RegisterForm = () => {
                         </div>
                         <input
                           type="password"
-                          class="form-control"
+                          className="form-control"
                           placeholder="password"
                         ></input>
                       </div>
@@ -68,7 +68,7 @@ const RegisterForm = () => {
                         <input
                           type="submit"
                           value="Register"
-                          class="btn float-right login_btn"
+                          className="btn float-right login_btn"
                           onClick={() => {
                             navigate("/dashboard");
                           }}
@@ -77,8 +77,8 @@ const RegisterForm = () => {
                       </div>
                     </form>
                   </div>
-                  <div class="card-footer">
-                    <div class="d-flex justify-content-center links">
+                  <div className="card-footer">
+                    <div className="d-flex justify-content-center links">
                       {/* Already have an account?<a href="/signin">Sign In</a> */}
                     </div>
                   </div>

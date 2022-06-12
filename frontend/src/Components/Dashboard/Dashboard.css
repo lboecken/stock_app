@@ -17,7 +17,7 @@
 }
 
 .details-button {
-  background-color: #efce6e !important;
+  background-color: #debf61 !important;
   color: rgb(53, 53, 53) !important;
   outline: none !important;
   border: none !important;
@@ -30,7 +30,7 @@
 }
 
 .manage-button {
-  background-color: #efce6e !important;
+  background-color: #debf61 !important;
   color: rgb(53, 53, 53) !important;
   outline: none !important;
   border: none !important;
@@ -40,3 +40,10 @@
   outline: none !important;
   box-shadow: 0 0 15px #82807b !important;
 }
+
+
+.manage-button:hover {
+  outline: none !important;
+  background-color: #f5db8e !important;
+}
+

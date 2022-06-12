@@ -7,7 +7,7 @@ import SignInForm from './Components/SignInForm/SignInForm';
 import RegisterForm from './Components/RegisterForm/RegisterForm';
 import Homepage from './Components/Homepage/Homepage';
 import Dashboard from './Components/Dashboard/Dashboard'
-import TradePage from './Components/TradePage';
+import TradePage from './Components/TradePage/TradePage';
 import PortfolioPage from './Components/PortfolioPage';
 import 'bootstrap/dist/css/bootstrap.min.css'
 

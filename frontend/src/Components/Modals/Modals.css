@@ -2,21 +2,20 @@
 
 .modal_btn {
   color: black;
-  background-color: #fbd04f !important;
+  background-color:rgba(0, 0, 0, 0.7) !important;
   border: none !important;
+  box-shadow: none !important;    
 }
 
 .modal_btn:hover {
   color: black;
-  background-color: #c3a95a !important;
+  background-color: #cfc299 !important;
 }
-
-/* .centerTitle {
-      margin-left: 150px;
-  }  */
 
 .body-text {
   font-family: "Numans", sans-serif;
+  text-align: center;
+  /* padding-right: 5px; */
   /* font-size: 15px; */
   /* text-align: center; */
 }
@@ -27,18 +26,53 @@
   text-align: center;
 }
 
-.number-input {
-  /* width: 100px; */
+/* .number-input {
   text-align: center;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
   align-self: center !important;
+} */
 
-  background: "#E2E2E2" !important;
-  box-shadow: "0 0 1px 1px #fff inset, 1px 1px 5px -1px #000" !important;
-  padding: "2px 2.26ex 2px 2px" !important;
-  border-radius: "6px 3px 3px 6px" !important;
-  font-size: 32;
- 
+#input-spinner-right-button {
+  background-color: #debf61 !important;
+  border-color: #debf61;
+  box-shadow: none !important;
+  color: black !important;
+}
+
+#input-spinner-right-button:hover {
+  background-color: #f5db8e !important;
+  
+}
+
+#input-spinner-left-button:hover {
+  background-color: #f5db8e !important;
+  
+}
+
+#input-spinner-left-button {
+  background-color: #debf61 !important;
+  border-color: #debf61;
+  box-shadow: none !important;
+  color: black !important;
+}
+
+
+#spinner .form-control {
+  text-align: center;
+  background-color: whitesmoke !important;
+  max-width: 60px !important;
+}
+
+#spinner .input-group {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  align-self: center !important;
+}
+
+
+.modal-body {
+  margin-bottom: -15px !important;
 }

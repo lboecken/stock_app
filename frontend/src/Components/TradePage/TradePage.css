@@ -1,0 +1,16 @@
+.button-colors {
+    background-color: rgba(0, 0, 0, 0.7) !important ;
+}
+
+.button-colors:hover {
+    background-color: #f5db8e !important;
+    color:black !important;
+    
+}
+
+.button-colors:focus {
+    background-color: #f5db8e !important;
+    color:black !important;
+    box-shadow: none !important;    
+    
+}
