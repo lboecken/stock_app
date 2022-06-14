@@ -39,6 +39,9 @@
   border-color: #debf61;
   box-shadow: none !important;
   color: black !important;
+  border-radius: 25px !important;
+  margin-left: 10px !important;
+
 }
 
 #input-spinner-right-button:hover {
@@ -56,6 +59,8 @@
   border-color: #debf61;
   box-shadow: none !important;
   color: black !important;
+  border-radius: 25px !important;
+  margin-right: 10px !important;
 }
 
 
@@ -63,6 +68,8 @@
   text-align: center;
   background-color: whitesmoke !important;
   max-width: 60px !important;
+  outline: none !important;
+  border: none !important;
 }
 
 #spinner .input-group {

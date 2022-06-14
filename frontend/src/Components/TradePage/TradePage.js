@@ -7,6 +7,7 @@ import BuyModal from '../Modals/BuyModal';
 import SellModal from '../Modals/SellModal';
 import DashboardNavBar from '../Dashboard/DashboardNavbar';
 import "../TradePage/TradePage.css"
+import StockCard from '../StockCard/StockCard';
 
 const TradePage = () => {
 
@@ -22,7 +23,17 @@ const TradePage = () => {
     <DashboardNavBar />
     
     Trade Page
+<div id="stock-input">
+    
+    <input  type="text" placeholder='Search Stocks'></input>
+
+    <Button className='search-button'>Search</Button>
+
+
+</div>
+
     <div>
+    <StockCard />
 
     <Button className='mb-2 button-colors' onClick={handleShowBuy}>Buy Shares</Button>
    

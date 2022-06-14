@@ -1,0 +1,38 @@
+#stock-card .card {
+  height: 320px !important;
+  /* margin-top: 16vh !important; */
+  max-width: 275px !important;
+  background-color: #e6dfcb !important;
+  border: none !important;
+  border-radius: 50px !important;
+  color: black !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+  box-shadow: 0 4px 38px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19) !important;
+  
+}
+
+#stock-card h3 {
+  color: black;
+  
+}
+
+.vd-button {
+color: whitesmoke;
+  background-color:rgba(0, 0, 0, 0.7) !important;
+  border: none !important;
+  box-shadow: none !important;    
+  /* background-color: #cfc299 !important; */
+}
+
+.vd-button:hover {
+    color: black;
+    background-color: #a7914b !important;
+}
+
+.card-text {
+    font-size: 20px !important;
+    text-align: center !important;
+    display: flex;
+    justify-content: center !important;
+}

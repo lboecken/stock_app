@@ -14,3 +14,32 @@
     box-shadow: none !important;    
     
 }
+
+#stock-input input {
+    text-align: center !important;
+    /* border-radius: 20px !important; */
+    border: solid 2px rgba(0, 0, 0, 0.7)!important;
+    height: 50px;
+    width: 300px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+#stock-input input:focus {
+    box-shadow: none !important;
+    outline: black !important;
+}
+
+.search-button {
+    margin-left: 5px;
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    height: 50px;
+    width: 90px;
+    outline: none !important;
+    border: none !important;
+}
+.search-button:hover {
+    background-color: #f5db8e !important;
+    color: black !important;
+   
+}
