@@ -1,16 +1,21 @@
 .button-colors {
     background-color: rgba(0, 0, 0, 0.7) !important ;
+    border: none !important;
+    width: 110px;
 }
 
 .button-colors:hover {
-    background-color: #f5db8e !important;
-    color:black !important;
+    background-color:  #a7914b !important;
+    /* background-color: #f5db8e !important; */
+    color:whitesmoke !important;
+    outline: none !important;
+    border: none !important
     
 }
 
 .button-colors:focus {
-    background-color: #f5db8e !important;
-    color:black !important;
+    /* background-color: #f5db8e !important; */
+    /* color:black !important; */
     box-shadow: none !important;    
     
 }

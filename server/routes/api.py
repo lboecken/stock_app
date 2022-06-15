@@ -27,18 +27,56 @@ class GetData(Resource):
             # print("Something Went Wrong")
             return "Something Went Wrong"
 
-@api.route("/company/<symbol>")
+@api.route("/details/<symbol>")
 class GetData(Resource):
     def get(self,symbol):
         params = {
-            ""
+           
         }
 
         try: 
-            r = requests.get(f"https://cloud.iexapis.com/stable/stock/{symbol}/company?token={stock_token}")
+            r = requests.get(f"https://cloud.iexapis.com/stable/stock/{symbol}/quote?token={stock_token}")
 
-            data = r.json()["companyName"]
+            company = r.json()["companyName"]
+            latestPrice = r.json()["latestPrice"]
+            symbol = r.json()["symbol"]
+            priceChange = r.json()["change"]
+
+            data = [{"companyName":company, "latestPrice":latestPrice, "symbol":symbol, "priceChange":priceChange}]
+           
             return data
+        except:
+            # print("Something Went Wrong")
+            return "Something Went Wrong"
+
+@api.route("/lastweek/<symbol>")
+class GetData(Resource):
+    def get(self,symbol):
+        params = {
+            "dateField":"endDate&range=last-week"
+        }
+
+        try: 
+            r = requests.get(f"https://cloud.iexapis.com/stable/stock/{symbol}/chart/7d?token={stock_token}")
+
+            raw_data = r.json()
+            dates = []
+            closePrices = []
+            
+
+            for x in raw_data:
+               raw_dates = (x["date"])
+               raw_close = (x["close"])
+               dates.append(raw_dates)
+               closePrices.append(raw_close)
+
+            data = []
+
+            for i, j in zip(dates, closePrices):
+                data.append(({"date":i,"closePrice":j}))
+            
+            return data
+
         except:
             # print("Something Went Wrong")
             return "Something Went Wrong"
