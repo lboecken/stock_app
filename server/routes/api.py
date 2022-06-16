@@ -28,11 +28,14 @@ class GetData(Resource):
             return "Something Went Wrong"
 
 @api.route("/details/<symbol>")
+# @api.route("/details/<symbol>")
 class GetData(Resource):
     def get(self,symbol):
         params = {
            
         }
+
+        # searchedStock = request.args.get("searchTerm")
 
         try: 
             r = requests.get(f"https://cloud.iexapis.com/stable/stock/{symbol}/quote?token={stock_token}")
@@ -43,7 +46,7 @@ class GetData(Resource):
             priceChange = r.json()["change"]
 
             data = [{"companyName":company, "latestPrice":latestPrice, "symbol":symbol, "priceChange":priceChange}]
-           
+            # print(data)
             return data
         except:
             # print("Something Went Wrong")
@@ -77,6 +80,37 @@ class GetData(Resource):
             
             return data
 
+        except:
+            # print("Something Went Wrong")
+            return "Something Went Wrong"
+
+@api.route("/allstocks")
+class GetData(Resource):
+    def get(self):
+        params = {
+            ""
+        }
+
+        try: 
+            r = requests.get(f"https://cloud.iexapis.com/stable/ref-data/symbols?token={stock_token}")
+
+            raw_data = r.json()
+            companyNames = []
+            symbols = []
+
+            for x in raw_data:
+                raw_company_names = (x["name"])
+                raw_symbols = (x["symbol"])
+                companyNames.append(raw_company_names)
+                symbols.append(raw_symbols)
+
+            data = []
+
+            for i, j in zip(companyNames, symbols):
+                data.append(({"companyName":i,"symbol":j}))
+            
+
+            return data
         except:
             # print("Something Went Wrong")
             return "Something Went Wrong"

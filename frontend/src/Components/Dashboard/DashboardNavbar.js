@@ -26,9 +26,7 @@ const DashboardNavBar = () => {
               as={Link}
               to="/dashboard"
               className="text-nowrap"
-              onClick={() => {
-                console.log("dashboard button clicked!")
-              }}
+              
             >
               Dashboard
             </Nav.Link>
@@ -39,9 +37,7 @@ const DashboardNavBar = () => {
               as={Link}
               to="/trade"
               className="text-nowrap"
-              onClick={() => {
-                console.log("trade button clicked!")
-              }}
+            
             >
               Trade
             </Nav.Link>
@@ -51,9 +47,7 @@ const DashboardNavBar = () => {
             <Nav.Link
               as={Link}
               to="/portfolio"
-              onClick={() => {
-                console.log("portfolio button clicked!")
-              }}
+              
             >
               Portfolio
             </Nav.Link>
@@ -63,9 +57,7 @@ const DashboardNavBar = () => {
             <Nav.Link
               as={Link}
               to="/"
-              onClick={() => {
-                console.log("logout button clicked!")
-              }}
+              
             >
               Logout
             </Nav.Link>
