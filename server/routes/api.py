@@ -107,7 +107,8 @@ class GetData(Resource):
             data = []
 
             for i, j in zip(companyNames, symbols):
-                data.append(({"companyName":i,"symbol":j}))
+                data.append(({"companyName":i,"symbol":j, "fullDetails": f"({j}) {i}"}))
+                
             
 
             return data
