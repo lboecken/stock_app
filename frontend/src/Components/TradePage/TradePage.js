@@ -27,6 +27,7 @@ const TradePage = () => {
     await axios.get("api/details/" + stockSymbol).then((res) => {
       if (res.data === "Something Went Wrong") {
         setIsData(false);
+        console.log("Stock Details Has No Data...")
       } else {
         setStockDetails(res.data);
         setIsData(true);
@@ -80,7 +81,8 @@ const TradePage = () => {
   useEffect(() => {
     getAllStocks();
     // console.log(data)
-  }, [console.log(isData), renderedData]);
+  }, []);
+  // }, [console.log(isData), renderedData]);
 
   const data = stockDetails?.map((stock) => {
     const finalClosePrices = lastweekClosingPrices.map((closings) => {
@@ -97,14 +99,23 @@ const TradePage = () => {
     };
   });
 
-  const onSearch = (searchTerm) => {
+  const onSearch = (searchTerm, callback) => {
     console.log(searchTerm);
     setSearchValue(searchTerm);
     setStockSymbol(searchTerm);
     setStockLogo(searchTerm);
+    return callback();
+
   };
 
+  const confirmSearch = () => {
+      getStockDetails();
+      getStockLogo();
+      getLastWeekClosingPrices();
+    setSearchValue("")
+  }
 
+// console.log(data)
 
   const focusInput = () => {
     const selectInput = document.getElementById("input")
@@ -113,7 +124,7 @@ const TradePage = () => {
   }
 
   const renderedData = data.map((stock) => {
-    // console.log(stock);
+    console.log(stock);
     // console.log(stock.lastWeekClosingPrices);
     return (
       <div>
@@ -161,7 +172,8 @@ const TradePage = () => {
         >
           Search
         </Button>
-        <div className="dropdown">
+      </div>
+        <div className="dropdown mx-auto">
           {allStocks
             ?.filter((stock) => {
               const searchTerm = searchValue.toLowerCase();
@@ -174,8 +186,10 @@ const TradePage = () => {
 
               return (
                 searchTerm &&
+                /* fullDetails.includes("(" + searchTerm + ")") && */
+                /* fullSymbol.startsWith("(" + searchTerm + ")") && */
                 fullDetails.includes(searchTerm) &&
-                fullSymbol !== searchTerm
+                searchTerm !== fullSymbol
               );
               {
                 /* ||
@@ -190,9 +204,10 @@ const TradePage = () => {
             .slice(0, 10)
             .map((stock) => (
               <div
+              
                 className="dropdown-row"
                 onClick={() => {
-                  onSearch(stock.symbol);
+                  onSearch(stock.symbol, confirmSearch(() =>{}));
                   focusInput();
                 }}
                 key={stock.symbol}
@@ -202,7 +217,6 @@ const TradePage = () => {
               </div>
             ))}
         </div>
-      </div>
       <p></p>
       {isData ? (
         <div>
