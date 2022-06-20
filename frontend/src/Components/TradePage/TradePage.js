@@ -9,6 +9,7 @@ import DashboardNavBar from "../Dashboard/DashboardNavbar";
 import "../TradePage/TradePage.css";
 import StockCard from "../StockCard/StockCard";
 import axios from "axios";
+import Chart from "../Charts"
 
 const TradePage = () => {
   const [showBuyModal, setShowBuyModal] = useState(false);
@@ -99,12 +100,15 @@ const TradePage = () => {
     };
   });
 
-  const onSearch = (searchTerm, callback) => {
+ 
+  
+
+  const onSearch = (searchTerm) => {
     console.log(searchTerm);
     setSearchValue(searchTerm);
     setStockSymbol(searchTerm);
     setStockLogo(searchTerm);
-    return callback();
+   
 
   };
 
@@ -134,6 +138,7 @@ const TradePage = () => {
       </div>
     );
   });
+
 
   return (
     <div className="body-font">
@@ -187,9 +192,10 @@ const TradePage = () => {
               return (
                 searchTerm &&
                 /* fullDetails.includes("(" + searchTerm + ")") && */
-                /* fullSymbol.startsWith("(" + searchTerm + ")") && */
-                fullDetails.includes(searchTerm) &&
-                searchTerm !== fullSymbol
+                /* fullDetails.includes(searchTerm) && */
+                 /* fullSymbol.startsWith("(" + searchTerm + ")") &&  */
+                 fullSymbol.startsWith(searchTerm) && 
+                 searchTerm !== fullSymbol
               );
               {
                 /* ||
@@ -207,7 +213,7 @@ const TradePage = () => {
               
                 className="dropdown-row"
                 onClick={() => {
-                  onSearch(stock.symbol, confirmSearch(() =>{}));
+                  onSearch(stock.symbol);
                   focusInput();
                 }}
                 key={stock.symbol}
@@ -226,7 +232,22 @@ const TradePage = () => {
       ) : (
         <p>Company Not Found. Please try searching for another.</p> 
       )}
+{/* 
+      <Chart
+      chartType="LineChart"
+      width="100%"
+      height="400px"
+      data={test_data}
+      options={options}
+    />
+
+  */}
+
+
+
+
       <div>
+   <Chart />
         <StockCard />
 
         <Button className="mb-2 button-colors" onClick={handleShowBuy}>
