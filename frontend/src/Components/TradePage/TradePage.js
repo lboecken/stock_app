@@ -9,7 +9,7 @@ import DashboardNavBar from "../Dashboard/DashboardNavbar";
 import "../TradePage/TradePage.css";
 import StockCard from "../StockCard/StockCard";
 import axios from "axios";
-import Chart from "../Charts"
+import Chart from "../Charts";
 
 const TradePage = () => {
   const [showBuyModal, setShowBuyModal] = useState(false);
@@ -28,7 +28,7 @@ const TradePage = () => {
     await axios.get("api/details/" + stockSymbol).then((res) => {
       if (res.data === "Something Went Wrong") {
         setIsData(false);
-        console.log("Stock Details Has No Data...")
+        console.log("Stock Details Has No Data...");
       } else {
         setStockDetails(res.data);
         setIsData(true);
@@ -64,12 +64,11 @@ const TradePage = () => {
     await axios.get("api/allstocks").then((res) => {
       if (res.data === "Something Went Wrong") {
         // setIsData(false);
-        console.log("All Stocks Has No Data...")
+        console.log("All Stocks Has No Data...");
       } else {
         setAllStocks(res.data);
         setIsData(true);
-        console.log("All Stocks Has Data!")
-
+        console.log("All Stocks Has Data!");
       }
       // console.log(res.data);
     });
@@ -100,45 +99,49 @@ const TradePage = () => {
     };
   });
 
- 
-  
+  const test_data = [
+  ["Date", "Closing Price"],
+  ["June 14", 102],
+  ["June 15", 106],
+  ["June 16", 105],
+  ["June 17", 104],
+  ["June 18", 108],
+  ["June 20", 110],
+  ["June 19", 103],
+  ];
 
   const onSearch = (searchTerm) => {
     console.log(searchTerm);
     setSearchValue(searchTerm);
     setStockSymbol(searchTerm);
     setStockLogo(searchTerm);
-   
-
   };
 
-  const confirmSearch = () => {
-      getStockDetails();
-      getStockLogo();
-      getLastWeekClosingPrices();
-    setSearchValue("")
-  }
+  // const confirmSearch = () => {
+  //     getStockDetails();
+  //     getStockLogo();
+  //     getLastWeekClosingPrices();
+  //   setSearchValue("")
+  // }
 
-// console.log(data)
+  // console.log(data)
 
   const focusInput = () => {
-    const selectInput = document.getElementById("input")
-    selectInput.focus()
-
-  }
+    const selectInput = document.getElementById("input");
+    selectInput.focus();
+  };
 
   const renderedData = data.map((stock) => {
     console.log(stock);
     // console.log(stock.lastWeekClosingPrices);
     return (
       <div>
-        <img src={stock.logo}></img> 
-         {/* <p>${stock.lastweekClosingPrices}</p>
+        <img src={stock.logo}></img>
+        {/* <p>${stock.lastweekClosingPrices}</p>
         <p>${stock.priceChange}</p>  */}
       </div>
     );
   });
-
 
   return (
     <div className="body-font">
@@ -178,51 +181,50 @@ const TradePage = () => {
           Search
         </Button>
       </div>
-        <div className="dropdown mx-auto">
-          {allStocks
-            ?.filter((stock) => {
-              const searchTerm = searchValue.toLowerCase();
+      <div className="dropdown mx-auto">
+        {allStocks
+          ?.filter((stock) => {
+            const searchTerm = searchValue.toLowerCase();
 
-              const fullCompanyName = stock.companyName.toLowerCase();
+            const fullCompanyName = stock.companyName.toLowerCase();
 
-              const fullSymbol = stock.symbol.toLowerCase();
+            const fullSymbol = stock.symbol.toLowerCase();
 
-              const fullDetails = stock.fullDetails.toLowerCase();
+            const fullDetails = stock.fullDetails.toLowerCase();
 
-              return (
-                searchTerm &&
-                /* fullDetails.includes("(" + searchTerm + ")") && */
-                /* fullDetails.includes(searchTerm) && */
-                 /* fullSymbol.startsWith("(" + searchTerm + ")") &&  */
-                 fullSymbol.startsWith(searchTerm) && 
-                 searchTerm !== fullSymbol
-              );
-              {
-                /* ||
+            return (
+              searchTerm &&
+              /* fullDetails.includes("(" + searchTerm + ")") && */
+              /* fullDetails.includes(searchTerm) && */
+              /* fullSymbol.startsWith("(" + searchTerm + ")") &&  */
+              fullSymbol.startsWith(searchTerm) &&
+              searchTerm !== fullSymbol
+            );
+            {
+              /* ||
                 fullCompanyName.startsWith(searchTerm) ||
                 fullSymbol.startsWith(searchTerm)) 
                 && fullDetails !== searchTerm 
                   ||
                   fullSymbol !== searchTerm ||
                   fullCompanyName !== searchTerm */
-              }
-            })
-            .slice(0, 10)
-            .map((stock) => (
-              <div
-              
-                className="dropdown-row"
-                onClick={() => {
-                  onSearch(stock.symbol);
-                  focusInput();
-                }}
-                key={stock.symbol}
-              >
-                {stock.fullDetails}
-                {/* {console.log(stock)} */}
-              </div>
-            ))}
-        </div>
+            }
+          })
+          .slice(0, 10)
+          .map((stock) => (
+            <div
+              className="dropdown-row"
+              onClick={() => {
+                onSearch(stock.symbol);
+                focusInput();
+              }}
+              key={stock.symbol}
+            >
+              {stock.fullDetails}
+              {/* {console.log(stock)} */}
+            </div>
+          ))}
+      </div>
       <p></p>
       {isData ? (
         <div>
@@ -230,24 +232,13 @@ const TradePage = () => {
           <img src={stockLogo.url}></img>
         </div>
       ) : (
-        <p>Company Not Found. Please try searching for another.</p> 
+        <p>Company Not Found. Please try searching for another.</p>
       )}
-{/* 
-      <Chart
-      chartType="LineChart"
-      width="100%"
-      height="400px"
-      data={test_data}
-      options={options}
-    />
-
-  */}
-
-
-
-
       <div>
-   <Chart />
+        <div>Share Numbers</div>
+        <Chart test_data={test_data} />
+      </div>
+      <div>
         <StockCard />
 
         <Button className="mb-2 button-colors" onClick={handleShowBuy}>
