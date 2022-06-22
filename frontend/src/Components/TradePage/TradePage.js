@@ -10,6 +10,8 @@ import "../TradePage/TradePage.css";
 import StockCard from "../StockCard/StockCard";
 import axios from "axios";
 import Chart from "../Charts";
+import { DateTime } from "luxon";
+import Fade from "react-reveal/Fade";
 
 const TradePage = () => {
   const [showBuyModal, setShowBuyModal] = useState(false);
@@ -35,6 +37,8 @@ const TradePage = () => {
       }
     });
   }
+
+  console.log(stockDetails);
 
   async function getStockLogo() {
     await axios.get("api/logo/" + stockLogo).then((res) => {
@@ -95,20 +99,18 @@ const TradePage = () => {
       priceChange: stock?.priceChange,
       symbol: stock?.symbol,
       logo: stockLogo?.url,
-      lastWeekClosingPrices: finalClosePrices[0]?.closePrice,
+      lastWeekClosingPrices: finalClosePrices,
     };
   });
 
-  const test_data = [
-  ["Date", "Closing Price"],
-  ["June 14", 102],
-  ["June 15", 106],
-  ["June 16", 105],
-  ["June 17", 104],
-  ["June 18", 108],
-  ["June 20", 110],
-  ["June 19", 103],
-  ];
+  const convertDate = (date) => {
+    const day = DateTime.fromISO(date).toFormat("d");
+    const month = DateTime.fromISO(date).toFormat("MMM");
+
+    return `${month} ${day}`;
+  };
+
+  let stock_data = [["Date", "Closing Price"]];
 
   const onSearch = (searchTerm) => {
     console.log(searchTerm);
@@ -133,12 +135,15 @@ const TradePage = () => {
 
   const renderedData = data.map((stock) => {
     console.log(stock);
-    // console.log(stock.lastWeekClosingPrices);
+
+    stock.lastWeekClosingPrices.map((price) => {
+      stock_data.push([convertDate(price.date), price.closePrice]);
+    });
+
     return (
       <div>
         <img src={stock.logo}></img>
-        {/* <p>${stock.lastweekClosingPrices}</p>
-        <p>${stock.priceChange}</p>  */}
+        <p>${stock.priceChange}</p>
       </div>
     );
   });
@@ -146,8 +151,8 @@ const TradePage = () => {
   return (
     <div className="body-font">
       <DashboardNavBar />
-      Trade Page
-      <div id="stock-input">
+  
+      <div id="stock-input" className="mb-3">
         <input
           id="input"
           type="text"
@@ -227,34 +232,59 @@ const TradePage = () => {
       </div>
       <p></p>
       {isData ? (
-        <div>
-          {renderedData}
+        ''/* <div>
           <img src={stockLogo.url}></img>
-        </div>
+        </div> */
       ) : (
         <p>Company Not Found. Please try searching for another.</p>
       )}
-      <div>
-        <div>Share Numbers</div>
-        <Chart test_data={test_data} />
-      </div>
+      {stockDetails.length === 0 ? (
+        ""
+      ) : (
+       <div className="mb-2">
+          <Fade top duration={1000} delay={100} distance="30px">
+            <div className="stock-details-box mb-3">
+              <div>Share Numbers</div>
+    
+                <div className="mb-3">
+                  <Chart
+                    stock_data={stock_data}
+                    companyName={data[0]?.companyName}
+                    priceChange={data[0]?.priceChange}
+                  />
+                  <div className="d-flex justify-content-center my-3">
+                    <div className="stock-button-spacing">
+                      <Button className="button-colors" onClick={handleShowBuy}>
+                        Buy Shares
+                      </Button>
+
+                      <BuyModal
+                        show={showBuyModal}
+                        onHide={() => setShowBuyModal(false)}
+                      />
+                    </div>
+
+                    <div>
+                      <Button
+                        className="button-colors"
+                        onClick={handleShowSell}
+                      >
+                        Sell Shares
+                      </Button>
+                      <SellModal
+                        show={showSellModal}
+                        onHide={() => setShowSellModal(false)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              
+            </div>
+          </Fade>
+        </div>
+      )}
       <div>
         <StockCard />
-
-        <Button className="mb-2 button-colors" onClick={handleShowBuy}>
-          Buy Shares
-        </Button>
-
-        <BuyModal show={showBuyModal} onHide={() => setShowBuyModal(false)} />
-      </div>
-      <div>
-        <Button className="mb-2 button-colors" onClick={handleShowSell}>
-          Sell Shares
-        </Button>
-        <SellModal
-          show={showSellModal}
-          onHide={() => setShowSellModal(false)}
-        />
       </div>
     </div>
   );

@@ -68,3 +68,12 @@
   border-bottom: 1px solid;
   /* margin: 2px 0; */
 }
+
+.stock-details-box {
+  border: 0.5px solid black !important;
+}
+
+.stock-button-spacing {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
