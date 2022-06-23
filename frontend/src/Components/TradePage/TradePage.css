@@ -33,7 +33,6 @@
   outline: black !important;
 }
 
-
 .search-button {
   margin-left: 5px;
   background-color: rgba(0, 0, 0, 0.7) !important;
@@ -69,11 +68,35 @@
   /* margin: 2px 0; */
 }
 
-.stock-details-box {
+/* .stock-details-box {
   border: 0.5px solid black !important;
-}
+} */
 
 .stock-button-spacing {
   padding-left: 20px !important;
-  padding-right: 20px !important;
+  padding-right: 20px !important; 
+  padding-bottom: -10px !important;
+}
+
+#details .card {
+  height: 570px !important;
+  /* margin-top: 16vh; */
+  background-color: white !important;
+  width: 1000px !important;
+  border-radius: 25px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.inner-card {
+  padding-top: 15px;
+  background-color: white !important;
+}
+#inner-card .card-header {
+  background-color: white !important;
+  font-size: 25px;
+}
+
+#reactgooglegraph-1 {
+  width: 950px !important;
 }

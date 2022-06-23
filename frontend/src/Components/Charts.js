@@ -28,7 +28,8 @@ const Charts = ({ stock_data, companyName, priceChange }) => {
     colors: trendingUp ? ["green"] : ["red"],
     hAxis: { title: "Date" },
     vAxis: { title: "Price in USD" },
-    // fillOpacity: 0.2,
+    pointSize: 10,
+    areaOpacity: 0.2
   };
 
 

@@ -38,7 +38,6 @@ const TradePage = () => {
     });
   }
 
-  console.log(stockDetails);
 
   async function getStockLogo() {
     await axios.get("api/logo/" + stockLogo).then((res) => {
@@ -126,7 +125,7 @@ const TradePage = () => {
   //   setSearchValue("")
   // }
 
-  // console.log(data)
+  console.log(data)
 
   const focusInput = () => {
     const selectInput = document.getElementById("input");
@@ -241,24 +240,45 @@ const TradePage = () => {
       {stockDetails.length === 0 ? (
         ""
       ) : (
-       <div className="mb-2">
+       <div id="details" className="">
           <Fade top duration={1000} delay={100} distance="30px">
-            <div className="stock-details-box mb-3">
-              <div>Share Numbers</div>
+            <div className="card mt-2 mb-3 mx-auto justify-content-center">
     
-                <div className="mb-3">
+                <div id="inner-card" className="mb-3">
+              <div className="card-header d-flex justify-content-between">
+              
+              <div className="">
+              <div>{`${data[0]?.companyName}`}</div> 
+              <div>{`(${data[0]?.symbol})`}</div> 
+              
+              </div>
+              <div className="">
+              
+              <div>Current Price</div>
+              <div>{`$${data[0]?.latestPrice}`}</div>
+              
+              </div>
+              <div className="">
+              <div> Price Change</div>
+              <div> {`$${data[0]?.priceChange}`}</div>
+              </div>
+              
+              </div>
+
                   <Chart
                     stock_data={stock_data}
                     companyName={data[0]?.companyName}
                     priceChange={data[0]?.priceChange}
                   />
-                  <div className="d-flex justify-content-center my-3">
+                  <div className="d-flex justify-content-center mt-3">
                     <div className="stock-button-spacing">
                       <Button className="button-colors" onClick={handleShowBuy}>
                         Buy Shares
                       </Button>
 
                       <BuyModal
+                        latestPrice={data[0]?.latestPrice}
+                        companyName={data[0]?.companyName}
                         show={showBuyModal}
                         onHide={() => setShowBuyModal(false)}
                       />
@@ -272,6 +292,8 @@ const TradePage = () => {
                         Sell Shares
                       </Button>
                       <SellModal
+                        latestPrice={data[0]?.latestPrice}
+                        companyName={data[0]?.companyName}
                         show={showSellModal}
                         onHide={() => setShowSellModal(false)}
                       />

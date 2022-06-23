@@ -19,17 +19,17 @@ const SellModal = (props) => {
       size="lg"
     >
       <ModalHeader closeButton>
-        <ModalTitle>Apple Inc.</ModalTitle>
+        <ModalTitle>{props.companyName}</ModalTitle>
       </ModalHeader>
       <ModalBody className="body-text">
         <div className="d-flex justify-content-between align-items-center">
           <div>
             <p className="">Current Share Price</p>
-            <p className="justify-content-center numbers-font">$109.22</p>
+            <p className="justify-content-center numbers-font">{`$${props.latestPrice}`}</p>
           </div>
           <div className="">
             <p className="">Current Number of Shares</p>
-            <p className="numbers-font">5</p>
+            <p className="numbers-font">0</p>
           </div>
 
           <div>
