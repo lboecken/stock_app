@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 import InputSpinner from "react-bootstrap-input-spinner";
 import "./Modals.css";
+import testLogo from "../../Images/test-logo.png"
 
 const SellModal = (props) => {
   return (
@@ -19,7 +20,7 @@ const SellModal = (props) => {
       size="lg"
     >
       <ModalHeader closeButton>
-        <ModalTitle>{props.companyName}</ModalTitle>
+        <ModalTitle><img className="modal-logo-size" src={testLogo}></img> {props.companyName}</ModalTitle>
       </ModalHeader>
       <ModalBody className="body-text">
         <div className="d-flex justify-content-between align-items-center">

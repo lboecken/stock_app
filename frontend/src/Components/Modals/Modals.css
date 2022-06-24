@@ -83,3 +83,8 @@
 .modal-body {
   margin-bottom: -15px !important;
 }
+
+.modal-logo-size {
+  max-width: 40px !important;
+  max-height: 40px !important;
+}

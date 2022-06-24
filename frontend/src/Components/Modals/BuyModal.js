@@ -10,6 +10,7 @@ import {
 import InputSpinner from "react-bootstrap-input-spinner";
 import { useState } from "react";
 import "./Modals.css";
+import testLogo from "../../Images/test-logo.png"
 
 const BuyModal = (props) => {
   console.log(props.latestPrice, props.companyName)
@@ -22,7 +23,7 @@ const BuyModal = (props) => {
       size="lg"
     >
       <ModalHeader closeButton>
-        <ModalTitle>{props.companyName}</ModalTitle>
+        <ModalTitle> <img className="modal-logo-size" src={testLogo}></img> {props.companyName}</ModalTitle>
       </ModalHeader>
       <ModalBody className="body-text">
         <div className="d-flex justify-content-between align-items-center">

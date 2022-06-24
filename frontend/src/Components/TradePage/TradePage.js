@@ -12,6 +12,7 @@ import axios from "axios";
 import Chart from "../Charts";
 import { DateTime } from "luxon";
 import Fade from "react-reveal/Fade";
+import testLogo from "../../Images/test-logo.png";
 
 const TradePage = () => {
   const [showBuyModal, setShowBuyModal] = useState(false);
@@ -37,7 +38,6 @@ const TradePage = () => {
       }
     });
   }
-
 
   async function getStockLogo() {
     await axios.get("api/logo/" + stockLogo).then((res) => {
@@ -125,7 +125,7 @@ const TradePage = () => {
   //   setSearchValue("")
   // }
 
-  console.log(data)
+  console.log(data);
 
   const focusInput = () => {
     const selectInput = document.getElementById("input");
@@ -147,10 +147,21 @@ const TradePage = () => {
     );
   });
 
+  let trendingUp = "";
+  let trend = "";
+
+  if (Math.sign(data[0]?.priceChange) === -1) {
+    trendingUp = false;
+    trend = "\u25BC"; // down arrow
+  } else {
+    trendingUp = true;
+    trend = "\u25B2"; //up arrow
+  }
+
   return (
     <div className="body-font">
       <DashboardNavBar />
-  
+
       <div id="stock-input" className="mb-3">
         <input
           id="input"
@@ -176,10 +187,12 @@ const TradePage = () => {
         <Button
           className="search-button"
           onClick={() => {
-            getStockDetails();
-            getStockLogo();
-            getLastWeekClosingPrices();
-            onSearch(searchValue);
+            if (searchValue !== "") {
+              getStockDetails();
+              getStockLogo();
+              getLastWeekClosingPrices();
+              onSearch(searchValue);
+            }
           }}
         >
           Search
@@ -231,76 +244,74 @@ const TradePage = () => {
       </div>
       <p></p>
       {isData ? (
-        ''/* <div>
-          <img src={stockLogo.url}></img>
-        </div> */
+        ""
       ) : (
         <p>Company Not Found. Please try searching for another.</p>
       )}
       {stockDetails.length === 0 ? (
         ""
       ) : (
-       <div id="details" className="">
+        <div id="details" className="">
           <Fade top duration={1000} delay={100} distance="30px">
             <div className="card mt-2 mb-3 mx-auto justify-content-center">
-    
-                <div id="inner-card" className="mb-3">
-              <div className="card-header d-flex justify-content-between">
-              
-              <div className="">
-              <div>{`${data[0]?.companyName}`}</div> 
-              <div>{`(${data[0]?.symbol})`}</div> 
-              
-              </div>
-              <div className="">
-              
-              <div>Current Price</div>
-              <div>{`$${data[0]?.latestPrice}`}</div>
-              
-              </div>
-              <div className="">
-              <div> Price Change</div>
-              <div> {`$${data[0]?.priceChange}`}</div>
-              </div>
-              
-              </div>
-
-                  <Chart
-                    stock_data={stock_data}
-                    companyName={data[0]?.companyName}
-                    priceChange={data[0]?.priceChange}
-                  />
-                  <div className="d-flex justify-content-center mt-3">
-                    <div className="stock-button-spacing">
-                      <Button className="button-colors" onClick={handleShowBuy}>
-                        Buy Shares
-                      </Button>
-
-                      <BuyModal
-                        latestPrice={data[0]?.latestPrice}
-                        companyName={data[0]?.companyName}
-                        show={showBuyModal}
-                        onHide={() => setShowBuyModal(false)}
-                      />
-                    </div>
-
+              <div id="inner-card" className="mb-3">
+                <div className="card-header d-flex justify-content-between">
+                  <div className="d-flex">
+                    <img
+                      className="logo-size logo-padding"
+                      src={testLogo}
+                    ></img>
                     <div>
-                      <Button
-                        className="button-colors"
-                        onClick={handleShowSell}
-                      >
-                        Sell Shares
-                      </Button>
-                      <SellModal
-                        latestPrice={data[0]?.latestPrice}
-                        companyName={data[0]?.companyName}
-                        show={showSellModal}
-                        onHide={() => setShowSellModal(false)}
-                      />
+                      <div>{`${data[0]?.companyName}`}</div>
+                      <div>{`(${data[0]?.symbol})`}</div>
                     </div>
                   </div>
+                  <div className="">
+                    <div>Current Price</div>
+                    <div>{`$${data[0]?.latestPrice}`}</div>
+                  </div>
+                  <div
+                    style={trendingUp ? { color: "green" } : { color: "red" }}
+                  >
+                    <div> Price Change </div>
+                    
+                      <div className="trend-padding">{`$${data[0]?.priceChange}   `} {trend}</div>
+                    
+                  </div>
                 </div>
-              
+
+                <Chart
+                  stock_data={stock_data}
+                  companyName={data[0]?.companyName}
+                  priceChange={data[0]?.priceChange}
+                />
+                <div className="d-flex justify-content-center mt-3">
+                  <div className="stock-button-spacing">
+                    <Button className="button-colors" onClick={handleShowBuy}>
+                      Buy Shares
+                    </Button>
+
+                    <BuyModal
+                      latestPrice={data[0]?.latestPrice}
+                      companyName={data[0]?.companyName}
+                      show={showBuyModal}
+                      onHide={() => setShowBuyModal(false)}
+                    />
+                  </div>
+
+                  <div>
+                    <Button className="button-colors" onClick={handleShowSell}>
+                      Sell Shares
+                    </Button>
+                    <SellModal
+                      latestPrice={data[0]?.latestPrice}
+                      companyName={data[0]?.companyName}
+                      show={showSellModal}
+                      onHide={() => setShowSellModal(false)}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </Fade>
         </div>

@@ -10,19 +10,19 @@ const Charts = ({ stock_data, companyName, priceChange }) => {
   if (Math.sign(priceChange) === -1) {
     
     trendingUp = false;
-    trend = "Trending " + "\u2B07"; // down arrow
+
 
   } else {
     trendingUp = true;
-    trend = "Trending " + "\u2B06"; //up arrow
+    
   }
 
   
   
   const options = {
     annotations: {},
-    title: `Closing Prices for ${companyName} in the past 5 days. (${trend})`,
-    titleTextStyle: {color: trendingUp ? "green" : "red"},
+    title: `Closing Prices for ${companyName} in the past 5 days.`,
+    // titleTextStyle: {color: trendingUp ? "green" : "red"},
     curveType: "function",
     legend: { position: "right", title: "Closing Prices" },
     colors: trendingUp ? ["green"] : ["red"],

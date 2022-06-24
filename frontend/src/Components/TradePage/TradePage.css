@@ -100,3 +100,17 @@
 #reactgooglegraph-1 {
   width: 950px !important;
 }
+
+
+.logo-size {
+  max-width: 80px !important;
+  max-height: 80px !important;
+}
+
+.logo-padding {
+  padding-right: 10px !important;
+}
+
+.trend-padding {
+  padding-right: 10px !important;
+}
