@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from config import DATABASE_URI
+# from config import DATABASE_URI
 import models
 import psycopg2
 import os
