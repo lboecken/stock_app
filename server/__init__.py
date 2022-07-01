@@ -19,7 +19,13 @@ def create_app():
 
     @app.shell_context_processor
     def ctx():
-        return {'db': db, 'User': user_model(db), 'Holdings': holdings_model(db)}
+        return {
+        'db': db, 
+        'User': user_model(db), 
+        'Holdings': holdings_model(db), 
+        'Transactions': transactions_model(db), 
+        'Cash_Balance': cash_balance_model(db)
+        }
 
 
     return app 

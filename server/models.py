@@ -28,14 +28,46 @@ def holdings_model(db):
         company_name = db.Column(db.String)
         company_symbol = db.Column(db.String)
         current_shares = db.Column(db.Integer, default=0)
-        value_of_shares = db.Column(db.Numeric, default=0)
-        cash_balance = db.Column(db.Numeric, default=100000)
-        total_holdings = db.Column(db.Numeric, default=100000)
+        value_of_shares = db.Column(db.Float, default=0) #needed? 
+        total_holdings = db.Column(db.Float, default=0)
         
         def __repr__(self):
             return f"<Holdings(id:{self.id}, User:{self.user}, Company:{self.company_name}, Holdings:{self.total_holdings})>"
 
     return Holdings
+
+def cash_balance_model(db):
+    class Cash_Balance(db.Model):
+        __tablename__ = "cash_balance"
+        id = db.Column(db.Integer, primary_key=True)
+        user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+        user = db.relationship("User", backref=backref("users", uselist=False))
+        cash_balance = db.Column(db.Float, default=100000)
+        
+        def __repr__(self):
+            return f"<Holdings(id:{self.id}, User:{self.user}, Cash_Balance:{self.cash_balance})>"
+
+    return Cash_Balance
+
+
+def transactions_model(db):
+    class Transactions(db.Model):
+        __tablename__ = "transactions"
+        id = db.Column(db.Integer, primary_key=True)
+        user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+        user = db.relationship("User", backref=backref("users", uselist=False))
+        company_name = db.Column(db.String)
+        company_symbol = db.Column(db.String)
+        current_shares = db.Column(db.Integer, default=0)
+        value_of_shares = db.Column(db.Float, default=0) #needed? 
+        transaction_type = db.Column(db.String) #Buy or Sell
+        
+        def __repr__(self):
+            return f"<Holdings(id:{self.id}, User:{self.user}, Transaction_Type:{self.transaction_type})>"
+    
+    return Transactions
+
+
 
   
 
