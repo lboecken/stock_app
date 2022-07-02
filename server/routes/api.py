@@ -1,11 +1,13 @@
 from flask import jsonify, request, Blueprint
 from flask_restx import Api, Resource
 import os
+import json
 import requests
-
+from server.crud import *
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api")
 api = Api(api_blueprint)
+
 
 stock_token = os.environ.get("IEX_API_KEY_SANDBOX")
 # url_suffix = f"?token={stock_token}"
@@ -119,3 +121,18 @@ class GetData(Resource):
         except:
             # print("Something Went Wrong")
             return "Something Went Wrong"
+
+
+@api.route("/users")
+class GetAllUsers(Resource):
+    # @jwt_required()
+    # def get(self):
+
+    #     return jsonify(getUsers())
+
+    def post(self):
+        req_data = request.get_json()
+        username = req_data["username"]
+        password = req_data["password"]
+
+        return jsonify(create_user_connection(username, password))

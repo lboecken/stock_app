@@ -1,20 +1,15 @@
-from sqlalchemy import create_engine
-# from config import DATABASE_URI
-import models
-import psycopg2
-import os
+import bcrypt
+from server.user_model import db
+from server.models import *
+from server.crud import *
+from server.user_model import User
 
+def create_user_connection(username, password):
 
+    hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+    stringed_hashed_password = hashed_password.decode()
+    new_user = User(username=username, password=stringed_hashed_password)
+    db.session.add(new_user)
+    db.session.commit()
 
-# engine = create_engine(DATABASE_URI)
-
-# models.Base.metadata.create_all(engine)
-
-# psycopg2.connect(
-#     host="localhost",
-#     port=5432,
-#     database="stock_app",
-#     user="postgres",
-#     password=os.environ.get("PASSWORD"),
-           
-# )
+    return 'User Created'
