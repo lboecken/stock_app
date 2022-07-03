@@ -5,8 +5,10 @@ from flask_sqlalchemy import SQLAlchemy
 # from flask_cli import FlaskGroup
 from dotenv import load_dotenv
 load_dotenv()
+import os
 
 app = create_app()
+
 # cli = FlaskGroup(create_app=create_app)
 # @app.cli.command('resetdb')
 # def recreate_db():

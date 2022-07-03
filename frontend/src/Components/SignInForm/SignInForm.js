@@ -6,8 +6,16 @@ import pwdIcon from "../../Images/passwordIcon.png";
 import Fade from "react-reveal/Fade";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { useState } from "react";
 
 const SignInForm = () => {
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [wrongDetails, setWrongDetails] = useState(false);
+
+
   let navigate = useNavigate();
 
   return (

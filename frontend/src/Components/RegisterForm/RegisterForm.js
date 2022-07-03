@@ -1,14 +1,53 @@
 import React from "react";
-// import "../Components/RegisterForm.css";
 import "../RegisterForm/RegisterForm.css";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import Fade from "react-reveal/Fade";
+import { Button } from "react-bootstrap";
 import logo from "../../Images/penguin-logo.png";
 import userIcon from "../../Images/userIcon.png";
 import pwdIcon from "../../Images/passwordIcon.png";
-import Fade from "react-reveal/Fade";
-import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullPassword, setFullPassword] = useState(true);
+  const [wrongDetails, setWrongDetails] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false);
+
   let navigate = useNavigate();
+
+  const handleClick = () => {
+    const data = {
+      username: username,
+      password: password,
+    };
+
+    if (username.length >= 6 && password.length >= 6) {
+      axios
+        .post("/api/users", data, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          return res;
+        })
+        .then((res) => {
+          // pushToken(data);
+          // localStorage.setItem("user", username);
+          // socket.emit("activateUser", { username: username });
+        })
+        .catch((error) => {
+          console.log("There was an error!", error);
+          setWrongDetails(true);
+        });
+    } else {
+      setFullPassword(false);
+    }
+  };
 
   return (
     <div className="maincontainer">
@@ -27,6 +66,13 @@ const RegisterForm = () => {
                   </div>
                   <div className="title-spacing">
                     <h3>Register</h3>
+                    {!fullPassword ? (
+                      <p className="text-center mt-4 wrongDetails">
+                        Username and/or password must be at least 6 characters
+                      </p>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div class="card-body">
                     <form>
@@ -44,7 +90,12 @@ const RegisterForm = () => {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="username"
+                          placeholder="Username"
+                          name="userName"
+                          id="userName"
+                          minlength="6"
+                          onChange={(e) => setUsername(e.target.value)}
+                          value={username}
                         ></input>
                       </div>
                       <div className="input-group form-group">
@@ -60,26 +111,37 @@ const RegisterForm = () => {
                         <input
                           type="password"
                           className="form-control"
-                          placeholder="password"
+                          placeholder="Password"
+                          name="password"
+                          id="password"
+                          minlength="6"
+                          maxLength="15"
+                          onChange={(e) => setPassword(e.target.value)}
+                          onKeyUp={(e) => {
+                            if (e.key === "Enter") {
+                              handleClick();
+                              navigate("/dashboard");
+                            }
+                          }}
+                          value={password}
                         ></input>
                       </div>
 
                       <div class="form-group">
-                        <input
-                          type="submit"
-                          value="Register"
+                        <Button
                           className="btn float-right login_btn"
                           onClick={() => {
+                            handleClick();
                             navigate("/dashboard");
                           }}
-                        ></input>
-                        {/* <Button className='login_btn'>Register</Button> */}
+                        >
+                          Register
+                        </Button>
                       </div>
                     </form>
                   </div>
                   <div className="card-footer">
                     <div className="d-flex justify-content-center links">
-                      {/* Already have an account?<a href="/signin">Sign In</a> */}
                     </div>
                   </div>
                 </div>

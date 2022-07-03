@@ -85,10 +85,12 @@ h3 {
 
 
 .login_btn {
-  color: black;
+  color: black !important;
   background-color: #debf61 !important;
   width: 100px;
   margin-top: 15px;
+  outline: none !important;
+  border: none !important;
 }
 
 .login_btn:hover {
