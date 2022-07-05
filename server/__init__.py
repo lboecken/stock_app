@@ -6,8 +6,13 @@ from server.user_model import User
 from server.holdings_model import Holdings
 from server.cash_balance_model import Cash_Balance
 from server.transactions_model import Transactions
+from flask_socketio import SocketIO
 from dotenv import load_dotenv
 load_dotenv()
+
+# socketio_socket = SocketIO()
+
+
 
 def create_app():
 
@@ -18,12 +23,12 @@ def create_app():
     # app.register_blueprint(userbp)
     app.register_blueprint(api_blueprint)
     app.config["IEX_API_KEY_SANDBOX"] = os.environ.get("IEX_API_KEY_SANDBOX")
-    print(os.environ.get("IEX_API_KEY_SANDBOX"))
+    # print(os.environ.get("IEX_API_KEY_SANDBOX"))
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost:5432/stock_app'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.host = "localhost"
-   
     db.init_app(app)
+    # socketio_socket.init_app(app)
 
     @app.shell_context_processor
     def ctx():

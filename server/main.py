@@ -1,6 +1,7 @@
 # from server import create_app
 from flask import send_from_directory
 from . import create_app
+# from . import create_app, socketio_socket
 from flask_sqlalchemy import SQLAlchemy
 # from flask_cli import FlaskGroup
 from dotenv import load_dotenv
@@ -25,4 +26,5 @@ def serve(path):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # socketio_socket.run(app, debug=True) 
+    app.run( debug=True)

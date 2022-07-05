@@ -8,6 +8,7 @@ import { Button } from "react-bootstrap";
 import logo from "../../Images/penguin-logo.png";
 import userIcon from "../../Images/userIcon.png";
 import pwdIcon from "../../Images/passwordIcon.png";
+import io from "socket.io-client";
 
 const RegisterForm = () => {
   const [username, setUsername] = useState("");
@@ -17,6 +18,8 @@ const RegisterForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
 
   let navigate = useNavigate();
+
+  // const socket = io.connect();
 
   const handleClick = () => {
     const data = {
@@ -36,8 +39,9 @@ const RegisterForm = () => {
           return res;
         })
         .then((res) => {
+          localStorage.setItem("user", username);
+          window.location.reload();
           // pushToken(data);
-          // localStorage.setItem("user", username);
           // socket.emit("activateUser", { username: username });
         })
         .catch((error) => {

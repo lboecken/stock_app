@@ -1,10 +1,12 @@
 import bcrypt
 from server.db_connection import db
+
 # from server.models import *
 # from server.crud import *
 from server.user_model import User
 from server.holdings_model import Holdings
 from server.cash_balance_model import Cash_Balance
+
 
 def create_user_connection(username, password):
 
@@ -15,16 +17,10 @@ def create_user_connection(username, password):
     db.session.commit()
     new_user_id = new_user.id
     create_cash_balance_record(new_user_id, username)
+    activate_user(username)
 
-    return 'User Created'
+    return "User Created"
 
-def create_holdings_record(params):
-
-    new_holdings_record = Holdings(...)
-    db.session.add(new_holdings_record)
-    db.session.commit()
-
-    return 'Holdings Record Created'
 
 def create_cash_balance_record(userid, username):
 
@@ -32,4 +28,44 @@ def create_cash_balance_record(userid, username):
     db.session.add(cash_balance_record)
     db.session.commit()
 
-    return 'Cash Balance Intialized'
+    return "Cash Balance Intialized"
+
+
+def create_holdings_record(
+    userid, companyName, companySymbol, currentShares, valueOfShares, totalHoldings
+):
+
+    new_holdings_record = Holdings(...)
+    db.session.add(new_holdings_record)
+    db.session.commit()
+
+    return "Holdings Record Created"
+
+
+def create_transaction_record(
+    userid,
+    company_name,
+    company_symbol,
+    current_shares,
+    value_of_shares,
+    transaction_type,
+):
+
+    new_transaction_record = Holdings(
+        user_id=userid,
+        company_name=company_name,
+        company_symbol=company_symbol,
+        current_shares=current_shares,
+        value_of_shares=value_of_shares,
+        transaction_type=transaction_type,
+    )
+    db.session.add(new_transaction_record)
+    db.session.commit()
+
+    return "Transaction Record Created"
+
+
+def activate_user(username):
+    sign_in_user = User.query.filter_by(username=username).first()
+    sign_in_user.signedin = "Yes"
+    db.session.commit()

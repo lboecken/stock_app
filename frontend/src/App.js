@@ -7,9 +7,11 @@ import './App.css';
 // import TradePage from './Components/TradePage';
 // import PortfolioPage from './Components/PortfolioPage';
 import { Outlet } from "react-router-dom";
+import useUser from './Components/useUser';
 
 
 function App() {
+
 
   // const useToken = () => {
   //   console.log("useToken")
@@ -19,21 +21,22 @@ function App() {
   // }
 
   // const {token, setToken, removeToken} = useToken();
-  // const {signedInUser, setSignedInUser, signOutUser } = useUser(); 
+  const {signedInUser, setSignedInUser, signOutUser } = useUser(); 
 
-  // const CONTEXT = {
+
+  const CONTEXT = {
   // token: token, 
   // setToken, 
-  // signedInUser,
+  signedInUser,
   // removeToken,
-  // signOutUser
-  // };
+  signOutUser
+  };
 
 
   return (
     <>
-      {/* <Outlet context={CONTEXT}/> */}
-      <Outlet/>
+      <Outlet context={CONTEXT}/>
+      {/* <Outlet/> */}
     </>
   );
 }

@@ -4,8 +4,13 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../Images/penguin-logo-full.png";
 import Tilty from "react-tilty";
+import useUser from '../useUser';
 
 const DashboardNavBar = () => {
+
+  const { signedInUser, signOutUser } = useUser();
+
+
   return (
     <Navbar collapseOnSelect expand="xl" variant="dark" className="navbar-bg">
       <Navbar.Brand as={Link} to="/dashboard" className="justify-content-baseline">
@@ -57,6 +62,10 @@ const DashboardNavBar = () => {
             <Nav.Link
               as={Link}
               to="/"
+              onClick={() => {
+                console.log("LogOut Button Clicked")
+                signOutUser();
+              }}
               
             >
               Logout

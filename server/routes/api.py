@@ -4,6 +4,7 @@ import os
 import json
 import requests
 from server.crud import *
+# from server import socketio_socket
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api")
 api = Api(api_blueprint)
@@ -136,3 +137,12 @@ class GetAllUsers(Resource):
         password = req_data["password"]
 
         return jsonify(create_user_connection(username, password))
+
+
+# @socketio_socket.on("activateUser")
+# def activate(user):
+
+#     username = user["username"]
+#     socketio_socket.emit("activateUser", username)
+
+#     return username
