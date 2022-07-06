@@ -13,7 +13,7 @@ import "./Modals.css";
 import testLogo from "../../Images/test-logo.png"
 
 const BuyModal = (props) => {
-  console.log(props.latestPrice, props.companyName)
+  // console.log(props.latestPrice, props.companyName)
   return (
 
     <Modal

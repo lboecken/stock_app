@@ -12,3 +12,10 @@ class User(db.Model):
     def __repr__(self):
         return f"<User(id:{self.id}, Username:{self.username})>"
         
+    def obj_to_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+
+        }
+        

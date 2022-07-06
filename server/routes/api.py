@@ -127,9 +127,9 @@ class GetData(Resource):
 @api.route("/users")
 class GetAllUsers(Resource):
     # @jwt_required()
-    # def get(self):
-
-    #     return jsonify(getUsers())
+    def get(self):
+        return jsonify(getUser())
+        # return jsonify(getUser())
 
     def post(self):
         req_data = request.get_json()
@@ -137,6 +137,40 @@ class GetAllUsers(Resource):
         password = req_data["password"]
 
         return jsonify(create_user_connection(username, password))
+
+
+@api.route("/users/<username>")
+class GetSingleUser(Resource):
+    # @jwt_required()
+    def get(self, username):
+        return jsonify(getUser(username))
+
+
+@api.route("/holdings")
+class HoldingsRecord(Resource):
+
+    def post(self):
+        req_data = request.get_json()
+        user_id = req_data["user_id"]
+        current_shares = req_data["current_shares"]
+
+        return jsonify(create_holdings_record(user_id, current_shares))
+
+
+
+@api.route("/transactions")
+class TransactionsRecord(Resource):
+    # @jwt_required()
+    # def get(self):
+
+    #     return jsonify(getUsers())
+
+    def post(self):
+        req_data = request.get_json()
+        user_id = req_data["user_id"]
+        current_shares = req_data["current_shares"]
+
+        return jsonify(create_transaction_record(user_id, current_shares))
 
 
 # @socketio_socket.on("activateUser")

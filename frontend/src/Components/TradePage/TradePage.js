@@ -13,6 +13,7 @@ import Chart from "../Charts";
 import { DateTime } from "luxon";
 import Fade from "react-reveal/Fade";
 import testLogo from "../../Images/test-logo.png";
+import useUser from '../useUser';
 
 const TradePage = () => {
   const [showBuyModal, setShowBuyModal] = useState(false);
@@ -26,6 +27,7 @@ const TradePage = () => {
   const [allStocks, setAllStocks] = useState([]);
   const [isData, setIsData] = useState(true);
   const [searchValue, setSearchValue] = useState("");
+  const { signedInUser, signOutUser } = useUser();
 
   async function getStockDetails() {
     await axios.get("api/details/" + stockSymbol).then((res) => {
@@ -77,12 +79,20 @@ const TradePage = () => {
     });
   }
 
+async function getUsers() {
+  await axios.get("api/users/" + signedInUser).then((res) => {
+    console.log(res.data)
+    // console.log(signedInUser)
+  });
+}
+
   // useEffect(() => {
   //   getAllStocks();
   //   // console.log(data)
   // }, [searchValue]);
   useEffect(() => {
     getAllStocks();
+    getUsers()
     // console.log(data)
   }, []);
   // }, [console.log(isData), renderedData]);
@@ -125,7 +135,7 @@ const TradePage = () => {
   //   setSearchValue("")
   // }
 
-  console.log(data);
+  // console.log(data);
 
   const focusInput = () => {
     const selectInput = document.getElementById("input");
@@ -133,7 +143,7 @@ const TradePage = () => {
   };
 
   const renderedData = data.map((stock) => {
-    console.log(stock);
+    // console.log(stock);
 
     stock.lastWeekClosingPrices.map((price) => {
       stock_data.push([convertDate(price.date), price.closePrice]);
@@ -292,6 +302,7 @@ const TradePage = () => {
                     </Button>
 
                     <BuyModal
+                      value= "Buy"
                       latestPrice={data[0]?.latestPrice}
                       companyName={data[0]?.companyName}
                       show={showBuyModal}
