@@ -4,6 +4,13 @@ import os
 import json
 import requests
 from server.crud import *
+from flask_jwt_extended import (
+    create_access_token,
+    unset_jwt_cookies,
+    jwt_required,
+    get_jwt_identity,
+)
+
 # from server import socketio_socket
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api")
@@ -171,6 +178,46 @@ class TransactionsRecord(Resource):
         current_shares = req_data["current_shares"]
 
         return jsonify(create_transaction_record(user_id, current_shares))
+
+
+@api.route("/token", methods=["POST"])
+class CreateToken(Resource):
+    def post(self):
+
+        req_data = request.get_json()
+        username = req_data["username"]
+        password = req_data["password"]
+
+        def checkingUser():
+            check = checkUser(username)
+            if check == None:
+                return {"msg": "Username or password incorrect"}, 401
+            elif check.username == username and bcrypt.checkpw(
+                    password.encode(), check.password.encode()
+                ):
+
+                    access_token = create_access_token(identity=username)
+                    activate_user(username)
+                    response = {"access_token": access_token}
+                    return response 
+            else:
+                return {"msg": "Username or password incorrect"}, 401
+                    
+        return checkingUser()
+
+        
+
+
+@api.route("/logout", methods=["POST"])
+class Logout(Resource):
+
+    def post(self):
+        req_data = request.get_json()
+        username = req_data["username"]
+        deactivate_user(username)
+        response = jsonify({"msg": "logout successful"})
+        unset_jwt_cookies(response)
+        return response
 
 
 # @socketio_socket.on("activateUser")

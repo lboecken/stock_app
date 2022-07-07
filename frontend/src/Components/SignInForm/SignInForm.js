@@ -7,6 +7,7 @@ import Fade from "react-reveal/Fade";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useState } from "react";
+import axios from "axios";
 
 const SignInForm = () => {
 
@@ -17,6 +18,40 @@ const SignInForm = () => {
 
 
   let navigate = useNavigate();
+
+  const handleClick = () => {
+    const data = {
+      username: username,
+      password: password,
+    };
+
+    axios
+      .post("/api/token", data, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .then((res) => {
+        localStorage.setItem("token", res.data.access_token);
+        localStorage.setItem("user", username);
+        // socket.emit("activateUser", { username: username });
+        navigate("/dashboard");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("There was an error!", error);
+        // setWrongDetails(true);
+      });
+  };
+
+
+
+
 
   return (
     <div className="maincontainer">
@@ -51,8 +86,12 @@ const SignInForm = () => {
                         </div>
                         <input
                           type="text"
-                          class="form-control"
-                          placeholder="username"
+                          className="form-control"
+                          placeholder="Username"
+                          name="userName"
+                          id="userName"
+                          onChange={(e) => setUsername(e.target.value)}
+                          value={username}
                         ></input>
                       </div>
                       <div class="input-group form-group">
@@ -67,18 +106,28 @@ const SignInForm = () => {
                         </div>
                         <input
                           type="password"
-                          class="form-control"
-                          placeholder="password"
+                          className="form-control"
+                          placeholder="Password"
+                          name="password"
+                          id="password"
+                          onChange={(e) => setPassword(e.target.value)}
+                          onKeyUp={(e) => {
+                            if (e.key === "Enter") {
+                              handleClick();
+                    
+                            }
+                          }}
+                          value={password}
                         ></input>
                       </div>
 
                       <div class="form-group">
                         <input
-                          type="submit"
+                          // type="submit"
                           value="Sign In"
                           className="btn float-right login_btn"
                           onClick={() => {
-                            navigate("/dashboard");
+                            handleClick();
                           }}
                         ></input>
                         {/* <Button className='login_btn'>Register</Button> */}
@@ -87,7 +136,7 @@ const SignInForm = () => {
                   </div>
                   <div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                      {/* Don't have an account?<a href="/register">Sign Up!</a> */}
+                    
                     </div>
                   </div>
                 </div>

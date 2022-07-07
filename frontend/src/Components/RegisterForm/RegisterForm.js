@@ -21,6 +21,27 @@ const RegisterForm = () => {
 
   // const socket = io.connect();
 
+  const pushToken = (data) => {
+    axios
+      .post("/api/token", data, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .then((res) => {
+        localStorage.setItem("token", res.data.access_token);
+        navigate("/dashboard");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("There was an error!", error);
+      });
+  };
+
   const handleClick = () => {
     const data = {
       username: username,
@@ -39,9 +60,8 @@ const RegisterForm = () => {
           return res;
         })
         .then((res) => {
+          pushToken(data);
           localStorage.setItem("user", username);
-          window.location.reload();
-          // pushToken(data);
           // socket.emit("activateUser", { username: username });
         })
         .catch((error) => {
@@ -124,7 +144,6 @@ const RegisterForm = () => {
                           onKeyUp={(e) => {
                             if (e.key === "Enter") {
                               handleClick();
-                              navigate("/dashboard");
                             }
                           }}
                           value={password}
@@ -136,7 +155,6 @@ const RegisterForm = () => {
                           className="btn float-right login_btn"
                           onClick={() => {
                             handleClick();
-                            navigate("/dashboard");
                           }}
                         >
                           Register
@@ -145,8 +163,7 @@ const RegisterForm = () => {
                     </form>
                   </div>
                   <div className="card-footer">
-                    <div className="d-flex justify-content-center links">
-                    </div>
+                    <div className="d-flex justify-content-center links"></div>
                   </div>
                 </div>
               </div>

@@ -11,9 +11,29 @@ import TradePage from './Components/TradePage/TradePage';
 import PortfolioPage from './Components/PortfolioPage';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+
+const PublicRoute = ( { restricted, element }) => {
+  const { token } = useOutletContext();
+if (token && restricted) {
+  console.log("Token and restricted)")
+  return <Navigate to="./dashboard" replace={true} />;
+} else {
+  return element
+
+}
+}
+const PrivateRoute = ({ element }) => {
+const { token } = useOutletContext();
+if (token) {
+  return element
+} else {
+  console.log("No Token")
+} 
+return <Navigate to="../" replace={true} />;
+
+}
 
 root.render(
 
@@ -23,18 +43,18 @@ root.render(
     <Routes>
     <Route element={<App />}>
 
-    {/* <Route path="/" element={<PublicRoute restricted element={<Homepage />}/>} /> */}
-    {/* <Route path="/" element={<PublicRoute restricted element={<SignInForm />}/>} /> */}
-    {/* <Route path="/" element={<PublicRoute restricted element={<RegisterForm />}/>} /> */}
-    <Route path="/" element={<Homepage />} />
+    <Route path="/" element={<PublicRoute restricted element={<Homepage />}/>} /> 
+     <Route path="/" element={<PublicRoute restricted element={<SignInForm />}/>} /> 
+    <Route path="/" element={<PublicRoute restricted element={<RegisterForm />}/>} />
+    {/* <Route path="/" element={<Homepage />} />
     <Route path="/signin" element={<SignInForm />} />
     <Route path="/register" element={<RegisterForm />} />
     <Route path="/dashboard" element={<Dashboard />} />
     <Route path="/trade" element={<TradePage />} />
-    <Route path="/portfolio" element={<PortfolioPage />} />
-     {/* <Route path="/" element={<PrivateRoute element={<Dashboard />}/>} /> */}
-    {/* <Route path="/" element={<PrivateRoute element={<TradePage/>}/>} /> */}
-    {/* <Route path="/" element={<PrivateRoute element={<PortfolioPage />}/>} /> */}
+    <Route path="/portfolio" element={<PortfolioPage />} /> */}
+    <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />}/>} /> 
+    <Route path="/trade" element={<PrivateRoute element={<TradePage/>}/>} /> 
+    <Route path="/portfolio" element={<PrivateRoute element={<PortfolioPage />}/>} /> 
 
     </Route>
     </Routes>
@@ -46,19 +66,3 @@ root.render(
   </React.StrictMode>
 );
 
-// const PublicRoute = ( { restricted, element }) => {
-//   const { token } = useOutletContext();
-//   if (token && restricted) {
-//     return <Navigate to="./dashboard" replace={true} />;
-//   } else {
-//     return element ? element : <Outlet />
-//   }
-//   }
-// const PrivateRoute = ({ element }) => {
-//   const { token } = useOutletContext();
-//   if (token) {
-//     return element ? element : <Outlet />;
-//   } else {
-    
-//   } return <Navigate to="../" replace={true} />;
-// }

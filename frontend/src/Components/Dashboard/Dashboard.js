@@ -5,7 +5,8 @@ import DashboardNavBar from "./DashboardNavbar";
 import HoldingsTable from "./HoldingsTable";
 import axios from "axios";
 import useUser from '../useUser';
-import io from "socket.io-client";
+// import io from "socket.io-client";
+// import { useOutletContext } from 'react-router-dom';
 
 
 const Dashboard = () => {
@@ -15,7 +16,14 @@ const Dashboard = () => {
   const { signedInUser, signOutUser } = useUser();
   // const socket = io.connect();
 
-  console.log(signedInUser)
+  // const {setToken, setSignedInUser} = useOutletContext()
+
+  const capitalize = (str) => {
+   let capitalizedUser = str.charAt(0).toUpperCase() + str.slice(1);
+    return capitalizedUser
+  }
+
+  // console.log(signedInUser)
 
 // useEffect(() => {
 
@@ -44,7 +52,7 @@ const Dashboard = () => {
       <DashboardNavBar />
       <div className="container dash-container d-flex flex-column">
         <div className="align-items-start">Dashboard</div>
-        <div className="welcome-title">Welcome {signedInUser}!</div>
+        <div className="welcome-title">Welcome {capitalize(signedInUser)}!</div>
         <div className="row mt-auto mb-5">
           <div className="">
             <HoldingsTable />

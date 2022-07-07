@@ -8,6 +8,7 @@ import './App.css';
 // import PortfolioPage from './Components/PortfolioPage';
 import { Outlet } from "react-router-dom";
 import useUser from './Components/useUser';
+import useToken from './Components/useToken';
 
 
 function App() {
@@ -22,13 +23,14 @@ function App() {
 
   // const {token, setToken, removeToken} = useToken();
   const {signedInUser, setSignedInUser, signOutUser } = useUser(); 
+  const { token, setToken, removeToken } = useToken();
 
 
   const CONTEXT = {
-  // token: token, 
-  // setToken, 
+  token: token, 
+  setToken, 
   signedInUser,
-  // removeToken,
+  removeToken,
   signOutUser
   };
 

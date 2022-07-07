@@ -19,7 +19,7 @@ def create_user_connection(username, password):
     db.session.commit()
     new_user_id = new_user.id
     create_cash_balance_record(new_user_id, username)
-    # activate_user(username)
+    activate_user(username)
 
     return "User Created"
 
@@ -105,5 +105,10 @@ def deactivate_user(username):
     sign_in_user = User.query.filter_by(username=username).first()
     sign_in_user.signedin = "No"
     db.session.commit()
+
+def checkUser(username):
+    checked_user = User.query.filter_by(username=username).first()
+    db.session.commit()
+    return checked_user
 
 
