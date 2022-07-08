@@ -177,6 +177,12 @@ class TransactionsRecord(Resource):
         user_id = req_data["user_id"]
         current_shares = req_data["current_shares"]
 
+        #1. Check Cash Balance
+        #2. Create Transaction Record
+        #3. Check for existing holdings - select * from holdings where id =1 and symbol =
+        #4. If it exists, update record
+        #Else create new record
+
         return jsonify(create_transaction_record(user_id, current_shares))
 
 

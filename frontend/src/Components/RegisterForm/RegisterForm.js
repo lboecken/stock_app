@@ -8,16 +8,21 @@ import { Button } from "react-bootstrap";
 import logo from "../../Images/penguin-logo.png";
 import userIcon from "../../Images/userIcon.png";
 import pwdIcon from "../../Images/passwordIcon.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import io from "socket.io-client";
 
 const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [fullPassword, setFullPassword] = useState(true);
-  const [wrongDetails, setWrongDetails] = useState(false);
+  const [registerError, setRegisterError] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
 
   let navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setPasswordShown(!passwordShown);
+  };
 
   // const socket = io.connect();
 
@@ -66,10 +71,11 @@ const RegisterForm = () => {
         })
         .catch((error) => {
           console.log("There was an error!", error);
-          setWrongDetails(true);
+
+          setRegisterError("WrongDetails");
         });
     } else {
-      setFullPassword(false);
+      setRegisterError("NoFullPassword");
     }
   };
 
@@ -89,11 +95,20 @@ const RegisterForm = () => {
                     ></img>
                   </div>
                   <div className="title-spacing">
-                    <h3>Register</h3>
-                    {!fullPassword ? (
-                      <p className="text-center mt-4 wrongDetails">
-                        Username and/or password must be at least 6 characters
-                      </p>
+                    <h3 className="mb-3">Register</h3>
+
+                    {registerError === "NoFullPassword" ? (
+                      <span className="text-center wrongDetails">
+                        Username and/or password must be at least 6 characters.
+                      </span>
+                    ) : (
+                      ""
+                    )}
+
+                    {registerError === "WrongDetails" ? (
+                      <span className="text-center wrongDetails">
+                        Username is already taken. Please choose another.
+                      </span>
                     ) : (
                       ""
                     )}
@@ -133,7 +148,7 @@ const RegisterForm = () => {
                           </span>
                         </div>
                         <input
-                          type="password"
+                          type={passwordShown ? "text" : "password"}
                           className="form-control"
                           placeholder="Password"
                           name="password"
@@ -148,17 +163,32 @@ const RegisterForm = () => {
                           }}
                           value={password}
                         ></input>
+                        <span className="passwordEyeIcon">
+                          <FontAwesomeIcon
+                            icon={passwordShown ? faEye : faEyeSlash}
+                            onClick={togglePasswordVisibility}
+                          />
+                        </span>
                       </div>
 
                       <div class="form-group">
-                        <Button
+                        <input
+                          // type="submit"
+                          value="Register"
+                          className="btn float-right login_btn"
+                          onClick={() => {
+                            handleClick();
+                          }}
+                        ></input>
+
+                        {/* <Button
                           className="btn float-right login_btn"
                           onClick={() => {
                             handleClick();
                           }}
                         >
                           Register
-                        </Button>
+                        </Button> */}
                       </div>
                     </form>
                   </div>

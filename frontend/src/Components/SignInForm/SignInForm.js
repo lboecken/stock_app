@@ -6,18 +6,22 @@ import pwdIcon from "../../Images/passwordIcon.png";
 import Fade from "react-reveal/Fade";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import axios from "axios";
 
 const SignInForm = () => {
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
   const [wrongDetails, setWrongDetails] = useState(false);
 
-
   let navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setPasswordShown(!passwordShown);
+  };
 
   const handleClick = () => {
     const data = {
@@ -45,13 +49,9 @@ const SignInForm = () => {
       })
       .catch((error) => {
         console.log("There was an error!", error);
-        // setWrongDetails(true);
+        setWrongDetails(true);
       });
   };
-
-
-
-
 
   return (
     <div className="maincontainer">
@@ -69,7 +69,14 @@ const SignInForm = () => {
                     ></img>
                   </div>
                   <div className="title-spacing">
-                    <h3>Sign In</h3>
+                    <h3 className="mb-3">Sign In</h3>
+                    {wrongDetails ? (
+                      <span className="text-center wrongDetails">
+                        Please enter a valid username and/or password.
+                      </span>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <div class="card-body">
                     <form>
@@ -105,7 +112,7 @@ const SignInForm = () => {
                           </span>
                         </div>
                         <input
-                          type="password"
+                          type={passwordShown ? "text" : "password"}
                           className="form-control"
                           placeholder="Password"
                           name="password"
@@ -114,11 +121,16 @@ const SignInForm = () => {
                           onKeyUp={(e) => {
                             if (e.key === "Enter") {
                               handleClick();
-                    
                             }
                           }}
                           value={password}
                         ></input>
+                        <span className="passwordEyeIcon">
+                          <FontAwesomeIcon
+                            icon={passwordShown ? faEye : faEyeSlash}
+                            onClick={togglePasswordVisibility}
+                          />
+                        </span>
                       </div>
 
                       <div class="form-group">
@@ -135,9 +147,7 @@ const SignInForm = () => {
                     </form>
                   </div>
                   <div class="card-footer">
-                    <div class="d-flex justify-content-center links">
-                    
-                    </div>
+                    <div class="d-flex justify-content-center links"></div>
                   </div>
                 </div>
               </div>

@@ -9,7 +9,7 @@ from server.transactions_model import Transactions
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv('.env')
 
 # socketio_socket = SocketIO()
 
