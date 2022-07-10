@@ -14,7 +14,7 @@ class Transactions(db.Model):
     transaction_date = db.Column(db.DateTime(timezone=True), server_default=func.now())
     
     def __repr__(self):
-        return f"<Holdings(id:{self.id}, User:{self.user}, Transaction_Type:{self.transaction_type})>"
+        return f"<Transactions(id:{self.id}, User:{self.user}, Transaction_Type:{self.transaction_type})>"
 
 
 

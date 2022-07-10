@@ -186,6 +186,24 @@ class TransactionsRecord(Resource):
         return jsonify(create_transaction_record(user_id, current_shares))
 
 
+
+
+@api.route("/cash_balance/<username>")
+class GetCashBalance(Resource):
+
+    def get(self, username):
+        return jsonify(get_cash_balance(username))
+
+    def post(self):
+        req_data = request.get_json()
+        user_id = req_data["user_id"]
+        cash_balance = req_data["cash_balance"]
+
+        # return jsonify(create_holdings_record(user_id, cash_balance))
+        return jsonify((user_id, cash_balance))
+
+
+
 @api.route("/token", methods=["POST"])
 class CreateToken(Resource):
     def post(self):

@@ -9,5 +9,15 @@ class Cash_Balance(db.Model):
     cash_balance = db.Column(db.Float, default=100000)
     
     def __repr__(self):
-        return f"<Holdings(id:{self.id}, User:{self.user}, Cash_Balance:{self.cash_balance})>"
+        return f"<Cash_Balance(id:{self.id}, UserId: {self.user_id}, User:{self.username}, Cash_Balance:{self.cash_balance})>"
 
+    def obj_to_dict(self):
+        return {
+            # "id": self.id,
+            # "user_id": self.user_id,
+            "username": self.username,
+            "cash_balance": self.cash_balance
+           
+
+        }
+        

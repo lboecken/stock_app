@@ -10,12 +10,19 @@ import {
 import InputSpinner from "react-bootstrap-input-spinner";
 import { useState } from "react";
 import "./Modals.css";
-import testLogo from "../../Images/test-logo.png"
+import testLogo from "../../Images/test-logo.png";
 
 const BuyModal = (props) => {
   // console.log(props.latestPrice, props.companyName)
-  return (
 
+  const [cashAvailable, setCashAvailable] = useState(true);
+
+  let dollarFormat = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
+  return (
     <Modal
       {...props}
       aria-labelledby="contained-modal-title-vcenter"
@@ -23,27 +30,39 @@ const BuyModal = (props) => {
       size="lg"
     >
       <ModalHeader closeButton>
-        <ModalTitle> <img className="modal-logo-size" src={testLogo}></img> {props.companyName}</ModalTitle>
+        <ModalTitle>
+          {" "}
+          <img className="modal-logo-size" src={testLogo}></img>{" "}
+          {props.companyName}
+        </ModalTitle>
       </ModalHeader>
       <ModalBody className="body-text">
-        <div className="d-flex justify-content-between align-items-center">
-          <div>
-            <p className="">Current Share Price</p>
-            <p className="justify-content-center numbers-font">{`$${props.latestPrice}`}</p>
+        <div className="d-flex justify-content-between align-items-center align-self-center">
+          <div className="left">
+            <p className="">Current Share Price:</p>
+            <p className="numbers-font">{`$${props.latestPrice}`}</p>
           </div>
-          <div className="">
-            <p className="">Current Number of Shares</p>
-            <p className="numbers-font">0</p>
+          <div className="numbers-margins justify-content-center align-items-center align-self-center">
+            <p className="">Number of Shares Owned:</p>
+            <p className="numbers-font">
+              0
+            </p>
           </div>
 
-          <div>
-            <p className="">Current Account Balance</p>
-            <p className="numbers-font">$100,000</p>
+          <div className="right">
+            <p className="">Account Balance:</p>
+            <p className="numbers-font">
+              {dollarFormat.format(props.userCashBalance)}
+            </p>
           </div>
         </div>
 
         {/* <input placeholder="Number of Shares to Buy" type="number" className=></input> */}
-        <div>Number of Shares to Buy:</div>
+        <div className="d-flex justify-content-center align-items-center align-self-center">
+        
+<div className="mx-auto">
+
+        <p>Number of Shares to Buy:</p>
         <div id="spinner" className="mt-3">
           <InputSpinner
             // editable={false}
@@ -55,9 +74,34 @@ const BuyModal = (props) => {
             value={0}
           />
         </div>
+
+</div>
+
+        </div>
+        {cashAvailable ? (
+          ""
+        ) : (
+          <p className="no-funds">
+            You do not have enough cash to complete a transaction.
+          </p>
+        )}
       </ModalBody>
       <ModalFooter>
-        <Button className="modal_btn mx-auto" onClick={props.onHide}>
+        <Button
+          className="modal_btn mx-auto"
+          onClick={() => {
+            if (props.userCashBalance < props.latestPrice) {
+              console.log(
+                "You do not have enough funds to complete a transaction"
+              );
+              setCashAvailable(false);
+            } else {
+              props.onHide();
+              console.log("Funds are available");
+              setCashAvailable(true);
+            }
+          }}
+        >
           Buy Shares
         </Button>
       </ModalFooter>

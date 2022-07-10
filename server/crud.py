@@ -112,3 +112,12 @@ def checkUser(username):
     return checked_user
 
 
+def get_cash_balance(username):
+
+    def single_cash_balance(obj):
+        new_item = [obj.obj_to_dict()]
+        return new_item
+
+    check_balance = single_cash_balance(Cash_Balance.query.filter_by(username=username).first()) 
+    return (check_balance)
+

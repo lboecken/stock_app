@@ -13,7 +13,7 @@ import Chart from "../Charts";
 import { DateTime } from "luxon";
 import Fade from "react-reveal/Fade";
 import testLogo from "../../Images/test-logo.png";
-import useUser from '../useUser';
+import useUser from "../useUser";
 
 const TradePage = () => {
   const [showBuyModal, setShowBuyModal] = useState(false);
@@ -28,6 +28,7 @@ const TradePage = () => {
   const [isData, setIsData] = useState(true);
   const [searchValue, setSearchValue] = useState("");
   const { signedInUser, signOutUser } = useUser();
+  const [userCashBalance, setUserCashBalance] = useState("");
 
   async function getStockDetails() {
     await axios.get("api/details/" + stockSymbol).then((res) => {
@@ -79,12 +80,20 @@ const TradePage = () => {
     });
   }
 
-async function getUsers() {
-  await axios.get("api/users/" + signedInUser).then((res) => {
-    console.log(res.data)
-    // console.log(signedInUser)
-  });
-}
+  async function getUsers() {
+    await axios.get("api/users/" + signedInUser).then((res) => {
+      console.log(res.data);
+      // console.log(signedInUser)
+    });
+  }
+
+  async function getCashBalance() {
+    await axios.get("api/cash_balance/" + signedInUser).then((res) => {
+      console.log(res.data[0].cash_balance);
+      setUserCashBalance(Number(res.data[0].cash_balance));
+      console.log(signedInUser);
+    });
+  }
 
   // useEffect(() => {
   //   getAllStocks();
@@ -92,7 +101,7 @@ async function getUsers() {
   // }, [searchValue]);
   useEffect(() => {
     getAllStocks();
-    getUsers()
+    getUsers();
     // console.log(data)
   }, []);
   // }, [console.log(isData), renderedData]);
@@ -284,9 +293,10 @@ async function getUsers() {
                     style={trendingUp ? { color: "green" } : { color: "red" }}
                   >
                     <div> Price Change </div>
-                    
-                      <div className="trend-padding">{`$${data[0]?.priceChange}   `} {trend}</div>
-                    
+
+                    <div className="trend-padding">
+                      {`$${data[0]?.priceChange}   `} {trend}
+                    </div>
                   </div>
                 </div>
 
@@ -297,14 +307,21 @@ async function getUsers() {
                 />
                 <div className="d-flex justify-content-center mt-3">
                   <div className="stock-button-spacing">
-                    <Button className="button-colors" onClick={handleShowBuy}>
+                    <Button
+                      className="button-colors"
+                      onClick={() => {
+                        handleShowBuy();
+                        getCashBalance();
+                      }}
+                    >
                       Buy Shares
                     </Button>
 
                     <BuyModal
-                      value= "Buy"
+                      value="Buy"
                       latestPrice={data[0]?.latestPrice}
                       companyName={data[0]?.companyName}
+                      userCashBalance={userCashBalance}
                       show={showBuyModal}
                       onHide={() => setShowBuyModal(false)}
                     />

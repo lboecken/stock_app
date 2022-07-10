@@ -26,6 +26,10 @@
   text-align: center;
 }
 
+/* .extraNumberPadding {
+  margin-left: 20px !important;
+} */
+
 /* .number-input {
   text-align: center;
   display: flex !important;
@@ -87,4 +91,22 @@
 .modal-logo-size {
   max-width: 40px !important;
   max-height: 40px !important;
+}
+
+.no-funds {
+  color: red;
+}
+
+.numbers-margins {
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.margin-right {
+  margin-right: 80px !important;
+}
+
+.left, .right {
+  flex-grow: 1;
+  flex-basis: 0;
 }
