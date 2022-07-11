@@ -29,6 +29,8 @@ const TradePage = () => {
   const [searchValue, setSearchValue] = useState("");
   const { signedInUser, signOutUser } = useUser();
   const [userCashBalance, setUserCashBalance] = useState("");
+  const [resetSharesToSell, setResetSharesToSell] = useState(0);
+  const handleReset = () => setResetSharesToSell(0)
 
   async function getStockDetails() {
     await axios.get("api/details/" + stockSymbol).then((res) => {
@@ -145,6 +147,11 @@ const TradePage = () => {
   // }
 
   // console.log(data);
+
+  let dollarFormat = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
 
   const focusInput = () => {
     const selectInput = document.getElementById("input");
@@ -287,7 +294,7 @@ const TradePage = () => {
                   </div>
                   <div className="">
                     <div>Current Price</div>
-                    <div>{`$${data[0]?.latestPrice}`}</div>
+                    <div>{dollarFormat.format(data[0]?.latestPrice)}</div>
                   </div>
                   <div
                     style={trendingUp ? { color: "green" } : { color: "red" }}
@@ -295,7 +302,7 @@ const TradePage = () => {
                     <div> Price Change </div>
 
                     <div className="trend-padding">
-                      {`$${data[0]?.priceChange}   `} {trend}
+                      {dollarFormat.format(data[0]?.priceChange)} {trend}
                     </div>
                   </div>
                 </div>
@@ -323,19 +330,36 @@ const TradePage = () => {
                       companyName={data[0]?.companyName}
                       userCashBalance={userCashBalance}
                       show={showBuyModal}
-                      onHide={() => setShowBuyModal(false)}
+                      onHide={() => {
+                        setShowBuyModal(false);
+                      }}
                     />
                   </div>
 
                   <div>
-                    <Button className="button-colors" onClick={handleShowSell}>
+                    <Button
+                      className="button-colors"
+                      onClick={() => {
+                        handleShowSell();
+                        setResetSharesToSell(1)
+                        console.log(resetSharesToSell)
+                      }}
+                    >
                       Sell Shares
                     </Button>
                     <SellModal
-                      latestPrice={data[0]?.latestPrice}
+                      latestPrice={dollarFormat.format(data[0]?.latestPrice)}
                       companyName={data[0]?.companyName}
+                      userCashBalance={dollarFormat.format(userCashBalance)}
                       show={showSellModal}
-                      onHide={() => setShowSellModal(false)}
+                      resetSharesToSell={resetSharesToSell}
+                      onHide={() => {
+                        setShowSellModal(false);
+                        setResetSharesToSell(0)
+                        handleReset()
+                        console.log("modal hidden")
+                        console.log(resetSharesToSell)
+                      }}
                     />
                   </div>
                 </div>

@@ -26,9 +26,6 @@
   text-align: center;
 }
 
-/* .extraNumberPadding {
-  margin-left: 20px !important;
-} */
 
 /* .number-input {
   text-align: center;
@@ -93,7 +90,7 @@
   max-height: 40px !important;
 }
 
-.no-funds {
+.no-funds, .no-shares {
   color: red;
 }
 

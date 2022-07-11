@@ -40,7 +40,7 @@ const BuyModal = (props) => {
         <div className="d-flex justify-content-between align-items-center align-self-center">
           <div className="left">
             <p className="">Current Share Price:</p>
-            <p className="numbers-font">{`$${props.latestPrice}`}</p>
+            <p className="numbers-font">{dollarFormat.format(props.latestPrice)}</p>
           </div>
           <div className="numbers-margins justify-content-center align-items-center align-self-center">
             <p className="">Number of Shares Owned:</p>

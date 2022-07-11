@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "./build/static/css/main.805f06a6.css",
-    "main.js": "./build/static/js/main.5f93642c.js",
+    "main.css": "./build/static/css/main.91500b68.css",
+    "main.js": "./build/static/js/main.e8b471b7.js",
     "static/media/penguin-color-bg.png": "./build/static/media/penguin-color-bg.c8dae2ff04082528147a.png",
     "static/media/penguin-ht-1.png": "./build/static/media/penguin-ht-1.73b08c2d122433dd213b.png",
     "static/media/penguin-logo.png": "./build/static/media/penguin-logo.edd9e0ab4690d07fc0ca.png",
     "static/media/penguin-logo-full.png": "./build/static/media/penguin-logo-full.7fc7a8194b5b1ed0558d.png",
     "index.html": "./build/index.html",
-    "main.805f06a6.css.map": "./build/static/css/main.805f06a6.css.map",
-    "main.5f93642c.js.map": "./build/static/js/main.5f93642c.js.map"
+    "main.91500b68.css.map": "./build/static/css/main.91500b68.css.map",
+    "main.e8b471b7.js.map": "./build/static/js/main.e8b471b7.js.map"
   },
   "entrypoints": [
-    "static/css/main.805f06a6.css",
-    "static/js/main.5f93642c.js"
+    "static/css/main.91500b68.css",
+    "static/js/main.e8b471b7.js"
   ]
 }
