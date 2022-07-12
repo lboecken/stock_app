@@ -107,3 +107,13 @@
   flex-grow: 1;
   flex-basis: 0;
 }
+
+.total-calculation {
+  color: rgb(88, 131, 88);
+  font-size: 25px;
+  text-align: center;
+}
+
+/* .calculation-padding {
+  font-size: 15px !important;
+  /* margin-right: -10px !important; */

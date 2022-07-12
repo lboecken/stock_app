@@ -13,30 +13,27 @@ import testLogo from "../../Images/test-logo.png";
 
 const SellModal = (props) => {
   const [sharesAvailable, setSharesAvailable] = useState(true);
-  const [sharesToSell, setSharesToSell] = useState(0)
-  const [resetShares, setResetShares] = useState(false)
 
   let sharesOwned = 3;
 
 
-  // const checkShares = () => {
-  //   if (sharesOwned > 0 && !(sharesOwned < sharesToSell)) {
-  //     setSharesAvailable(true);
-  //   }
-    
-  // };
+  let dollarFormat = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
 
-  // const checkReset = () => {
-  //   if (props.onHide) {
-  //     setResetShares(true)
-  //   } else {
-  //     setResetShares(false)
-  //   }
-  // }
-  // useEffect(() => {
-  //   checkShares();
-  //   checkReset();
-  // }, [sharesToSell, resetShares]);
+
+  const totalSaleCalculation = () => {
+    let calculatedPrice = 0
+   
+    if (props.sharesToSell > 0) {
+      calculatedPrice = props.latestPrice * props.sharesToSell;
+      return dollarFormat.format(calculatedPrice);
+    } else {
+      return dollarFormat.format(calculatedPrice)
+    }
+  };
+
 
   return (
     <Modal
@@ -56,7 +53,7 @@ const SellModal = (props) => {
           <div className="left">
             <p className="">Current Share Price:</p>
             <p className="justify-content-center numbers-font">
-              {props.latestPrice}
+              {dollarFormat.format(props.latestPrice)}
             </p>
           </div>
           <div className="numbers-margins justify-content-center align-items-center align-self-center">
@@ -82,23 +79,30 @@ const SellModal = (props) => {
             step={1}
             value={0}
             onChange={(value) => {
-              setSharesToSell(value);
-              console.log(sharesToSell)
-              console.log(props.resetSharesToSell)
+              props.setSharesToSell(value);
+              // setSharesToSell(value);
+              // console.log(props.sharesToSell)
+              // console.log(sharesAvailable)
        
               if (value > sharesOwned) {
                 setSharesAvailable(false);
+                
                 // console.log("value is greater than shares owned");
               } else if (value <= sharesOwned) {
                 setSharesAvailable(true);
+                
               }
             }}
           />
         </div>
+        <div className="d-flex justify-content-center">
+              <p className="calculation-padding p-2">Total Sale Amount:</p>
+              <p className="total-calculation">{totalSaleCalculation()}</p>
+            </div>
 
-        {(sharesOwned < sharesToSell || sharesOwned === 0) || props.resetSharesToSell === 0 ? (
+        {(sharesOwned < props.sharesToSell || sharesOwned === 0) ? (
           <p className="no-shares">
-            You do not have enough shares to complete the transaction.
+            You do not have enough shares to complete this transaction.
           </p>
         ) : null}
       </ModalBody>
@@ -117,7 +121,8 @@ const SellModal = (props) => {
               props.onHide();
               console.log("Shares are available");
               setSharesAvailable(true);
-              
+              props.setSharesToSell(0)
+
             }
           }}
         >
