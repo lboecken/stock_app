@@ -175,7 +175,12 @@ class TransactionsRecord(Resource):
     def post(self):
         req_data = request.get_json()
         user_id = req_data["user_id"]
-        current_shares = req_data["current_shares"]
+        company_name = req_data["company_name"]
+        company_symbol = req_data["company_symbol"]
+        shares = req_data["shares"]
+        cost_basis = req_data["cost_basis"]
+        transaction_type = req_data["transaction_type"]
+        transaction_total= req_data["transaction_total"]
 
         #1. Check Cash Balance
         #2. Create Transaction Record
@@ -183,7 +188,7 @@ class TransactionsRecord(Resource):
         #4. If it exists, update record
         #Else create new record
 
-        return jsonify(create_transaction_record(user_id, current_shares))
+        return jsonify(create_transaction_record(user_id, company_name, company_symbol, shares, cost_basis, transaction_type, transaction_total))
 
 
 

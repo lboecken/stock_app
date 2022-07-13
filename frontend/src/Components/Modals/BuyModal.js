@@ -11,9 +11,39 @@ import InputSpinner from "react-bootstrap-input-spinner";
 import { useState, useEffect } from "react";
 import "./Modals.css";
 import testLogo from "../../Images/test-logo.png";
+import axios from "axios";
 
 const BuyModal = (props) => {
   // console.log(props.latestPrice, props.companyName)
+
+  const createBuyTransaction = () => {
+    const transactionData = {
+      user_id: props.userId,
+      company_name: props.companyName,
+      company_symbol: props.stockSymbol,
+      shares: props.sharesToBuy,
+      cost_basis: props.latestPrice.toFixed(2),
+      transaction_type: "Buy",
+      transaction_total: calculatedPrice.toFixed(2)
+    };
+    if (props.sharesToBuy > 0) {
+
+    axios
+      .post("/api/transactions", transactionData, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        console.log("There was an error!", error);
+      });
+  };
+}
+
 
   const [cashAvailable, setCashAvailable] = useState(true);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
@@ -32,26 +62,33 @@ const BuyModal = (props) => {
   };
 
   useEffect(() => {
+   
     if (props.userCashBalance < calculatedPrice) {
       setCashAvailable(false);
     } else if (props.userCashBalance >= calculatedPrice) {
       setCashAvailable(true);
     }
     totalPurchaseCalculation();
-  }, [ props.sharesToBuy, calculatedPrice]);
+  }, [props.sharesToBuy, calculatedPrice]);
 
   return (
     <Modal
       {...props}
-      aria-labelledby="contained-modal-title-vcenter"
+      // aria-labelledby="contained-modal-title-vcenter"
+      
       centered
       size="lg"
     >
-      <ModalHeader closeButton>
-        <ModalTitle>
-          {" "}
-          <img className="modal-logo-size" src={testLogo}></img>{" "}
-          {props.companyName}
+      <ModalHeader className="d-flex justify-content-between align-items-center align-self-center" closeButton>
+          
+        <ModalTitle className="mx-auto">
+          
+       <div className="d-flex justify-content-between align-items-center align-self-center">
+          <div className="title-margins"><img className="modal-logo-size" src={testLogo}></img></div> 
+         
+          <div className="justify-content-center align-items-center align-self-center">{props.companyName}</div>
+          <div className="">{props.stockSymbol}</div> 
+          </div>
         </ModalTitle>
       </ModalHeader>
       <ModalBody className="body-text">
@@ -82,12 +119,13 @@ const BuyModal = (props) => {
             <div id="spinner" className="mt-3">
               <InputSpinner
                 // editable={false}
-                type={"real"}
+                type={"int"}
                 precision={2}
                 max={100}
                 min={0}
                 step={1}
                 value={0}
+                size="lg"
                 onChange={(value) => {
                   props.setSharesToBuy(value);
                   // console.log(props.sharesToBuy);
@@ -121,6 +159,7 @@ const BuyModal = (props) => {
             } else {
               props.onHide();
               console.log("Funds are available");
+              createBuyTransaction();
               setCashAvailable(true);
               props.setSharesToBuy(0);
             }

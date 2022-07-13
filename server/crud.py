@@ -76,18 +76,21 @@ def create_transaction_record(
     userid,
     company_name,
     company_symbol,
-    current_shares,
-    value_of_shares,
+    shares,
+    cost_basis,
     transaction_type,
+    transaction_total
 ):
 
     new_transaction_record = Transactions(
         user_id=userid,
-        company_symbol=company_symbol,
-        current_shares=current_shares,
-        value_of_shares=value_of_shares,
-        transaction_type=transaction_type,
         company_name=company_name,
+        company_symbol=company_symbol,
+        shares=shares,
+        cost_basis=cost_basis,
+        transaction_type=transaction_type,
+        transaction_total=transaction_total,
+    
     )
     db.session.add(new_transaction_record)
     db.session.commit()

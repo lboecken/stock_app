@@ -68,7 +68,7 @@
 #spinner .form-control {
   text-align: center;
   background-color: whitesmoke !important;
-  max-width: 60px !important;
+  max-width: 70px !important;
   outline: none !important;
   border: none !important;
 }
@@ -88,6 +88,7 @@
 .modal-logo-size {
   max-width: 40px !important;
   max-height: 40px !important;
+  /* padding-right: 20px !important; */
 }
 
 .no-funds, .no-shares {
@@ -117,3 +118,23 @@
 /* .calculation-padding {
   font-size: 15px !important;
   /* margin-right: -10px !important; */
+
+  .modal-header{
+  
+    width: 800px !important;
+    
+  }
+
+  .modal-title {
+    width: 700px !important;
+  }
+
+  .title-margins {
+    margin-right: 20px !important;
+  }
+
+
+button.btn-close {
+  padding: 10px !important;
+  margin-left: 5px !important;
+}

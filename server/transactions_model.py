@@ -8,9 +8,10 @@ class Transactions(db.Model):
     # the_user = db.relationship("User", backref=backref("users", uselist=False))
     company_name = db.Column(db.String)
     company_symbol = db.Column(db.String)
-    current_shares = db.Column(db.Integer, default=0)
-    value_of_shares = db.Column(db.Float, default=0) #needed? Cost Basis
+    shares = db.Column(db.Integer, default=0)
+    cost_basis = db.Column(db.Numeric, default=0) #needed? Cost Basis
     transaction_type = db.Column(db.String) #Buy or Sell
+    transaction_total = db.Column(db.Numeric, default=0)
     transaction_date = db.Column(db.DateTime(timezone=True), server_default=func.now())
     
     def __repr__(self):

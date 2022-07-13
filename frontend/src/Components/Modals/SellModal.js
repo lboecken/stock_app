@@ -72,12 +72,13 @@ const SellModal = (props) => {
         <div id="spinner" className="mt-3">
           <InputSpinner
             // editable={false}
-            type={"real"}
+            type={"int"}
             precision={2}
             max={100}
             min={0}
             step={1}
             value={0}
+            size="lg"
             onChange={(value) => {
               props.setSharesToSell(value);
               // setSharesToSell(value);

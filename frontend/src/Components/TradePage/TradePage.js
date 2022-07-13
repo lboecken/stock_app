@@ -28,6 +28,7 @@ const TradePage = () => {
   const [isData, setIsData] = useState(true);
   const [searchValue, setSearchValue] = useState("");
   const { signedInUser, signOutUser } = useUser();
+  const [userId, setUserId] = useState("")
   const [userCashBalance, setUserCashBalance] = useState("");
   const [sharesToSell, setSharesToSell] = useState(0)
   const [sharesToBuy, setSharesToBuy] = useState(0)
@@ -85,7 +86,8 @@ const TradePage = () => {
   async function getUsers() {
     await axios.get("api/users/" + signedInUser).then((res) => {
       console.log(res.data);
-      // console.log(signedInUser)
+      console.log(res.data[0].id)
+      setUserId(res.data[0].id)
     });
   }
 
@@ -93,7 +95,7 @@ const TradePage = () => {
     await axios.get("api/cash_balance/" + signedInUser).then((res) => {
       // console.log(res.data[0].cash_balance);
       setUserCashBalance(Number(res.data[0].cash_balance));
-      console.log(signedInUser);
+      // console.log(signedInUser);
     });
   }
 
@@ -328,10 +330,12 @@ const TradePage = () => {
                       value="Buy"
                       latestPrice={data[0]?.latestPrice}
                       companyName={data[0]?.companyName}
+                      stockSymbol={data[0]?.symbol}
                       userCashBalance={userCashBalance}
                       setSharesToBuy={setSharesToBuy}
                       sharesToBuy={sharesToBuy}
                       show={showBuyModal}
+                      userId={userId}
                       onHide={() => {
                         setShowBuyModal(false);
                         setSharesToBuy(0)
