@@ -53,17 +53,18 @@ def create_holdings_record(
     company_name,
     company_symbol,
     current_shares,
-    value_of_shares,
-    total_holdings,
+    total_cost_basis,
 ):
+
+    def verify_holdings():
+        print("query holdings to verify")
 
     new_holdings_record = Holdings(
         user_id=userid,
         company_name=company_name,
         company_symbol=company_symbol,
         current_shares=current_shares,
-        value_of_shares=value_of_shares,
-        total_holdings=total_holdings,
+        total_cost_basis=total_cost_basis,
 
     )
     db.session.add(new_holdings_record)
@@ -124,3 +125,8 @@ def get_cash_balance(username):
     check_balance = single_cash_balance(Cash_Balance.query.filter_by(username=username).first()) 
     return (check_balance)
 
+def update_holdings_record(userId, shares, costBasis):
+    print("update record")
+
+def update_cash_balance(userId, shares, costBasis):
+    print("update cash balance")
