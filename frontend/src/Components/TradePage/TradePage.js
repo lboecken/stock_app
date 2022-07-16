@@ -33,6 +33,18 @@ const TradePage = () => {
   const [sharesToSell, setSharesToSell] = useState(0)
   const [sharesToBuy, setSharesToBuy] = useState(0)
 
+
+  // useEffect(() => {
+  //   getAllStocks();
+  //   // console.log(data)
+  // }, [searchValue]);
+  useEffect(() => {
+    getAllStocks();
+    getUsers();
+    // console.log(data)
+  }, []);
+  // }, [console.log(isData), renderedData]);
+
   async function getStockDetails() {
     await axios.get("api/details/" + stockSymbol).then((res) => {
       if (res.data === "Something Went Wrong") {
@@ -99,16 +111,6 @@ const TradePage = () => {
     });
   }
 
-  // useEffect(() => {
-  //   getAllStocks();
-  //   // console.log(data)
-  // }, [searchValue]);
-  useEffect(() => {
-    getAllStocks();
-    getUsers();
-    // console.log(data)
-  }, []);
-  // }, [console.log(isData), renderedData]);
 
   const data = stockDetails?.map((stock) => {
     const finalClosePrices = lastweekClosingPrices.map((closings) => {

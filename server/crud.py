@@ -53,12 +53,8 @@ def create_holdings_record(
     company_name,
     company_symbol,
     current_shares,
-    total_cost_basis,
+    total_cost_basis
 ):
-
-    def verify_holdings():
-        print("query holdings to verify")
-
     new_holdings_record = Holdings(
         user_id=userid,
         company_name=company_name,
@@ -130,3 +126,23 @@ def update_holdings_record(userId, shares, costBasis):
 
 def update_cash_balance(userId, shares, costBasis):
     print("update cash balance")
+    
+
+def verify_holdings(company_symbol):
+
+    def holdings_object(obj):
+        if obj == None:
+            return "No Holdings Record"
+        else: 
+            new_item = [obj.obj_to_dict()]
+            return new_item
+    
+    the_company = holdings_object(Holdings.query.filter_by(company_symbol=company_symbol).first()) 
+    if the_company == None:
+        return "No Holdings Record"
+    else: 
+        
+        print(the_company)
+        return the_company
+   
+   

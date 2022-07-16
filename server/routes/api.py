@@ -156,16 +156,30 @@ class GetSingleUser(Resource):
 @api.route("/holdings")
 class HoldingsRecord(Resource):
 
+
+
     def post(self):
         req_data = request.get_json()
         user_id = req_data["user_id"]
         company_name = req_data["company_name"]
         company_symbol = req_data["company_symbol"]
         current_shares = req_data["current_shares"]
-        # total_cost_basis = req_data["total_cost_basis"] calculate in backend... crud file.
+        total_cost_basis = req_data["total_cost_basis"] 
+        # calculate in backend... crud file.
+        # total cost_basis is initally purchase amount
+
+        verification = verify_holdings(company_symbol)
+
+        if verification == "No Holdings Record":
+            return jsonify(create_holdings_record(user_id, company_name, company_symbol, current_shares, total_cost_basis))
+        else:
+            return "Record Already Exists"
+
+
         
 
-        return jsonify(create_holdings_record(user_id, company_name, company_symbol, current_shares))
+        
+
 
 
 
