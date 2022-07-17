@@ -13,7 +13,7 @@ class Holdings(db.Model):
     # total_holdings = db.Column(db.Float, default=0)
     
     def __repr__(self):
-        return f"<Holdings(id:{self.id}, UserId:{self.user_id}, current_shares:{self.current_shares}, total_cost_basis:{self.total_cost_basis})>"
+        return f"<Holdings(id:{self.id}, UserId:{self.user_id}, company_symbol:{self.company_symbol}, current_shares:{self.current_shares}, total_cost_basis:{self.total_cost_basis})>"
 
 
     def obj_to_dict(self):
@@ -21,6 +21,8 @@ class Holdings(db.Model):
                 # "id": self.id,
                 # "user_id": self.user_id,
                 "user_id": self.user_id,
+                "company_name": self.company_name,
+                "company_symbol": self.company_symbol,
                 "current_shares": self.current_shares,
                 "total_cost_basis": self.total_cost_basis
             

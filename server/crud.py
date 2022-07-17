@@ -1,4 +1,5 @@
 import json
+from tokenize import Double
 import bcrypt
 from server.db_connection import db
 
@@ -37,6 +38,22 @@ def getUser(username):
     # print(signed_in_user)
     return signed_in_user
 
+def activate_user(username):
+    sign_in_user = User.query.filter_by(username=username).first()
+    sign_in_user.signedin = "Yes"
+    db.session.commit()
+
+
+def deactivate_user(username):
+    sign_in_user = User.query.filter_by(username=username).first()
+    sign_in_user.signedin = "No"
+    db.session.commit()
+
+def checkUser(username):
+    checked_user = User.query.filter_by(username=username).first()
+    db.session.commit()
+    return checked_user
+
 
 
 def create_cash_balance_record(userid, username):
@@ -46,6 +63,21 @@ def create_cash_balance_record(userid, username):
     db.session.commit()
 
     return "Cash Balance Intialized"
+
+def get_cash_balance(username):
+
+    def single_cash_balance(obj):
+        new_item = [obj.obj_to_dict()]
+        return new_item
+
+    check_balance = single_cash_balance(Cash_Balance.query.filter_by(username=username).first()) 
+    return (check_balance)
+
+
+
+def update_cash_balance(userId, shares, costBasis):
+    print("update cash balance")
+    
 
 
 def create_holdings_record(
@@ -68,6 +100,62 @@ def create_holdings_record(
 
     return "Holdings Record Created"
 
+
+def update_holdings_record(userId, company_symbol, shares, costBasis):
+    query = Holdings.query.filter_by(company_symbol=company_symbol, user_id=userId).first()
+    query.current_shares = (query.current_shares + int(shares))
+    query.total_cost_basis = (query.total_cost_basis + float(costBasis))
+    db.session.commit()
+
+    return "Holdings Record Updated"
+
+
+def get_share_holdings(userId):
+#    def the_shares(obj):
+#         new_item = [obj.obj_to_dict()]
+#         return new_item
+
+   def dict_helper(objlist):
+        new_dict = [item.obj_to_dict() for item in objlist]
+        return new_dict
+    
+   share_holdings = dict_helper(Holdings.query.filter_by(user_id=userId).all())
+  
+   return share_holdings
+
+
+def get_total_holdings(user_id):
+     
+     def dict_helper(objlist):
+        new_dict = [item.obj_to_dict() for item in objlist]
+        return new_dict
+    
+     holdings = dict_helper(Holdings.query.filter_by(user_id=user_id).all()) 
+     holdings_calculation = []
+     for obj in holdings:
+        holdings_calculation.append(obj["total_cost_basis"])
+        print(holdings_calculation)
+        
+    
+     return sum(holdings_calculation)
+        
+
+def verify_holdings(company_symbol, user_id):
+
+    def holdings_object(obj):
+        if obj == None:
+            return "No Holdings Record"
+        else: 
+            new_item = [obj.obj_to_dict()]
+            return new_item
+    
+    query = holdings_object(Holdings.query.filter_by(company_symbol=company_symbol, user_id=user_id).first()) 
+    if query == None:
+        return "No Holdings Record"
+    else: 
+        return query
+   
+   
 
 def create_transaction_record(
     userid,
@@ -93,56 +181,3 @@ def create_transaction_record(
     db.session.commit()
 
     return "Transaction Record Created"
-
-
-def activate_user(username):
-    sign_in_user = User.query.filter_by(username=username).first()
-    sign_in_user.signedin = "Yes"
-    db.session.commit()
-
-
-def deactivate_user(username):
-    sign_in_user = User.query.filter_by(username=username).first()
-    sign_in_user.signedin = "No"
-    db.session.commit()
-
-def checkUser(username):
-    checked_user = User.query.filter_by(username=username).first()
-    db.session.commit()
-    return checked_user
-
-
-def get_cash_balance(username):
-
-    def single_cash_balance(obj):
-        new_item = [obj.obj_to_dict()]
-        return new_item
-
-    check_balance = single_cash_balance(Cash_Balance.query.filter_by(username=username).first()) 
-    return (check_balance)
-
-def update_holdings_record(userId, shares, costBasis):
-    print("update record")
-
-def update_cash_balance(userId, shares, costBasis):
-    print("update cash balance")
-    
-
-def verify_holdings(company_symbol):
-
-    def holdings_object(obj):
-        if obj == None:
-            return "No Holdings Record"
-        else: 
-            new_item = [obj.obj_to_dict()]
-            return new_item
-    
-    the_company = holdings_object(Holdings.query.filter_by(company_symbol=company_symbol).first()) 
-    if the_company == None:
-        return "No Holdings Record"
-    else: 
-        
-        print(the_company)
-        return the_company
-   
-   

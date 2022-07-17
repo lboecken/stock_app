@@ -1,5 +1,6 @@
 #stock-card .card {
-  height: 420px !important;
+  /* height: 420px !important; */
+  height: 335px !important;
   /* margin-top: 16vh !important; */
   max-width: 295px !important;
   background-color: #e6dfcb !important;

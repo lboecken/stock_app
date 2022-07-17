@@ -14,7 +14,6 @@ import testLogo from "../../Images/test-logo.png";
 const SellModal = (props) => {
   const [sharesAvailable, setSharesAvailable] = useState(true);
 
-  let sharesOwned = 3;
 
 
   let dollarFormat = new Intl.NumberFormat("en-US", {
@@ -58,7 +57,7 @@ const SellModal = (props) => {
           </div>
           <div className="numbers-margins justify-content-center align-items-center align-self-center">
             <p className="">Number of Shares Owned:</p>
-            <p className="numbers-font">{sharesOwned}</p>
+            <p className="numbers-font">{props.userShares}</p>
           </div>
 
           <div className="right">
@@ -85,11 +84,11 @@ const SellModal = (props) => {
               // console.log(props.sharesToSell)
               // console.log(sharesAvailable)
        
-              if (value > sharesOwned) {
+              if (value > props.userShares) {
                 setSharesAvailable(false);
                 
                 // console.log("value is greater than shares owned");
-              } else if (value <= sharesOwned) {
+              } else if (value <= props.userShares) {
                 setSharesAvailable(true);
                 
               }
@@ -101,7 +100,7 @@ const SellModal = (props) => {
               <p className="total-calculation">{totalSaleCalculation()}</p>
             </div>
 
-        {(sharesOwned < props.sharesToSell || sharesOwned === 0) ? (
+        {(props.userShares < props.sharesToSell || props.userShares === 0) ? (
           <p className="no-shares">
             You do not have enough shares to complete this transaction.
           </p>
@@ -112,7 +111,7 @@ const SellModal = (props) => {
           className="modal_btn mx-auto"
           onClick={() => {
            
-            if (!sharesAvailable || sharesOwned === 0) {
+            if (!sharesAvailable || props.userShares === 0) {
               console.log(
                 "You do not have enough shares to complete the transaction."
               );

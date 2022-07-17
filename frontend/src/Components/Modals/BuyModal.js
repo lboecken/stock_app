@@ -15,6 +15,18 @@ import axios from "axios";
 
 const BuyModal = (props) => {
   // console.log(props.latestPrice, props.companyName)
+  const [cashAvailable, setCashAvailable] = useState(true);
+  const [calculatedPrice, setCalculatedPrice] = useState(0);
+
+  useEffect(() => {
+   
+    if (props.userCashBalance < calculatedPrice) {
+      setCashAvailable(false);
+    } else if (props.userCashBalance >= calculatedPrice) {
+      setCashAvailable(true);
+    }
+    totalPurchaseCalculation();
+  }, [props.sharesToBuy, calculatedPrice]);
 
   const createBuyTransaction = () => {
     const transactionData = {
@@ -44,9 +56,10 @@ const BuyModal = (props) => {
   };
 }
 
+const createHoldingRecord = () => {}
 
-  const [cashAvailable, setCashAvailable] = useState(true);
-  const [calculatedPrice, setCalculatedPrice] = useState(0);
+// console.log(props.userHoldings)
+
 
   let dollarFormat = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -61,15 +74,7 @@ const BuyModal = (props) => {
     }
   };
 
-  useEffect(() => {
-   
-    if (props.userCashBalance < calculatedPrice) {
-      setCashAvailable(false);
-    } else if (props.userCashBalance >= calculatedPrice) {
-      setCashAvailable(true);
-    }
-    totalPurchaseCalculation();
-  }, [props.sharesToBuy, calculatedPrice]);
+
 
   return (
     <Modal
@@ -101,7 +106,7 @@ const BuyModal = (props) => {
           </div>
           <div className="numbers-margins justify-content-center align-items-center align-self-center">
             <p className="">Number of Shares Owned:</p>
-            <p className="numbers-font">0</p>
+            <p className="numbers-font">{props.userShares}</p>
           </div>
 
           <div className="right">

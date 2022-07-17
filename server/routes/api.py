@@ -157,7 +157,6 @@ class GetSingleUser(Resource):
 class HoldingsRecord(Resource):
 
 
-
     def post(self):
         req_data = request.get_json()
         user_id = req_data["user_id"]
@@ -168,15 +167,26 @@ class HoldingsRecord(Resource):
         # calculate in backend... crud file.
         # total cost_basis is initally purchase amount
 
-        verification = verify_holdings(company_symbol)
+        verification = verify_holdings(company_symbol, user_id)
 
         if verification == "No Holdings Record":
             return jsonify(create_holdings_record(user_id, company_name, company_symbol, current_shares, total_cost_basis))
         else:
-            return "Record Already Exists"
+            return jsonify(update_holdings_record(user_id, company_symbol, current_shares, total_cost_basis))
 
 
         
+@api.route("/totalholdings/<userid>")
+class GetTotalHoldings(Resource):
+    def get(self, userid):
+        return jsonify(get_total_holdings(userid))
+
+
+        
+@api.route("/holdings/<userid>")
+class GetShares(Resource):
+    def get(self, userid):
+       return jsonify(get_share_holdings(userid))
 
         
 

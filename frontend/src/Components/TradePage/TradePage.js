@@ -32,6 +32,7 @@ const TradePage = () => {
   const [userCashBalance, setUserCashBalance] = useState("");
   const [sharesToSell, setSharesToSell] = useState(0)
   const [sharesToBuy, setSharesToBuy] = useState(0)
+  const [userShares, setUserShares] = useState(0)
 
 
   // useEffect(() => {
@@ -49,7 +50,7 @@ const TradePage = () => {
     await axios.get("api/details/" + stockSymbol).then((res) => {
       if (res.data === "Something Went Wrong") {
         setIsData(false);
-        console.log("Stock Details Has No Data...");
+        // console.log("Stock Details Has No Data...");
       } else {
         setStockDetails(res.data);
         setIsData(true);
@@ -98,7 +99,7 @@ const TradePage = () => {
   async function getUsers() {
     await axios.get("api/users/" + signedInUser).then((res) => {
       console.log(res.data);
-      console.log(res.data[0].id)
+      // console.log(res.data[0].id)
       setUserId(res.data[0].id)
     });
   }
@@ -111,6 +112,19 @@ const TradePage = () => {
     });
   }
 
+  async function getHoldingsData() {
+    await axios.get("api/holdings/" + userId).then((res) => {
+      let holdings = res.data
+      holdings.map((company) => {
+      
+        if (company.company_symbol === stockSymbol.toUpperCase()) {
+          setUserShares(company.current_shares)
+          console.log(company.current_shares)
+        } 
+      })
+    })
+  }
+  
 
   const data = stockDetails?.map((stock) => {
     const finalClosePrices = lastweekClosingPrices.map((closings) => {
@@ -137,7 +151,7 @@ const TradePage = () => {
   let stock_data = [["Date", "Closing Price"]];
 
   const onSearch = (searchTerm) => {
-    console.log(searchTerm);
+    // console.log(searchTerm);
     setSearchValue(searchTerm);
     setStockSymbol(searchTerm);
     setStockLogo(searchTerm);
@@ -323,6 +337,7 @@ const TradePage = () => {
                       onClick={() => {
                         handleShowBuy();
                         getCashBalance();
+                        getHoldingsData()
                       }}
                     >
                       Buy Shares
@@ -338,9 +353,11 @@ const TradePage = () => {
                       sharesToBuy={sharesToBuy}
                       show={showBuyModal}
                       userId={userId}
+                      userShares={userShares}
                       onHide={() => {
                         setShowBuyModal(false);
                         setSharesToBuy(0)
+                        setUserShares(0)
                       }}
                     />
                   </div>
@@ -351,6 +368,7 @@ const TradePage = () => {
                       onClick={() => {
                         handleShowSell();
                         getCashBalance();
+                        getHoldingsData()
                       }}
                     >
                       Sell Shares
@@ -362,9 +380,11 @@ const TradePage = () => {
                       show={showSellModal}
                       setSharesToSell={setSharesToSell}
                       sharesToSell={sharesToSell}
+                      userShares={userShares}
                       onHide={() => {
                         setShowSellModal(false);
                         setSharesToSell(0)
+                        setUserShares(0)
                         // console.log("modal hidden")
                         
                       }}

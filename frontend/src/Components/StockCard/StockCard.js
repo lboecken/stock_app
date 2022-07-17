@@ -38,11 +38,11 @@ const StockCard = () => {
                       <div className="card-text mb-4">
                         Value of Shares: $546.10
                       </div>
-                    </div>
-                    <div className="mb-2">
-                      <Button className="vd-button">View Details</Button>
-                    </div>
                     <div>
+                      <Button className="vd-button mb-2">View Details</Button>
+                    </div>
+                    </div>
+                    {/* <div>
                       <Button
                         className="mb-2 button-colors"
                         onClick={handleShowBuy}
@@ -54,8 +54,8 @@ const StockCard = () => {
                         show={showBuyModal}
                         onHide={() => setShowBuyModal(false)}
                       />
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                       <Button
                         className="mb-4 button-colors"
                         onClick={handleShowSell}
@@ -66,7 +66,7 @@ const StockCard = () => {
                         show={showSellModal}
                         onHide={() => setShowSellModal(false)}
                       />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
