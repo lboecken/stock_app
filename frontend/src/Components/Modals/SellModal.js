@@ -10,9 +10,77 @@ import {
 import InputSpinner from "react-bootstrap-input-spinner";
 import "./Modals.css";
 import testLogo from "../../Images/test-logo.png";
+import axios from "axios";
 
 const SellModal = (props) => {
   const [sharesAvailable, setSharesAvailable] = useState(true);
+  const [calculatedPrice, setCalculatedPrice] = useState(0);
+
+useEffect (() => {
+  totalSaleCalculation()
+},[props.sharesToSell, calculatedPrice])
+
+  const createTransaction = () => {
+    const transactionData = {
+      user_id: props.userId,
+      company_name: props.companyName,
+      company_symbol: props.stockSymbol,
+      shares: props.sharesToSell,
+      cost_basis: props.latestPrice.toFixed(2),
+      transaction_type: props.transactionType,
+      transaction_total: calculatedPrice.toFixed(2)
+    };
+    if (props.sharesToSell > 0) {
+
+    axios
+      .post("/api/transactions", transactionData, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        console.log("There was an error!", error);
+      });
+  };
+}
+
+
+const createHoldingRecord = () => {
+  const HoldingsData = {
+    user_id: props.userId,
+    company_name: props.companyName,
+    company_symbol: props.stockSymbol,
+    current_shares: props.sharesToSell,
+    total_cost_basis: calculatedPrice.toFixed(2),
+    transaction_type: props.transactionType
+  };
+  if (props.sharesToSell > 0) {
+
+  axios
+    .post("/api/holdings", HoldingsData, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((error) => {
+      console.log("There was an error!", error);
+    });
+};
+
+}
+
+
+
+
+
 
 
 
@@ -23,13 +91,12 @@ const SellModal = (props) => {
 
 
   const totalSaleCalculation = () => {
-    let calculatedPrice = 0
    
     if (props.sharesToSell > 0) {
-      calculatedPrice = props.latestPrice * props.sharesToSell;
-      return dollarFormat.format(calculatedPrice);
+      setCalculatedPrice(props.latestPrice * props.sharesToSell) 
+      // return dollarFormat.format(calculatedPrice);
     } else {
-      return dollarFormat.format(calculatedPrice)
+      setCalculatedPrice(0);
     }
   };
 
@@ -62,7 +129,7 @@ const SellModal = (props) => {
 
           <div className="right">
             <p className="">Account Balance:</p>
-            <p className="numbers-font">{props.userCashBalance}</p>
+            <p className="numbers-font">{dollarFormat.format(props.userCashBalance)}</p>
           </div>
         </div>
 
@@ -97,7 +164,7 @@ const SellModal = (props) => {
         </div>
         <div className="d-flex justify-content-center">
               <p className="calculation-padding p-2">Total Sale Amount:</p>
-              <p className="total-calculation">{totalSaleCalculation()}</p>
+              <p className="total-calculation">{dollarFormat.format(calculatedPrice)}</p>
             </div>
 
         {(props.userShares < props.sharesToSell || props.userShares === 0) ? (
@@ -120,6 +187,8 @@ const SellModal = (props) => {
             } else {
               props.onHide();
               console.log("Shares are available");
+              createTransaction();
+              createHoldingRecord();
               setSharesAvailable(true);
               props.setSharesToSell(0)
 

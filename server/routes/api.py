@@ -163,16 +163,21 @@ class HoldingsRecord(Resource):
         company_name = req_data["company_name"]
         company_symbol = req_data["company_symbol"]
         current_shares = req_data["current_shares"]
-        total_cost_basis = req_data["total_cost_basis"] 
+        total_cost_basis = req_data["total_cost_basis"]
+        transaction_type = req_data["transaction_type"] 
         # calculate in backend... crud file.
         # total cost_basis is initally purchase amount
 
         verification = verify_holdings(company_symbol, user_id)
 
         if verification == "No Holdings Record":
-            return jsonify(create_holdings_record(user_id, company_name, company_symbol, current_shares, total_cost_basis))
+            return jsonify(create_holdings_record(user_id, company_name, company_symbol, current_shares, total_cost_basis, transaction_type))
         else:
-            return jsonify(update_holdings_record(user_id, company_symbol, current_shares, total_cost_basis))
+            return jsonify(update_holdings_record(user_id, company_symbol, current_shares, total_cost_basis, transaction_type))
+        # elif transaction_type == "Buy":
+        #     return jsonify(update_holdings_record(user_id, company_symbol, current_shares, total_cost_basis, transaction_type))
+        # elif transaction_type == "Sell":
+        #     return jsonify(update_holdings_record_sell(user_id, company_symbol, current_shares, total_cost_basis, transaction_type))
 
 
         

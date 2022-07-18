@@ -33,6 +33,7 @@ const TradePage = () => {
   const [sharesToSell, setSharesToSell] = useState(0)
   const [sharesToBuy, setSharesToBuy] = useState(0)
   const [userShares, setUserShares] = useState(0)
+  const [transactionType, setTransactionType] = useState("")
 
 
   // useEffect(() => {
@@ -338,6 +339,7 @@ const TradePage = () => {
                         handleShowBuy();
                         getCashBalance();
                         getHoldingsData()
+                        setTransactionType("Buy")
                       }}
                     >
                       Buy Shares
@@ -354,6 +356,7 @@ const TradePage = () => {
                       show={showBuyModal}
                       userId={userId}
                       userShares={userShares}
+                      transactionType={transactionType}
                       onHide={() => {
                         setShowBuyModal(false);
                         setSharesToBuy(0)
@@ -369,6 +372,7 @@ const TradePage = () => {
                         handleShowSell();
                         getCashBalance();
                         getHoldingsData()
+                        setTransactionType("Sell")
                       }}
                     >
                       Sell Shares
@@ -376,11 +380,14 @@ const TradePage = () => {
                     <SellModal
                       latestPrice={data[0]?.latestPrice}
                       companyName={data[0]?.companyName}
-                      userCashBalance={dollarFormat.format(userCashBalance)}
+                      stockSymbol={data[0]?.symbol}
+                      userCashBalance={userCashBalance}
+                      userId={userId}
                       show={showSellModal}
                       setSharesToSell={setSharesToSell}
                       sharesToSell={sharesToSell}
                       userShares={userShares}
+                      transactionType={transactionType}
                       onHide={() => {
                         setShowSellModal(false);
                         setSharesToSell(0)

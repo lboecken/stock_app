@@ -6,7 +6,7 @@ class Cash_Balance(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     username = db.Column(db.String, db.ForeignKey('users.username'))
     # the_user = db.relationship("User", backref=backref("users", uselist=False))
-    cash_balance = db.Column(db.Float, default=100000)
+    cash_balance = db.Column(db.Numeric, default=100000)
     
     def __repr__(self):
         return f"<Cash_Balance(id:{self.id}, UserId: {self.user_id}, User:{self.username}, Cash_Balance:{self.cash_balance})>"

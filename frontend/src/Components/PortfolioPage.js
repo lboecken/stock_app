@@ -35,7 +35,7 @@ const PortfolioPage = () => {
   async function getTotalHoldings() {
     await axios.get("api/totalholdings/" + userId).then((res) => {
       console.log(res.data)
-      // setTotalHoldings(res.data)
+      setTotalHoldings(res.data)
       
     })
   }

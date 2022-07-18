@@ -1,5 +1,7 @@
+from hmac import trans_36
 import json
-from tokenize import Double
+from decimal import Decimal
+from xxlimited import new
 import bcrypt
 from server.db_connection import db
 
@@ -75,9 +77,16 @@ def get_cash_balance(username):
 
 
 
-def update_cash_balance(userId, shares, costBasis):
-    print("update cash balance")
-    
+def update_cash_balance(user_id, costBasis, transaction_type):
+
+     query = Cash_Balance.query.filter_by(user_id=user_id).first()
+     if transaction_type == "Buy":
+         query.cash_balance = query.cash_balance - Decimal(costBasis)
+     elif transaction_type == "Sell":
+         query.cash_balance = query.cash_balance + Decimal(costBasis)
+    #  query.cash_balance = Decimal(12000)
+     db.session.commit()
+     
 
 
 def create_holdings_record(
@@ -85,7 +94,8 @@ def create_holdings_record(
     company_name,
     company_symbol,
     current_shares,
-    total_cost_basis
+    total_cost_basis,
+    transaction_type
 ):
     new_holdings_record = Holdings(
         user_id=userid,
@@ -95,17 +105,29 @@ def create_holdings_record(
         total_cost_basis=total_cost_basis,
 
     )
+    update_cash_balance(userid, Decimal(total_cost_basis), transaction_type) 
     db.session.add(new_holdings_record)
     db.session.commit()
 
     return "Holdings Record Created"
 
 
-def update_holdings_record(userId, company_symbol, shares, costBasis):
+def update_holdings_record(userId, company_symbol, shares, costBasis, transaction_type):
     query = Holdings.query.filter_by(company_symbol=company_symbol, user_id=userId).first()
-    query.current_shares = (query.current_shares + int(shares))
-    query.total_cost_basis = (query.total_cost_basis + float(costBasis))
-    db.session.commit()
+
+    if transaction_type == "Buy":
+        print("Buy Transaction")
+        query.current_shares = (query.current_shares + int(shares))
+        query.total_cost_basis = (query.total_cost_basis + Decimal(costBasis))
+        update_cash_balance(userId, costBasis, transaction_type) 
+        db.session.commit()
+
+    elif transaction_type == "Sell":
+        query.current_shares = (query.current_shares - int(shares))
+        query.total_cost_basis = (query.total_cost_basis - Decimal(costBasis))
+        update_cash_balance(userId, costBasis,transaction_type) 
+        db.session.commit()
+ 
 
     return "Holdings Record Updated"
 
@@ -181,3 +203,5 @@ def create_transaction_record(
     db.session.commit()
 
     return "Transaction Record Created"
+
+

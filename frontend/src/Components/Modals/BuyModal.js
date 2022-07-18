@@ -28,14 +28,14 @@ const BuyModal = (props) => {
     totalPurchaseCalculation();
   }, [props.sharesToBuy, calculatedPrice]);
 
-  const createBuyTransaction = () => {
+  const createTransaction = () => {
     const transactionData = {
       user_id: props.userId,
       company_name: props.companyName,
       company_symbol: props.stockSymbol,
       shares: props.sharesToBuy,
       cost_basis: props.latestPrice.toFixed(2),
-      transaction_type: "Buy",
+      transaction_type: props.transactionType,
       transaction_total: calculatedPrice.toFixed(2)
     };
     if (props.sharesToBuy > 0) {
@@ -56,9 +56,35 @@ const BuyModal = (props) => {
   };
 }
 
-const createHoldingRecord = () => {}
+  const createHoldingRecord = () => {
+    const HoldingsData = {
+      user_id: props.userId,
+      company_name: props.companyName,
+      company_symbol: props.stockSymbol,
+      current_shares: props.sharesToBuy,
+      total_cost_basis: calculatedPrice.toFixed(2),
+      transaction_type: props.transactionType
+    };
+    if (props.sharesToBuy > 0) {
 
-// console.log(props.userHoldings)
+    axios
+      .post("/api/holdings", HoldingsData, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        return res;
+      })
+      .catch((error) => {
+        console.log("There was an error!", error);
+      });
+  };
+
+  }
+
+
 
 
   let dollarFormat = new Intl.NumberFormat("en-US", {
@@ -164,7 +190,8 @@ const createHoldingRecord = () => {}
             } else {
               props.onHide();
               console.log("Funds are available");
-              createBuyTransaction();
+              createTransaction();
+              createHoldingRecord();
               setCashAvailable(true);
               props.setSharesToBuy(0);
             }
