@@ -91,6 +91,7 @@ def update_cash_balance(user_id, costBasis, transaction_type):
 
 def create_holdings_record(
     userid,
+    username,
     company_name,
     company_symbol,
     current_shares,
@@ -99,6 +100,7 @@ def create_holdings_record(
 ):
     new_holdings_record = Holdings(
         user_id=userid,
+        username=username,
         company_name=company_name,
         company_symbol=company_symbol,
         current_shares=current_shares,
@@ -124,7 +126,12 @@ def update_holdings_record(userId, company_symbol, shares, costBasis, transactio
 
     elif transaction_type == "Sell":
         query.current_shares = (query.current_shares - int(shares))
-        query.total_cost_basis = (query.total_cost_basis - Decimal(costBasis))
+        if  query.current_shares == 0:
+            query.total_cost_basis = 0
+        
+        else: 
+            query.total_cost_basis = (query.total_cost_basis - Decimal(costBasis))
+
         update_cash_balance(userId, costBasis,transaction_type) 
         db.session.commit()
  
@@ -132,7 +139,7 @@ def update_holdings_record(userId, company_symbol, shares, costBasis, transactio
     return "Holdings Record Updated"
 
 
-def get_share_holdings(userId):
+def get_share_holdings(username):
 #    def the_shares(obj):
 #         new_item = [obj.obj_to_dict()]
 #         return new_item
@@ -141,7 +148,7 @@ def get_share_holdings(userId):
         new_dict = [item.obj_to_dict() for item in objlist]
         return new_dict
     
-   share_holdings = dict_helper(Holdings.query.filter_by(user_id=userId).all())
+   share_holdings = dict_helper(Holdings.query.filter_by(username=username).all())
   
    return share_holdings
 

@@ -6,6 +6,7 @@ class Holdings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     # the_user = db.relationship("User", backref=backref("users", uselist=False))
+    username = db.Column(db.String, db.ForeignKey('users.username'))
     company_name = db.Column(db.String)
     company_symbol = db.Column(db.String)
     current_shares = db.Column(db.Integer, default=0)

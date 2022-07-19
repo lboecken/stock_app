@@ -18,6 +18,7 @@ const BuyModal = (props) => {
   const [cashAvailable, setCashAvailable] = useState(true);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
 
+
   useEffect(() => {
    
     if (props.userCashBalance < calculatedPrice) {
@@ -28,9 +29,12 @@ const BuyModal = (props) => {
     totalPurchaseCalculation();
   }, [props.sharesToBuy, calculatedPrice]);
 
+
+
   const createTransaction = () => {
     const transactionData = {
       user_id: props.userId,
+      username: props.signedInUser,
       company_name: props.companyName,
       company_symbol: props.stockSymbol,
       shares: props.sharesToBuy,
@@ -59,6 +63,7 @@ const BuyModal = (props) => {
   const createHoldingRecord = () => {
     const HoldingsData = {
       user_id: props.userId,
+      username: props.signedInUser,
       company_name: props.companyName,
       company_symbol: props.stockSymbol,
       current_shares: props.sharesToBuy,
@@ -83,7 +88,6 @@ const BuyModal = (props) => {
   };
 
   }
-
 
 
 
@@ -194,6 +198,7 @@ const BuyModal = (props) => {
               createHoldingRecord();
               setCashAvailable(true);
               props.setSharesToBuy(0);
+              window.location.reload()
             }
           }}
         >

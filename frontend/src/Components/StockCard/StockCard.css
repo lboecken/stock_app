@@ -5,7 +5,7 @@
   max-width: 295px !important;
   background-color: #e6dfcb !important;
   border: none !important;
-  border-radius: 50px !important;
+  border-radius: 20% !important;
   color: black !important;
   overflow-wrap: break-word !important;
   word-wrap: break-word !important;
@@ -37,3 +37,14 @@ color: whitesmoke;
     display: flex;
     justify-content: center !important;
 }
+
+#stock-card .card-header {
+  width: 80%;
+  background-color: #e6dfcb;
+ 
+  
+}
+
+/* #container .maincontainer {
+  background-color: goldenrod !important;
+} */

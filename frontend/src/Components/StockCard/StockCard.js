@@ -4,15 +4,17 @@ import { useState } from "react";
 import "./StockCard.css";
 import Tilty from "react-tilty";
 import { Button } from "react-bootstrap";
-import BuyModal from "../Modals/BuyModal";
-import SellModal from "../Modals/SellModal";
 
-const StockCard = () => {
-  const [showBuyModal, setShowBuyModal] = useState(false);
-  const [showSellModal, setShowSellModal] = useState(false);
-  const handleShowBuy = () => setShowBuyModal(true);
-  const handleShowSell = () => setShowSellModal(true);
-
+const StockCard = ({
+  companyName,
+  companySymbol,
+  currentShares,
+  totalCostBasis,
+  latestPrice,
+  setStockSymbol,
+  stockSymbol,
+  getStockDetails,
+}) => {
   return (
     <Tilty scale={1.02} max="0" easing="cubic-bezier(.03,.98,.52,.99)">
       <div className="maincontainer">
@@ -22,25 +24,33 @@ const StockCard = () => {
               <div className="container">
                 <div id="stock-card" className="d-flex justify-content-center">
                   <div className="card">
-                    <div className="text-center pt-3">
-                      {/* <img
-                      src={logo}
-                      className="penguin-logo-signin"
-                      alt="penguin-logo"
-                    ></img> */}
-                    </div>
-                    <div className="title-spacing">
-                      <h3>Apple Inc.</h3>
+                    <div className="text-center"></div>
+                    <div className="card-header">
+                      <h4>{companySymbol}</h4>
+                      <h7>{companyName}</h7>
                     </div>
                     <div class="card-body">
-                      <div className="card-text mb-4">Share Price: $109.22</div>
-                      <div className="card-text mb-4">Current Shares: 5</div>
                       <div className="card-text mb-4">
-                        Value of Shares: $546.10
+                        Current Share Price: {latestPrice}
                       </div>
-                    <div>
-                      <Button className="vd-button mb-2">View Details</Button>
-                    </div>
+                      <div className="card-text mb-4">
+                        Current Shares:{currentShares}
+                      </div>
+                      <div className="card-text mb-4">
+                        Total Cost Basis: {totalCostBasis}
+                      </div>
+                      <div>
+                        <Button
+                          className="vd-button mb-2"
+                          onClick={() => {
+                            setStockSymbol(companyName);
+                            console.log(stockSymbol);
+                            // getStockDetails()
+                          }}
+                        >
+                          View Details
+                        </Button>
+                      </div>
                     </div>
                     {/* <div>
                       <Button

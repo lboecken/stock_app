@@ -160,6 +160,7 @@ class HoldingsRecord(Resource):
     def post(self):
         req_data = request.get_json()
         user_id = req_data["user_id"]
+        username = req_data["username"]
         company_name = req_data["company_name"]
         company_symbol = req_data["company_symbol"]
         current_shares = req_data["current_shares"]
@@ -171,7 +172,7 @@ class HoldingsRecord(Resource):
         verification = verify_holdings(company_symbol, user_id)
 
         if verification == "No Holdings Record":
-            return jsonify(create_holdings_record(user_id, company_name, company_symbol, current_shares, total_cost_basis, transaction_type))
+            return jsonify(create_holdings_record(user_id, username, company_name, company_symbol, current_shares, total_cost_basis, transaction_type))
         else:
             return jsonify(update_holdings_record(user_id, company_symbol, current_shares, total_cost_basis, transaction_type))
         # elif transaction_type == "Buy":
@@ -181,10 +182,10 @@ class HoldingsRecord(Resource):
 
 
         
-@api.route("/totalholdings/<userid>")
+@api.route("/totalholdings/<username>")
 class GetTotalHoldings(Resource):
-    def get(self, userid):
-        return jsonify(get_total_holdings(userid))
+    def get(self, username):
+        return jsonify(get_total_holdings(username))
 
 
         
