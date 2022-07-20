@@ -1,9 +1,10 @@
 import React from "react";
 import Fade from "react-reveal/Fade";
-import { useState } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import "./StockCard.css";
 import Tilty from "react-tilty";
 import { Button } from "react-bootstrap";
+import { truncate } from "../Handlers"
 
 const StockCard = ({
   companyName,
@@ -11,10 +12,32 @@ const StockCard = ({
   currentShares,
   totalCostBasis,
   latestPrice,
-  setStockSymbol,
-  stockSymbol,
-  getStockDetails,
+  runSearch,
+  onSearch,
 }) => {
+  let dollarFormat = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
+  const isMounted = useRef(false);
+  const [dismount, setDismount] = useState(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      runSearch();
+    } else {
+      isMounted.current = true;
+    }
+  }, [dismount]);
+
+  // const truncate = (input) => {
+  //   if (input.length > 28) {
+  //     return input.substring(0, 28) + '...'
+  //   } 
+  //   return input
+  // }
+
   return (
     <Tilty scale={1.02} max="0" easing="cubic-bezier(.03,.98,.52,.99)">
       <div className="maincontainer">
@@ -27,25 +50,24 @@ const StockCard = ({
                     <div className="text-center"></div>
                     <div className="card-header">
                       <h4>{companySymbol}</h4>
-                      <h7>{companyName}</h7>
+                      <h7>{truncate(companyName)}</h7>
                     </div>
                     <div class="card-body">
                       <div className="card-text mb-4">
                         Current Share Price: {latestPrice}
                       </div>
                       <div className="card-text mb-4">
-                        Current Shares:{currentShares}
+                        Current Shares: {currentShares}
                       </div>
                       <div className="card-text mb-4">
-                        Total Cost Basis: {totalCostBasis}
+                        Total Cost Basis: {dollarFormat.format(totalCostBasis)}
                       </div>
                       <div>
                         <Button
                           className="vd-button mb-2"
                           onClick={() => {
-                            setStockSymbol(companyName);
-                            console.log(stockSymbol);
-                            // getStockDetails()
+                            onSearch(companySymbol);
+                            setDismount(!dismount);
                           }}
                         >
                           View Details

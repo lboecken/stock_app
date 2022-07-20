@@ -14,6 +14,7 @@ import { DateTime } from "luxon";
 import Fade from "react-reveal/Fade";
 import testLogo from "../../Images/test-logo.png";
 import useUser from "../useUser";
+import { truncate } from "../Handlers"
 
 const TradePage = () => {
   const [showBuyModal, setShowBuyModal] = useState(false);
@@ -140,14 +141,17 @@ const TradePage = () => {
     });
   };
 
-  // const HoldingsData = userHoldings?.map((holdings) => {
-  //   console.log(holdings)
-  //   return {
-  //   ...holdings
-  //   }
-  // })
 
-  // console.log(HoldingsData)
+
+  const runSearch = () => {
+
+    getStockDetails();
+    getStockLogo();
+    getLastWeekClosingPrices();
+    
+
+  }
+
 
   const data = stockDetails?.map((stock) => {
     const finalClosePrices = lastweekClosingPrices.map((closings) => {
@@ -174,25 +178,17 @@ const TradePage = () => {
   let stock_data = [["Date", "Closing Price"]];
 
   const onSearch = (searchTerm) => {
-    // console.log(searchTerm);
     setSearchValue(searchTerm);
     setStockSymbol(searchTerm);
     setStockLogo(searchTerm);
   };
 
-  // const confirmSearch = () => {
-  //     getStockDetails();
-  //     getStockLogo();
-  //     getLastWeekClosingPrices();
-  //   setSearchValue("")
-  // }
-
-  // console.log(data);
 
   let dollarFormat = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
   });
+
 
   const focusInput = () => {
     const selectInput = document.getElementById("input");
@@ -241,10 +237,11 @@ const TradePage = () => {
             setStockLogo(e.target.value);
           }}
           onKeyUp={(event) => {
-            if (event.key == "Enter") {
-              getStockDetails();
-              getStockLogo();
-              getLastWeekClosingPrices();
+            if (event.key == "Enter" && searchValue !== "") {
+              // getStockDetails();
+              // getStockLogo();
+              // getLastWeekClosingPrices();
+              runSearch()
               onSearch(searchValue);
             }
           }}
@@ -252,12 +249,12 @@ const TradePage = () => {
         ></input>
 
         <Button
+          id="search-button"
           className="search-button"
           onClick={() => {
             if (searchValue !== "") {
-              getStockDetails();
-              getStockLogo();
-              getLastWeekClosingPrices();
+              // runSearch(searchValue);
+              runSearch()
               onSearch(searchValue);
             }
           }}
@@ -323,13 +320,13 @@ const TradePage = () => {
             <div className="card mt-2 mb-3 mx-auto justify-content-center">
               <div id="inner-card" className="mb-3">
                 <div className="card-header d-flex justify-content-between">
-                  <div className="d-flex">
+                  <div className="d-flex justify-content-between">
                     <img
                       className="logo-size logo-padding"
                       src={testLogo}
                     ></img>
                     <div>
-                      <div>{`${data[0]?.companyName}`}</div>
+                      <div>{truncate(data[0]?.companyName)}</div>
                       <div>{`(${data[0]?.symbol})`}</div>
                     </div>
                   </div>
@@ -433,6 +430,8 @@ const TradePage = () => {
           stockSymbol={stockSymbol}
           getStockDetails={getStockDetails}
           userHoldings={userHoldings}
+          runSearch={runSearch}
+          onSearch={onSearch}
         />
       </div>
     </div>
