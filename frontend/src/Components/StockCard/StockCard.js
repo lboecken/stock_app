@@ -1,19 +1,22 @@
 import React from "react";
 import Fade from "react-reveal/Fade";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./StockCard.css";
 import Tilty from "react-tilty";
 import { Button } from "react-bootstrap";
 import { truncate } from "../Handlers"
+import axios from "axios";
 
 const StockCard = ({
   companyName,
   companySymbol,
   currentShares,
   totalCostBasis,
-  latestPrice,
   runSearch,
   onSearch,
+  getStockDetails,
+  stockDetails,
+  latestPrice
 }) => {
   let dollarFormat = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -22,8 +25,10 @@ const StockCard = ({
 
   const isMounted = useRef(false);
   const [dismount, setDismount] = useState(false);
+  const [latestPrices, setLatestPrices] = useState([0])
 
   useEffect(() => {
+    
     if (isMounted.current) {
       runSearch();
     } else {
@@ -31,12 +36,28 @@ const StockCard = ({
     }
   }, [dismount]);
 
-  // const truncate = (input) => {
-  //   if (input.length > 28) {
-  //     return input.substring(0, 28) + '...'
-  //   } 
-  //   return input
-  // }
+  useEffect(() => {
+    getlatestPrice(companySymbol)
+  
+  },[companySymbol]);
+
+
+
+
+  async function getlatestPrice(companySymbol) {
+    await axios.get("api/details/" + companySymbol).then((res) => {
+      if (res.data === "Something Went Wrong") {
+        console.log("There is a problem")
+        // console.log("Stock Details Has No Data...");
+      } else {
+        // console.log({companySymbol: res.data[0]?.symbol, latestPrice: res.data[0]?.latestPrice})
+        setLatestPrices([{companySymbol: res.data[0]?.symbol, latestPrice: res.data[0]?.latestPrice}])
+        
+      }
+    });
+  }
+
+
 
   return (
     <Tilty scale={1.02} max="0" easing="cubic-bezier(.03,.98,.52,.99)">
@@ -54,7 +75,15 @@ const StockCard = ({
                     </div>
                     <div class="card-body">
                       <div className="card-text mb-4">
-                        Current Share Price: {latestPrice}
+                        Current Share Price:  
+                         {latestPrices.map((price) => {
+                          if (price.companySymbol == companySymbol) {
+                            return " " + dollarFormat.format(price.latestPrice)
+                          } else {
+                            return dollarFormat.format(0)
+                          }
+                        })}
+                    
                       </div>
                       <div className="card-text mb-4">
                         Current Shares: {currentShares}

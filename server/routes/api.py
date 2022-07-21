@@ -39,7 +39,6 @@ class GetData(Resource):
             return "Something Went Wrong"
 
 @api.route("/details/<symbol>")
-# @api.route("/details/<symbol>")
 class GetData(Resource):
     def get(self,symbol):
         params = {
@@ -63,6 +62,9 @@ class GetData(Resource):
         except:
             # print("Something Went Wrong")
             return "Something Went Wrong"
+
+
+
 
 @api.route("/lastweek/<symbol>")
 class GetData(Resource):

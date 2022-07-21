@@ -153,6 +153,8 @@ const TradePage = () => {
   }
 
 
+
+
   const data = stockDetails?.map((stock) => {
     const finalClosePrices = lastweekClosingPrices.map((closings) => {
       return closings;
@@ -428,10 +430,12 @@ const TradePage = () => {
         <HoldingsList
           setStockSymbol={setStockSymbol}
           stockSymbol={stockSymbol}
+          stockDetails={stockDetails}
           getStockDetails={getStockDetails}
           userHoldings={userHoldings}
           runSearch={runSearch}
           onSearch={onSearch}
+          
         />
       </div>
     </div>
