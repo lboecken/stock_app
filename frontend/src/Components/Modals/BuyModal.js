@@ -12,9 +12,9 @@ import { useState, useEffect } from "react";
 import "./Modals.css";
 import testLogo from "../../Images/test-logo.png";
 import axios from "axios";
+import { truncateModals, dollarFormat } from "../Handlers";
 
 const BuyModal = (props) => {
-  // console.log(props.latestPrice, props.companyName)
   const [cashAvailable, setCashAvailable] = useState(true);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
 
@@ -90,12 +90,6 @@ const BuyModal = (props) => {
   }
 
 
-
-  let dollarFormat = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
-
   const totalPurchaseCalculation = () => {
     if (props.sharesToBuy > 0) {
       setCalculatedPrice(props.latestPrice * props.sharesToBuy);
@@ -121,7 +115,7 @@ const BuyModal = (props) => {
        <div className="d-flex justify-content-between align-items-center align-self-center">
           <div className="title-margins"><img className="modal-logo-size" src={testLogo}></img></div> 
          
-          <div className="justify-content-center align-items-center align-self-center">{props.companyName}</div>
+          <div className="justify-content-center align-items-center align-self-center">{truncateModals(props.companyName)}</div>
           <div className="">{props.stockSymbol}</div> 
           </div>
         </ModalTitle>

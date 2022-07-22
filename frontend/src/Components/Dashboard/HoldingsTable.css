@@ -1,0 +1,10 @@
+.table td,
+.table th {
+    white-space: no-wrap;
+    width: 1%;
+} 
+
+
+ .text-center {
+    text-align: center !important;
+ }

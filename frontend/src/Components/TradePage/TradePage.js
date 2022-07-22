@@ -14,7 +14,8 @@ import { DateTime } from "luxon";
 import Fade from "react-reveal/Fade";
 import testLogo from "../../Images/test-logo.png";
 import useUser from "../useUser";
-import { truncate } from "../Handlers"
+import { truncate } from "../Handlers";
+import Spinner from "../Spinner";
 
 const TradePage = () => {
   const [showBuyModal, setShowBuyModal] = useState(false);
@@ -36,6 +37,7 @@ const TradePage = () => {
   const [userShares, setUserShares] = useState(0);
   const [transactionType, setTransactionType] = useState("");
   const [userHoldings, setUserHoldings] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // useEffect(() => {
   //   getAllStocks();
@@ -119,41 +121,26 @@ const TradePage = () => {
 
   async function getHoldingsData() {
     await axios.get("api/holdings/" + signedInUser).then((res) => {
-      let holdings = res.data;
+      
       setUserHoldings(res.data);
+
       console.log(res.data);
-
-      // holdings.map((company) => {
-
-      //   if (company.company_symbol === stockSymbol.toUpperCase()) {
-      //     setUserShares(company.current_shares)
-      //     console.log(company.current_shares)
-      //   }
-      // })
     });
   }
 
   const getuserShares = () => {
-    userHoldings.map((company) => {
+    userHoldings.holdings.map((company) => {
       if (company.company_symbol === stockSymbol.toUpperCase()) {
         setUserShares(company.current_shares);
       }
     });
   };
 
-
-
   const runSearch = () => {
-
     getStockDetails();
     getStockLogo();
     getLastWeekClosingPrices();
-    
-
-  }
-
-
-
+  };
 
   const data = stockDetails?.map((stock) => {
     const finalClosePrices = lastweekClosingPrices.map((closings) => {
@@ -186,12 +173,6 @@ const TradePage = () => {
   };
 
 
-  let dollarFormat = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
-
-
   const focusInput = () => {
     const selectInput = document.getElementById("input");
     selectInput.focus();
@@ -211,17 +192,6 @@ const TradePage = () => {
       </div>
     );
   });
-
-  let trendingUp = "";
-  let trend = "";
-
-  if (Math.sign(data[0]?.priceChange) === -1) {
-    trendingUp = false;
-    trend = "\u25BC"; // down arrow
-  } else {
-    trendingUp = true;
-    trend = "\u25B2"; //up arrow
-  }
 
   return (
     <div className="body-font">
@@ -243,7 +213,7 @@ const TradePage = () => {
               // getStockDetails();
               // getStockLogo();
               // getLastWeekClosingPrices();
-              runSearch()
+              runSearch();
               onSearch(searchValue);
             }
           }}
@@ -256,7 +226,7 @@ const TradePage = () => {
           onClick={() => {
             if (searchValue !== "") {
               // runSearch(searchValue);
-              runSearch()
+              runSearch();
               onSearch(searchValue);
             }
           }}
@@ -321,36 +291,12 @@ const TradePage = () => {
           <Fade top duration={1000} delay={100} distance="30px">
             <div className="card mt-2 mb-3 mx-auto justify-content-center">
               <div id="inner-card" className="mb-3">
-                <div className="card-header d-flex justify-content-between">
-                  <div className="d-flex justify-content-between">
-                    <img
-                      className="logo-size logo-padding"
-                      src={testLogo}
-                    ></img>
-                    <div>
-                      <div>{truncate(data[0]?.companyName)}</div>
-                      <div>{`(${data[0]?.symbol})`}</div>
-                    </div>
-                  </div>
-                  <div className="">
-                    <div>Current Price</div>
-                    <div>{dollarFormat.format(data[0]?.latestPrice)}</div>
-                  </div>
-                  <div
-                    style={trendingUp ? { color: "green" } : { color: "red" }}
-                  >
-                    <div> Price Change </div>
-
-                    <div className="trend-padding">
-                      {dollarFormat.format(data[0]?.priceChange)} {trend}
-                    </div>
-                  </div>
-                </div>
-
                 <Chart
                   stock_data={stock_data}
                   companyName={data[0]?.companyName}
                   priceChange={data[0]?.priceChange}
+                  latestPrice={data[0]?.latestPrice}
+                  companySymbol={data[0]?.symbol}
                 />
                 <div className="d-flex justify-content-center mt-3">
                   <div className="stock-button-spacing">
@@ -426,16 +372,25 @@ const TradePage = () => {
           </Fade>
         </div>
       )}
+      {loading ? (
+        <div>
+          <h6 className="text-center">Loading Holdings Data...</h6>
+
+          <Spinner />
+        </div>
+      ) : (
+        ""
+      )}
+
       <div>
         <HoldingsList
           setStockSymbol={setStockSymbol}
           stockSymbol={stockSymbol}
-          stockDetails={stockDetails}
-          getStockDetails={getStockDetails}
           userHoldings={userHoldings}
           runSearch={runSearch}
           onSearch={onSearch}
-          
+          getHoldingsData={getHoldingsData}
+          setLoading={setLoading}
         />
       </div>
     </div>

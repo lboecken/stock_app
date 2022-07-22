@@ -10,15 +10,16 @@ import {
 import InputSpinner from "react-bootstrap-input-spinner";
 import "./Modals.css";
 import testLogo from "../../Images/test-logo.png";
+import { truncateModals, dollarFormat } from "../Handlers";
 import axios from "axios";
 
 const SellModal = (props) => {
   const [sharesAvailable, setSharesAvailable] = useState(true);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
 
-useEffect (() => {
-  totalSaleCalculation()
-},[props.sharesToSell, calculatedPrice])
+  useEffect(() => {
+    totalSaleCalculation();
+  }, [props.sharesToSell, calculatedPrice]);
 
   const createTransaction = () => {
     const transactionData = {
@@ -28,78 +29,59 @@ useEffect (() => {
       shares: props.sharesToSell,
       cost_basis: props.latestPrice.toFixed(2),
       transaction_type: props.transactionType,
-      transaction_total: calculatedPrice.toFixed(2)
+      transaction_total: calculatedPrice.toFixed(2),
     };
     if (props.sharesToSell > 0) {
-
-    axios
-      .post("/api/transactions", transactionData, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => {
-        return res;
-      })
-      .catch((error) => {
-        console.log("There was an error!", error);
-      });
+      axios
+        .post("/api/transactions", transactionData, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          return res;
+        })
+        .catch((error) => {
+          console.log("There was an error!", error);
+        });
+    }
   };
-}
 
-
-const createHoldingRecord = () => {
-  const HoldingsData = {
-    user_id: props.userId,
-    company_name: props.companyName,
-    company_symbol: props.stockSymbol,
-    current_shares: props.sharesToSell,
-    total_cost_basis: calculatedPrice.toFixed(2),
-    transaction_type: props.transactionType
+  const createHoldingRecord = () => {
+    const HoldingsData = {
+      user_id: props.userId,
+      company_name: props.companyName,
+      company_symbol: props.stockSymbol,
+      current_shares: props.sharesToSell,
+      total_cost_basis: calculatedPrice.toFixed(2),
+      transaction_type: props.transactionType,
+    };
+    if (props.sharesToSell > 0) {
+      axios
+        .post("/api/holdings", HoldingsData, {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          return res;
+        })
+        .catch((error) => {
+          console.log("There was an error!", error);
+        });
+    }
   };
-  if (props.sharesToSell > 0) {
-
-  axios
-    .post("/api/holdings", HoldingsData, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((error) => {
-      console.log("There was an error!", error);
-    });
-};
-
-}
-
-
-
-
-
-
-
-
-  let dollarFormat = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
-
 
   const totalSaleCalculation = () => {
-   
     if (props.sharesToSell > 0) {
-      setCalculatedPrice(props.latestPrice * props.sharesToSell) 
+      setCalculatedPrice(props.latestPrice * props.sharesToSell);
       // return dollarFormat.format(calculatedPrice);
     } else {
       setCalculatedPrice(0);
     }
   };
-
 
   return (
     <Modal
@@ -109,9 +91,17 @@ const createHoldingRecord = () => {
       size="lg"
     >
       <ModalHeader closeButton>
-        <ModalTitle>
-          <img className="modal-logo-size" src={testLogo}></img>{" "}
-          {props.companyName}
+        <ModalTitle className="mx-auto">
+          <div className="d-flex justify-content-between align-items-center align-self-center">
+            <div className="title-margins">
+              <img className="modal-logo-size" src={testLogo}></img>
+            </div>
+
+            <div className="justify-content-center align-items-center align-self-center">
+              {truncateModals(props.companyName)}
+            </div>
+            <div className="">{props.stockSymbol}</div>
+          </div>
         </ModalTitle>
       </ModalHeader>
       <ModalBody className="body-text">
@@ -129,7 +119,9 @@ const createHoldingRecord = () => {
 
           <div className="right">
             <p className="">Account Balance:</p>
-            <p className="numbers-font">{dollarFormat.format(props.userCashBalance)}</p>
+            <p className="numbers-font">
+              {dollarFormat.format(props.userCashBalance)}
+            </p>
           </div>
         </div>
 
@@ -150,24 +142,25 @@ const createHoldingRecord = () => {
               // setSharesToSell(value);
               // console.log(props.sharesToSell)
               // console.log(sharesAvailable)
-       
+
               if (value > props.userShares) {
                 setSharesAvailable(false);
-                
+
                 // console.log("value is greater than shares owned");
               } else if (value <= props.userShares) {
                 setSharesAvailable(true);
-                
               }
             }}
           />
         </div>
         <div className="d-flex justify-content-center">
-              <p className="calculation-padding p-2">Total Sale Amount:</p>
-              <p className="total-calculation">{dollarFormat.format(calculatedPrice)}</p>
-            </div>
+          <p className="calculation-padding p-2">Total Sale Amount:</p>
+          <p className="total-calculation">
+            {dollarFormat.format(calculatedPrice)}
+          </p>
+        </div>
 
-        {(props.userShares < props.sharesToSell || props.userShares === 0) ? (
+        {props.userShares < props.sharesToSell || props.userShares === 0 ? (
           <p className="no-shares">
             You do not have enough shares to complete this transaction.
           </p>
@@ -177,7 +170,6 @@ const createHoldingRecord = () => {
         <Button
           className="modal_btn mx-auto"
           onClick={() => {
-           
             if (!sharesAvailable || props.userShares === 0) {
               console.log(
                 "You do not have enough shares to complete the transaction."
@@ -190,8 +182,7 @@ const createHoldingRecord = () => {
               createTransaction();
               createHoldingRecord();
               setSharesAvailable(true);
-              props.setSharesToSell(0)
-
+              props.setSharesToSell(0);
             }
           }}
         >

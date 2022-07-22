@@ -10,6 +10,7 @@ from flask_jwt_extended import (
     jwt_required,
     get_jwt_identity,
 )
+from server.api_requests import *
 
 # from server import socketio_socket
 
@@ -18,6 +19,7 @@ api = Api(api_blueprint)
 
 
 stock_token = os.environ.get("IEX_API_KEY_SANDBOX")
+# stock_token = os.environ.get("IEX_API_KEY")
 # url_suffix = f"?token={stock_token}"
 # base_url = f"https://cloud.iexapis.com/stable/"
 # stock/aapl/quote?
@@ -41,27 +43,25 @@ class GetData(Resource):
 @api.route("/details/<symbol>")
 class GetData(Resource):
     def get(self,symbol):
-        params = {
-           
-        }
 
+        return get_stock_info(symbol, stock_token)
+      
         # searchedStock = request.args.get("searchTerm")
 
-        try: 
-            # r = requests.get(f"https://cloud.iexapis.com/stable/stock/{symbol}/quote?token={stock_token}")
-            r = requests.get(f"https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={stock_token}")
+        # try: 
+        #     # r = requests.get(f"https://cloud.iexapis.com/stable/stock/{symbol}/quote?token={stock_token}")
+        #     r = requests.get(f"https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={stock_token}")
 
-            company = r.json()["companyName"]
-            latestPrice = r.json()["latestPrice"]
-            symbol = r.json()["symbol"]
-            priceChange = r.json()["change"]
+        #     company = r.json()["companyName"]
+        #     latestPrice = r.json()["latestPrice"]
+        #     symbol = r.json()["symbol"]
+        #     priceChange = r.json()["change"]
 
-            data = [{"companyName":company, "latestPrice":latestPrice, "symbol":symbol, "priceChange":priceChange}]
-            # print(data)
-            return data
-        except:
-            # print("Something Went Wrong")
-            return "Something Went Wrong"
+        #     data = [{"companyName":company, "latestPrice":latestPrice, "symbol":symbol, "priceChange":priceChange}]
+          
+        #     return data
+        # except:
+        #     return "Something Went Wrong"
 
 
 
@@ -158,6 +158,8 @@ class GetSingleUser(Resource):
 @api.route("/holdings")
 class HoldingsRecord(Resource):
 
+ 
+
 
     def post(self):
         req_data = request.get_json()
@@ -177,10 +179,7 @@ class HoldingsRecord(Resource):
             return jsonify(create_holdings_record(user_id, username, company_name, company_symbol, current_shares, total_cost_basis, transaction_type))
         else:
             return jsonify(update_holdings_record(user_id, company_symbol, current_shares, total_cost_basis, transaction_type))
-        # elif transaction_type == "Buy":
-        #     return jsonify(update_holdings_record(user_id, company_symbol, current_shares, total_cost_basis, transaction_type))
-        # elif transaction_type == "Sell":
-        #     return jsonify(update_holdings_record_sell(user_id, company_symbol, current_shares, total_cost_basis, transaction_type))
+       
 
 
         
@@ -191,10 +190,55 @@ class GetTotalHoldings(Resource):
 
 
         
-@api.route("/holdings/<userid>")
+@api.route("/holdings/<username>")
 class GetShares(Resource):
-    def get(self, userid):
-       return jsonify(get_share_holdings(userid))
+    def get(self, username):
+
+        # for each object... get details and add to object the latest price 
+ 
+        # get_latest_price = get_stock_info(symbol, stock_token)
+        # return jsonify(holdings)
+
+        # total = []
+
+        holdings = get_share_holdings(username)
+        total_cost = 0
+        total_value = 0
+
+        for holding in holdings:
+            total_cost += holding["total_cost_basis"]
+            # total_value += holding[current_price]
+            
+            get_latest_price = get_stock_info(holding["company_symbol"], stock_token)
+
+            for data in get_latest_price:
+                if holding["company_symbol"] == data["symbol"]:
+                    holding["current_price"] = data["latestPrice"]
+                    total_value += holding["current_price"]
+
+
+            # return get_latest_price
+            #search/lookup matching symbol in get_latest_price, attach to obj[current_price]
+            # print(get_latest_price)
+
+        return jsonify({
+            "holdings": holdings,
+            "total_value": round(total_value, 2),
+            "total_cost": total_cost
+
+        
+        })
+
+
+
+            # return jsonify(get_latest_price)
+            # total.append(get_latest_price, obj)
+            # return obj
+           
+
+
+      
+    
 
         
 
