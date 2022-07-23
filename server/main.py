@@ -1,6 +1,6 @@
 # from server import create_app
 from flask import send_from_directory
-from . import create_app
+from server import create_app
 # from . import create_app, socketio_socket
 from flask_sqlalchemy import SQLAlchemy
 # from flask_cli import FlaskGroup
