@@ -13,8 +13,6 @@ load_dotenv('.env')
 
 # socketio_socket = SocketIO()
 
-DB_HOST = os.environ.get("DB_HOST")
-DB_URI = os.environ.get("DB_URI")
 
 def create_app():
 
@@ -28,12 +26,12 @@ def create_app():
     app.config["IEX_API_KEY_SANDBOX"] = os.environ.get("IEX_API_KEY_SANDBOX")
     # print(os.environ.get("IEX_API_KEY_SANDBOX"))
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost:5432/stock_app'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'{DB_URI}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
     # app.host = f"localhost"
-    app.host = f"{DB_HOST}"
+    app.host = os.environ.get("DB_HOST")
     db.init_app(app)
     # socketio_socket.init_app(app)
 
