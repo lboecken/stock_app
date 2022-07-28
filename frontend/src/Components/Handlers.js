@@ -18,3 +18,8 @@ export const truncateModals = (input) => {
   } 
   return input
 }
+
+export const capitalize = (str) => {
+   let capitalizedUser = str.charAt(0).toUpperCase() + str.slice(1);
+   return capitalizedUser
+ }

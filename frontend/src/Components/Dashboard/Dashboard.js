@@ -5,6 +5,7 @@ import DashboardNavBar from "./DashboardNavbar";
 import HoldingsTable from "./HoldingsTable";
 import axios from "axios";
 import useUser from '../useUser';
+import { capitalize } from "../Handlers";
 // import io from "socket.io-client";
 // import { useOutletContext } from 'react-router-dom';
 
@@ -32,11 +33,7 @@ useEffect(() => {
     });
   }
 
-  const capitalize = (str) => {
-   let capitalizedUser = str.charAt(0).toUpperCase() + str.slice(1);
-    return capitalizedUser
-  }
-
+  
   // console.log(signedInUser)
 
 // useEffect(() => {
