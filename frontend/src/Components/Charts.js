@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import { truncate, dollarFormat } from "./Handlers";
 import testLogo from "../Images/test-logo.png";
@@ -10,10 +10,8 @@ const Charts = ({
   latestPrice,
   companySymbol,
 }) => {
-  
   let trendingUp = "";
   let trend = "";
-
 
   if (Math.sign(priceChange) === -1) {
     trendingUp = false;
@@ -34,39 +32,52 @@ const Charts = ({
     vAxis: { title: "Price in USD" },
     pointSize: 10,
     areaOpacity: 0.2,
+    chartArea: { width: "50%", height: "70%" },
   };
 
   return (
     <>
-      <div className="card-header d-flex justify-content-between">
-        <div className="d-flex justify-content-between">
-          <img className="logo-size logo-padding" src={testLogo}></img>
-          <div>
+      <div className="container">
+        <div className="row card-header">
+          {/* <div className="card-header d-flex justify-content-between"> */}
+
+          {/* <div className="col-4 d-flex justify-content-between"> */}
+          <div className="col-sm mt-2">
+
+          <img className="logo-size" src={testLogo}></img>
+          </div>
+          <div className="col-sm mt-2">
             <div>{truncate(companyName)}</div>
             <div>{`(${companySymbol})`}</div>
           </div>
-        </div>
-        <div className="">
-          <div>Current Price</div>
-          <div>{dollarFormat.format(latestPrice)}</div>
-        </div>
-        <div style={trendingUp ? { color: "green" } : { color: "red" }}>
-          <div> Price Change </div>
+          <div className="col-sm mt-2">
+            <div>Current Price</div>
+            <div>{dollarFormat.format(latestPrice)}</div>
+          </div>
+          <div
+            className="col-sm mt-2"
+            style={trendingUp ? { color: "green" } : { color: "red" }}
+          >
+            <div> Price Change </div>
 
-          <div className="trend-padding">
-            {dollarFormat.format(priceChange)} {trend}
+            <div className="trend-padding">
+              {/* <div className="col-4 trend-padding"> */}
+              {trend} {dollarFormat.format(priceChange)}
+            </div>
           </div>
         </div>
-      </div>
-
       <Chart
+        // key={key}
         chartType="AreaChart"
         width="100%"
         height="400px"
+        // height="100%"
         data={stock_data}
         options={options}
       />
+      </div>
     </>
+
   );
 };
 

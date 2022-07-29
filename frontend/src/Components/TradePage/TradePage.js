@@ -289,7 +289,7 @@ const TradePage = () => {
       ) : (
         <div id="details" className="">
           <Fade top duration={1000} delay={100} distance="30px">
-            <div className="card mt-2 mb-3 mx-auto justify-content-center">
+            <div className="mt-2 mb-3 mx-auto justify-content-center">
               <div id="inner-card" className="mb-3">
                 <Chart
                   stock_data={stock_data}
@@ -306,7 +306,6 @@ const TradePage = () => {
                         handleShowBuy();
                         getCashBalance();
                         getuserShares();
-
                         setTransactionType("Buy");
                       }}
                     >
