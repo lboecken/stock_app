@@ -8,9 +8,11 @@ import { dollarFormat } from "./Handlers";
 import useUser from "./useUser";
 import AnimatedNumber from "react-animated-number";
 import { capitalize } from "./Handlers";
+import PortfolioCharts from "./PortfolioCharts";
 
 const PortfolioPage = () => {
-  const [totalholdings, setTotalHoldings] = useState(0);
+  const [totalHoldingsValue, setTotalHoldingsValue] = useState(0);
+  const [totalHoldings, setTotalHoldings] = useState(0);
   const { signedInUser } = useUser();
 
   useEffect(() => {
@@ -19,7 +21,8 @@ const PortfolioPage = () => {
 
   async function getHoldingsData() {
     await axios.get("api/holdings/" + signedInUser).then((res) => {
-      setTotalHoldings(res.data.total_value);
+      setTotalHoldingsValue(res.data.total_value);
+      setTotalHoldings(res.data)
 
       console.log(res.data);
     });
@@ -30,16 +33,16 @@ const PortfolioPage = () => {
       <DashboardNavBar />
 
       <Fade bottom duration={1000} delay={200} distance="30px">
-        <div className="my-4" style={{fontSize:"30px"}}>{capitalize(signedInUser)}'s Portfolio</div>
+        <div className="my-4" style={{fontSize:"35px"}}>{capitalize(signedInUser)}'s Portfolio</div>
 
-        <div className="d-flex justify-content-center align-items-center">
+        <div className="d-flex mb-3 justify-content-center align-items-center">
           {/* Cash Balance
       Total Holdings */}
-          <div>Total Value of All Shares: </div>
+          <div className="">Total Value of All Shares: </div>
           <AnimatedNumber
             component="text"
             initialValue={50}
-            value={totalholdings}
+            value={totalHoldingsValue}
             stepPrecision={0}
             style={{
               transition: "0.8s ease-out",
@@ -49,6 +52,12 @@ const PortfolioPage = () => {
             duration={1000}
             formatValue={(n) => dollarFormat.format(n)}
           />
+        </div>
+        <div className="">
+
+        <PortfolioCharts 
+        totalHoldings={totalHoldings}
+        />
         </div>
 
         {/* <div>Total Holdings:{dollarFormat.format(totalholdings)}</div> */}

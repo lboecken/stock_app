@@ -22,7 +22,7 @@ const Charts = ({
   }
 
   const options = {
-    annotations: {},
+    // annotations: {},
     title: `Closing Prices for ${companyName} in the past 5 days.`,
     // titleTextStyle: {color: trendingUp ? "green" : "red"},
     curveType: "function",
@@ -69,8 +69,8 @@ const Charts = ({
       <Chart
         // key={key}
         chartType="AreaChart"
-        width="100%"
-        height="400px"
+        width={"100%"}
+        height={"400px"}
         // height="100%"
         data={stock_data}
         options={options}

@@ -61,6 +61,12 @@ const DashboardNavBar = () => {
               Dashboard
             </Nav.Link>
           </Nav.Item>
+{/* 
+          <Nav.Item>
+            <Nav.Link href="/trade" className="text-nowrap">
+              Trade
+            </Nav.Link>
+          </Nav.Item> */}
 
           <Nav.Item>
             <Nav.Link as={Link} to="/trade" className="text-nowrap">
