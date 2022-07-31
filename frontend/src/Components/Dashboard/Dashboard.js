@@ -6,6 +6,9 @@ import HoldingsTable from "./HoldingsTable";
 import axios from "axios";
 import useUser from '../useUser';
 import { capitalize } from "../Handlers";
+import AccountOverview from "./AccountOverview";
+import PortfolioCharts from "../PortfolioCharts";
+import { useOutletContext } from "react-router-dom";
 // import io from "socket.io-client";
 // import { useOutletContext } from 'react-router-dom';
 
@@ -64,6 +67,13 @@ useEffect(() => {
       <div className="container dash-container d-flex flex-column">
         {/* <div className="align-items-start">Dashboard</div> */}
         <div className="welcome-title">Welcome {capitalize(signedInUser)}!</div>
+        <div className="mt-5">
+
+        <AccountOverview />
+        </div>
+
+        {/* <div><PortfolioCharts/></div> */}
+      
         <div className="row mt-auto mb-5">
           <div className="">
             <HoldingsTable userHoldings={userHoldings}/>

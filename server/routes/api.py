@@ -1,3 +1,4 @@
+from logging import captureWarnings
 from flask import jsonify, request, Blueprint
 from flask_restx import Api, Resource
 import os
@@ -207,6 +208,8 @@ class GetShares(Resource):
 
         for holding in holdings:
             total_cost += holding["total_cost_basis"]
+            # market_value = holding["current_price"] * holding["current_shares"]
+            # capital_gains = market_value - holding["total_cost_basis"]
             # total_value += holding[current_price]
             
             get_latest_price = get_stock_info(holding["company_symbol"], stock_token)
@@ -214,8 +217,10 @@ class GetShares(Resource):
             for data in get_latest_price:
                 if holding["company_symbol"] == data["symbol"]:
                     holding["current_price"] = data["latestPrice"]
-                    total_value += holding["current_price"]
-
+                    holding["market_value"] = data["latestPrice"] * holding["current_shares"]
+                    holding["capital_gains"] = round(holding["market_value"] - float(holding["total_cost_basis"]), 2)
+                    total_value += holding["market_value"]
+        
 
             # return get_latest_price
             #search/lookup matching symbol in get_latest_price, attach to obj[current_price]
@@ -224,8 +229,7 @@ class GetShares(Resource):
         return jsonify({
             "holdings": holdings,
             "total_value": round(total_value, 2),
-            "total_cost": total_cost
-
+            "total_cost": total_cost,
         
         })
 

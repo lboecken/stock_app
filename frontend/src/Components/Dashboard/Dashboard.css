@@ -6,7 +6,8 @@
 }
 
 .thead-color {
-  background-color: rgba(0, 0, 0, 0.7);
+  /* background-color: rgba(0, 0, 0, 0.7); */
+  background-color: #4A4A4B;
   color: whitesmoke;
 }
 

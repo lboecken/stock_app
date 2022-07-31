@@ -11,6 +11,8 @@ class Holdings(db.Model):
     company_symbol = db.Column(db.String)
     current_shares = db.Column(db.Integer, default=0)
     total_cost_basis = db.Column(db.Numeric, default=0) #needed? Cost Basis of Shares``
+    # market_value = db.Column(db.Numeric, default=0) 
+    # capital_gains = db.Column(db.Numeric, default=0) 
     # total_holdings = db.Column(db.Float, default=0)
     
     def __repr__(self):
@@ -25,7 +27,7 @@ class Holdings(db.Model):
                 "company_name": self.company_name,
                 "company_symbol": self.company_symbol,
                 "current_shares": self.current_shares,
-                "total_cost_basis": self.total_cost_basis
+                "total_cost_basis": self.total_cost_basis,
             
 
             }

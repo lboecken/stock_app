@@ -3,6 +3,7 @@ import json
 from decimal import Decimal
 from xxlimited import new
 import bcrypt
+from pytest import mark
 from server.db_connection import db
 
 # from server.models import *
@@ -148,7 +149,11 @@ def get_share_holdings(username):
         new_dict = [item.obj_to_dict() for item in objlist]
         return new_dict
     
+   marketvalue = 0
    share_holdings = dict_helper(Holdings.query.filter_by(username=username).all())
+
+   for obj in share_holdings:
+    marketvalue: marketvalue
   
    return share_holdings
 
@@ -161,8 +166,11 @@ def get_total_holdings(user_id):
     
      holdings = dict_helper(Holdings.query.filter_by(user_id=user_id).all()) 
      holdings_calculation = []
+     
      for obj in holdings:
         holdings_calculation.append(obj["total_cost_basis"])
+       
+    
         print(holdings_calculation)
         
     

@@ -9,22 +9,41 @@ import useUser from "./useUser";
 import AnimatedNumber from "react-animated-number";
 import { capitalize } from "./Handlers";
 import PortfolioCharts from "./PortfolioCharts";
+import "./PortfolioPage.css";
+import useHoldings from "../hooks/useHoldings";
+import { useOutletContext } from "react-router-dom";
 
 const PortfolioPage = () => {
-  const [totalHoldingsValue, setTotalHoldingsValue] = useState(0);
-  const [totalHoldings, setTotalHoldings] = useState(0);
+  const [userCashBalance, setUserCashBalance] = useState(0);
   const { signedInUser } = useUser();
+  const { holdings } = useOutletContext()
+  const {
+    totalHoldings,
+    totalHoldingsValue,
+    updateHoldings,
+  } = holdings
+
+  const allHoldings = totalHoldingsValue + userCashBalance;
 
   useEffect(() => {
-    getHoldingsData();
+    updateHoldings();
+    getCashBalance();
   }, []);
 
-  async function getHoldingsData() {
-    await axios.get("api/holdings/" + signedInUser).then((res) => {
-      setTotalHoldingsValue(res.data.total_value);
-      setTotalHoldings(res.data)
+  // async function getHoldingsData() {
+  //   await axios.get("api/holdings/" + signedInUser).then((res) => {
+  //     setTotalHoldingsValue(res.data.total_value);
+  //     setTotalHoldings(res.data);
 
-      console.log(res.data);
+  //     console.log(res.data);
+  //   });
+  // }
+
+  async function getCashBalance() {
+    await axios.get("api/cash_balance/" + signedInUser).then((res) => {
+      // console.log(res.data[0].cash_balance);
+      setUserCashBalance(Number(res.data[0].cash_balance));
+      // console.log(signedInUser);
     });
   }
 
@@ -33,31 +52,16 @@ const PortfolioPage = () => {
       <DashboardNavBar />
 
       <Fade bottom duration={1000} delay={200} distance="30px">
-        <div className="my-4" style={{fontSize:"35px"}}>{capitalize(signedInUser)}'s Portfolio</div>
+        <div className="my-4" style={{ fontSize: "35px" }}>
+          {capitalize(signedInUser)}'s Portfolio
+        </div>
 
         <div className="d-flex mb-3 justify-content-center align-items-center">
           {/* Cash Balance
       Total Holdings */}
-          <div className="">Total Value of All Shares: </div>
-          <AnimatedNumber
-            component="text"
-            initialValue={50}
-            value={totalHoldingsValue}
-            stepPrecision={0}
-            style={{
-              transition: "0.8s ease-out",
-              fontSize: 16,
-              transitionProperty: "background-color, color, opacity",
-            }}
-            duration={1000}
-            formatValue={(n) => dollarFormat.format(n)}
-          />
         </div>
         <div className="">
-
-        <PortfolioCharts 
-        totalHoldings={totalHoldings}
-        />
+          <PortfolioCharts totalHoldings={totalHoldings} />
         </div>
 
         {/* <div>Total Holdings:{dollarFormat.format(totalholdings)}</div> */}
