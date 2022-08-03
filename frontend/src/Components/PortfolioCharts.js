@@ -5,8 +5,9 @@ import "react-tabs/style/react-tabs.css";
 import Spinner from "./Spinner";
 import useUser from "./useUser";
 import { dollarFormat, chartColors } from "./Handlers";
-import AnimatedNumber from "react-animated-number";
 import axios from "axios";
+// import Fade from "react-reveal/Fade";
+import Flip from 'react-reveal/Flip';
 import { useOutletContext } from "react-router-dom";
 
 const PortfolioCharts = () => {
@@ -36,37 +37,13 @@ const PortfolioCharts = () => {
   const isMounted = useRef(false);
   const [loading, setLoading] = useState(true);
 
-
-  function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
-  let colorNum = 0
-
-  // const indext = arr.findIndex(object => {
-  //   return object.id === 'b';
-  // });
-
-  // const index = (arr) => {
-  //   arr.findIndex(object => {
-  //     return object.company_symbol === "DKS"
-  //   })
-  // }
-
-  // totalHoldings?.holdings?.map((holdings, index) => {
-  //   console.log(index)
-  // })
-
+  let totalCapitalGains = totalHoldingsValue - Number(totalHoldings.total_cost);
 
   useEffect(() => {
     if (isMounted.current) {
       console.log("current");
       console.log(totalHoldingsValue);
+      console.log(totalHoldings.total_cost);
       setLoading(false);
     } else {
       isMounted.current = true;
@@ -78,8 +55,7 @@ const PortfolioCharts = () => {
     shares_bar_chart_data.push([
       holdings?.company_symbol,
       holdings?.current_shares,
-      chartColors[index]
-        
+      chartColors[index],
     ]);
     shares_pie_chart_data.push([
       holdings?.company_symbol,
@@ -87,17 +63,15 @@ const PortfolioCharts = () => {
     ]);
   });
 
-
-  console.log(shares_bar_chart_data)
+  console.log(shares_bar_chart_data);
 
   const options = {
     chartArea: { width: "50%", height: "70%" },
   };
 
   const barOptions = {
-    colors: ['green', 'blue', 'yellow'],
-   
-  }
+    colors: ["green", "blue", "yellow"],
+  };
 
   return (
     <div className="container">
@@ -106,7 +80,7 @@ const PortfolioCharts = () => {
           <TabList>
             <Tab>Shares Value Distribution</Tab>
             <Tab>Shares Owned Distribution</Tab>
-            {/* <Tab>Initial Cost Basis vs Current Holdings Value</Tab> */}
+            <Tab>Total Capital Gains</Tab>
           </TabList>
 
           <TabPanel>
@@ -141,7 +115,7 @@ const PortfolioCharts = () => {
             )}
           </TabPanel>
           <TabPanel>
-            <div className="mt-2 mb-4" style={{ fontSize: "20px" }}>
+            <div className="mt-2 mb-4" style={{ fontSize: "25px" }}>
               Shares Owned Distribution
             </div>
             <Chart
@@ -151,6 +125,38 @@ const PortfolioCharts = () => {
               data={shares_bar_chart_data}
               // options={barOptions}
             />
+          </TabPanel>
+          <TabPanel>
+            <div className="mt-2 mb-2" style={{ fontSize: "25px" }}>
+              Total Capital Gains
+            </div>
+            <div className="mr-3" style={{ fontSize: "18px" }}>
+                    (Total Cost Basis vs. Current Market Value)
+                  </div>
+            {/* <div className="mt-5 justify-content-center" style={{fontSize: "18px"}} >Total Capital Gains:</div> */}
+            <Flip bottom>
+              <div
+                style={
+                  !(Math.sign(totalCapitalGains) === -1)
+                    ? { fontSize: "100px", color: "green" }
+                    : { fontSize: "100px", color: "red" }
+                }
+              >
+                {dollarFormat.format(totalCapitalGains)}
+              </div>
+            </Flip>
+            <div className="container">
+              <div className="row no-gutters">
+                <div className="col-sm">
+                  <div style={{ fontSize: "18px" }}>Cost Basis:</div>
+                  <div> {dollarFormat.format(totalHoldings.total_cost)}</div>
+                </div>
+                <div className="col-sm">
+                  <div style={{ fontSize: "18px" }}>Market Value:</div>
+                  <div>{dollarFormat.format(totalHoldingsValue)}</div>
+                </div>
+              </div>
+            </div>
           </TabPanel>
         </Tabs>
       </div>

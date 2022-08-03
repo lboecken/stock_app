@@ -20,17 +20,6 @@ const HoldingsTable = ({ userHoldings }) => {
     }
   }, [userHoldings]);
 
-  // let trendingUp = "";
-
-  // const checkPrice = (prices) => {
-   
-  //   if (Math.sign(prices) === -1) {
-  //     trendingUp = false;
-  //   } else {
-  //     trendingUp = true;
-  //   }
-  // };
-
   console.log(userHoldings.holdings);
 
   return (
@@ -43,7 +32,7 @@ const HoldingsTable = ({ userHoldings }) => {
         </div>
       ) : (
         <Fade bottom duration={1000} delay={100} distance="30px">
-          <p>Current Holdings</p>
+          <p className="mt-2">Current Holdings</p>
           <div className="table-responsive-md tableFixHead mb-2">
             <table className=" table w-75 bg-light text-dark table-hover mx-auto">
               <thead className="thead-color">

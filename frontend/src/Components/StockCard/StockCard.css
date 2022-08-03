@@ -1,50 +1,50 @@
 #stock-card .card {
-  /* height: 420px !important; */
   height: 335px !important;
+  padding-top: 0px !important;
   /* margin-top: 16vh !important; */
   max-width: 295px !important;
-  background-color: #e6dfcb !important;
+  background-color: #f1f1f1 !important;
+  /* background-color:rgb(246, 246, 246) !important; */
   border: none !important;
   border-radius: 20% !important;
   color: black !important;
   overflow-wrap: break-word !important;
   word-wrap: break-word !important;
   box-shadow: 0 4px 38px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19) !important;
-  
 }
 
 #stock-card h3 {
   color: black;
-  
 }
 
 .vd-button {
-color: whitesmoke;
-  background-color:rgba(0, 0, 0, 0.7) !important;
+  color: whitesmoke;
+  background-color: rgba(0, 0, 0, 0.7) !important;
   border: none !important;
-  box-shadow: none !important;    
+  box-shadow: none !important;
   /* background-color: #cfc299 !important; */
 }
 
 .vd-button:hover {
-    color: black;
-    background-color: #a7914b !important;
+  color: black;
+  /* background-color: #a7914b !important; */
+  background-color: #aa9b75 !important;
 }
 
 .card-text {
-    font-size: 20px !important;
-    text-align: center !important;
-    display: flex;
-    justify-content: center !important;
+  font-size: 20px !important;
+  text-align: center !important;
+  display: flex;
+  justify-content: center !important;
 }
 
 #stock-card .card-header {
-  width: 80%;
-  background-color: #e6dfcb;
- 
-  
+  border-top-right-radius: 3em !important;
+  border-top-left-radius: 3em !important;
+  width: 100%;
+  background-color: #e6dfcb !important;
+  /* background-color: #f5db8e!important; */
+  /* background-color: #686868 !important; */
+  border-bottom: 100%;
+  color: black !important;
 }
-
-/* #container .maincontainer {
-  background-color: goldenrod !important;
-} */

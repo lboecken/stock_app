@@ -108,11 +108,11 @@ const BuyModal = (props) => {
       centered
       size="lg"
     >
-      <ModalHeader className="d-flex justify-content-between align-items-center align-self-center" closeButton>
+      <ModalHeader className="d-flex flex-lg-row flex-column justify-content-between align-items-center align-self-center" closeButton>
           
         <ModalTitle className="mx-auto">
           
-       <div className="d-flex justify-content-between align-items-center align-self-center">
+       <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center align-self-center">
           <div className="title-margins"><img className="modal-logo-size" src={testLogo}></img></div> 
          
           <div className="justify-content-center align-items-center align-self-center">{truncateModals(props.companyName)}</div>
@@ -121,7 +121,7 @@ const BuyModal = (props) => {
         </ModalTitle>
       </ModalHeader>
       <ModalBody className="body-text">
-        <div className="d-flex justify-content-between align-items-center align-self-center">
+        <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center align-self-center">
           <div className="left">
             <p className="">Current Share Price:</p>
             <p className="numbers-font">
@@ -133,7 +133,7 @@ const BuyModal = (props) => {
             <p className="numbers-font">{props.userShares}</p>
           </div>
 
-          <div className="right">
+          <div className="right justify-content-end">
             <p className="">Account Balance:</p>
             <p className="numbers-font">
               {dollarFormat.format(props.userCashBalance)}

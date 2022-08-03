@@ -35,13 +35,13 @@ const StockCard = ({
               <div className="container">
                 <div id="stock-card" className="d-flex justify-content-center">
                   <div className="card">
-                    <div className="text-center"></div>
-                    <div className="card-header">
+                    {/* <div className="text-center"></div> */}
+                    <div className="card-header" >
                       <h4>{companySymbol}</h4>
                       <h7>{truncate(companyName)}</h7>
                     </div>
                     <div class="card-body">
-                      <div className="card-text mb-4">
+                      <div className="card-text mt-2 mb-4">
                         Current Price: {dollarFormat.format(currentPrice)}
                       </div>
                       <div className="card-text mb-4">
@@ -52,7 +52,7 @@ const StockCard = ({
                       </div>
                       <div>
                         <Button
-                          className="vd-button mb-2"
+                          className="vd-button mb-2 mt-2"
                           onClick={() => {
                             onSearch(companySymbol);
                             setDismount(!dismount);

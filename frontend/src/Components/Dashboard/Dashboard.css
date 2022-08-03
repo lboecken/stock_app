@@ -7,7 +7,7 @@
 
 .thead-color {
   /* background-color: rgba(0, 0, 0, 0.7); */
-  background-color: #4A4A4B;
+  background-color: #4a4a4b;
   color: whitesmoke;
 }
 
@@ -42,7 +42,6 @@
   box-shadow: 0 0 15px #82807b !important;
 }
 
-
 .manage-button:hover {
   outline: none !important;
   background-color: #f5db8e !important;
@@ -52,3 +51,34 @@
   font-size: 30px;
 }
 
+#account-info {
+  font-size: 20px;
+  background-color: white;
+  max-width: 400px !important;
+  text-align: left;
+  border: 1px solid solid rgba(23, 23, 23, 0.2);
+}
+
+.center-header {
+  text-align: center !important;
+  background-color: #e0e0e0 !important;
+}
+
+/* #account-info .card {
+  height: 420px !important;
+  height: 335px !important;
+  text-align: left !important;
+  margin-top: 16vh !important;
+  max-width: 255px !important;
+  font-size: 20px;
+  background-color: white !important;
+  background-color: #e6dfcb !important;
+    border: none !important;
+    border-radius: 20% !important;
+  color: black !important;
+  overflow-wrap: break-word !important;
+  border: none !important;
+  word-wrap: break-word !important;
+  border: 1px solid solid rgba(23, 23, 23, 0.2) !important;
+  box-shadow: 0 4px 38px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19) !important;
+} */

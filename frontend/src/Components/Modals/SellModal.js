@@ -86,13 +86,13 @@ const SellModal = (props) => {
   return (
     <Modal
       {...props}
-      aria-labelledby="contained-modal-title-vcenter"
+      // aria-labelledby="contained-modal-title-vcenter"
       centered
       size="lg"
     >
-      <ModalHeader closeButton>
+      <ModalHeader closeButton className="d-flex flex-lg-row flex-column justify-content-between align-items-center align-self-center">
         <ModalTitle className="mx-auto">
-          <div className="d-flex justify-content-between align-items-center align-self-center">
+          <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center align-self-center">
             <div className="title-margins">
               <img className="modal-logo-size" src={testLogo}></img>
             </div>
@@ -105,7 +105,7 @@ const SellModal = (props) => {
         </ModalTitle>
       </ModalHeader>
       <ModalBody className="body-text">
-        <div className="d-flex justify-content-between align-items-center align-self-center">
+        <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center align-self-center">
           <div className="left">
             <p className="">Current Share Price:</p>
             <p className="justify-content-center numbers-font">
@@ -117,7 +117,7 @@ const SellModal = (props) => {
             <p className="numbers-font">{props.userShares}</p>
           </div>
 
-          <div className="right">
+          <div className="right justify-content-end">
             <p className="">Account Balance:</p>
             <p className="numbers-font">
               {dollarFormat.format(props.userCashBalance)}

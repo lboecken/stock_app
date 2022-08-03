@@ -36,7 +36,8 @@ const AccountOverview = () => {
 
   return (
     <div id="account-info">
-      <div className="card-header center-header">Account Overview</div>
+      <div className="">
+      <div className="card-header center-header py-2">Account Overview</div>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">
           <div className="d-flex justify-content-between">
@@ -100,6 +101,7 @@ const AccountOverview = () => {
           </div>
         </li>
       </ul>
+      </div>
     </div>
   );
 };

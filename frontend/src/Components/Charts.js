@@ -38,7 +38,7 @@ const Charts = ({
   return (
     <>
       <div className="container">
-        <div className="row card-header">
+        <div className="row card-header border-bottom pb-2">
           {/* <div className="card-header d-flex justify-content-between"> */}
 
           {/* <div className="col-4 d-flex justify-content-between"> */}

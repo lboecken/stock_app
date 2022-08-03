@@ -2,9 +2,9 @@
 
 .modal_btn {
   color: black;
-  background-color:rgba(0, 0, 0, 0.7) !important;
+  background-color: rgba(0, 0, 0, 0.7) !important;
   border: none !important;
-  box-shadow: none !important;    
+  box-shadow: none !important;
 }
 
 .modal_btn:hover {
@@ -26,7 +26,6 @@
   text-align: center;
 }
 
-
 /* .number-input {
   text-align: center;
   display: flex !important;
@@ -42,17 +41,14 @@
   color: black !important;
   border-radius: 25px !important;
   margin-left: 10px !important;
-
 }
 
 #input-spinner-right-button:hover {
   background-color: #f5db8e !important;
-  
 }
 
 #input-spinner-left-button:hover {
   background-color: #f5db8e !important;
-  
 }
 
 #input-spinner-left-button {
@@ -63,7 +59,6 @@
   border-radius: 25px !important;
   margin-right: 10px !important;
 }
-
 
 #spinner .form-control {
   text-align: center;
@@ -80,7 +75,6 @@
   align-self: center !important;
 }
 
-
 .modal-body {
   margin-bottom: -15px !important;
 }
@@ -91,7 +85,8 @@
   /* padding-right: 20px !important; */
 }
 
-.no-funds, .no-shares {
+.no-funds,
+.no-shares {
   color: red;
 }
 
@@ -104,7 +99,8 @@
   margin-right: 80px !important;
 }
 
-.left, .right {
+.left,
+.right {
   flex-grow: 1;
   flex-basis: 0;
 }
@@ -119,22 +115,30 @@
   font-size: 15px !important;
   /* margin-right: -10px !important; */
 
-  .modal-header{
-  
-    width: 800px !important;
-    
-  }
+.modal-header,
+.modal-title {
+  width: 800px !important;
+}
 
+@media only screen and (max-width: 1000px) {
+  .modal-header,
   .modal-title {
-    width: 700px !important;
+    width: 500px !important;
   }
+}
 
-  .title-margins {
-    margin-right: 20px !important;
+@media only screen and (max-width: 500px) {
+  .modal-header,
+  .modal-title {
+    width: 300px !important;
   }
+}
 
+.title-margins {
+  margin-right: 20px !important;
+}
 
 button.btn-close {
-  padding: 10px !important;
+  padding: 15px !important;
   margin-left: 5px !important;
 }

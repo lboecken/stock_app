@@ -9,6 +9,7 @@ import './App.css';
 import { Outlet } from "react-router-dom";
 import useUser from './Components/useUser';
 import useToken from './Components/useToken';
+import useHoldings from './hooks/useHoldings';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
   // const {token, setToken, removeToken} = useToken();
   const {signedInUser, setSignedInUser, signOutUser } = useUser(); 
   const { token, setToken, removeToken } = useToken();
+  
 
 
   const CONTEXT = {
@@ -31,7 +33,7 @@ function App() {
   setToken, 
   signedInUser,
   removeToken,
-  signOutUser
+  signOutUser,
   };
 
 
