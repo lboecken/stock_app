@@ -32,6 +32,8 @@ const Dashboard = () => {
     });
   }
 
+
+
   // console.log(signedInUser)
 
   // useEffect(() => {
@@ -67,7 +69,9 @@ const Dashboard = () => {
 
         <div className="row mt-auto mb-5">
           <div className="">
-            <HoldingsTable userHoldings={userHoldings} />
+            
+              <HoldingsTable userHoldings={userHoldings} />
+          
           </div>
         </div>
       </div>

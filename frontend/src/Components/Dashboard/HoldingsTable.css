@@ -17,7 +17,7 @@
 
   .tableFixHead { 
     overflow: auto; 
-    height: 240px; 
+    max-height: 240px; 
 }
 
 .tableFixHead thead, th { 

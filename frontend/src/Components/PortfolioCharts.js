@@ -9,6 +9,7 @@ import axios from "axios";
 // import Fade from "react-reveal/Fade";
 import Flip from 'react-reveal/Flip';
 import { useOutletContext } from "react-router-dom";
+import wallet from "../Images/Wallet_Img.png"
 
 const PortfolioCharts = () => {
   let shares_bar_chart_data = [["Company Symbol", "Shares", { role: "style" }]];
@@ -69,9 +70,7 @@ const PortfolioCharts = () => {
     chartArea: { width: "50%", height: "70%" },
   };
 
-  const barOptions = {
-    colors: ["green", "blue", "yellow"],
-  };
+
 
   return (
     <div className="container">
@@ -81,11 +80,14 @@ const PortfolioCharts = () => {
             <Tab>Shares Value Distribution</Tab>
             <Tab>Shares Owned Distribution</Tab>
             <Tab>Total Capital Gains</Tab>
+            <Tab>Cash Balance</Tab>
+            <Tab>Total Holdings</Tab>
           </TabList>
 
           <TabPanel>
             <div className="mt-2" style={{ fontSize: "25px" }}>
               Shares Value Distribution
+
               {totalHoldings ? (
                 <div className="d-flex justify-content-center">
                   <div className="mr-3" style={{ fontSize: "18px" }}>
@@ -118,13 +120,20 @@ const PortfolioCharts = () => {
             <div className="mt-2 mb-4" style={{ fontSize: "25px" }}>
               Shares Owned Distribution
             </div>
-            <Chart
-              chartType="ColumnChart"
-              width="100%"
-              height="400px"
-              data={shares_bar_chart_data}
-              // options={barOptions}
-            />
+            {shares_bar_chart_data.length === 1 ? (
+
+              <div>No Current Stocks. Go To Trade Page to Buy Your First Stock.</div>
+              
+              ) : (
+              <Chart
+                chartType="ColumnChart"
+                width="100%"
+                height="400px"
+                data={shares_bar_chart_data}
+                // options={barOptions}
+              />
+            )
+          }
           </TabPanel>
           <TabPanel>
             <div className="mt-2 mb-2" style={{ fontSize: "25px" }}>
@@ -133,7 +142,6 @@ const PortfolioCharts = () => {
             <div className="mr-3" style={{ fontSize: "18px" }}>
                     (Total Cost Basis vs. Current Market Value)
                   </div>
-            {/* <div className="mt-5 justify-content-center" style={{fontSize: "18px"}} >Total Capital Gains:</div> */}
             <Flip bottom>
               <div
                 style={
@@ -157,6 +165,23 @@ const PortfolioCharts = () => {
                 </div>
               </div>
             </div>
+          </TabPanel>
+          <TabPanel>
+          <div className="mt-2 mb-2" style={{ fontSize: "25px" }}>
+              Cash Balance:
+            </div>
+            <Flip bottom>
+            <div style={{fontSize: "100px"}}>$100,000.00</div>
+            </Flip>
+            {/* <img style={{position: "absolute", width: "400px"}} src={wallet}></img> */}
+          </TabPanel>
+          <TabPanel>
+          <div className="mt-2 mb-2" style={{ fontSize: "25px" }}>
+              Total Holdings:
+            </div>
+            <Flip bottom>
+            <div style={{fontSize: "100px"}}>$100,000.00</div>
+            </Flip>
           </TabPanel>
         </Tabs>
       </div>

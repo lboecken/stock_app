@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "./build/static/css/main.c9d415b6.css",
-    "main.js": "./build/static/js/main.3aa8b8b7.js",
+    "main.css": "./build/static/css/main.de48b2da.css",
+    "main.js": "./build/static/js/main.60b7cf68.js",
     "static/media/penguin-color-bg.png": "./build/static/media/penguin-color-bg.c8dae2ff04082528147a.png",
     "static/media/penguin-ht-1.png": "./build/static/media/penguin-ht-1.73b08c2d122433dd213b.png",
     "static/media/penguin-logo.png": "./build/static/media/penguin-logo.edd9e0ab4690d07fc0ca.png",
+    "static/media/Wallet_Img.png": "./build/static/media/Wallet_Img.366b192c59dd1d47b19f.png",
     "static/media/spinner.gif": "./build/static/media/spinner.11d9cde8ebaeadb07ba7.gif",
     "static/media/penguin-logo-full.png": "./build/static/media/penguin-logo-full.7fc7a8194b5b1ed0558d.png",
     "index.html": "./build/index.html",
-    "main.c9d415b6.css.map": "./build/static/css/main.c9d415b6.css.map",
-    "main.3aa8b8b7.js.map": "./build/static/js/main.3aa8b8b7.js.map"
+    "main.de48b2da.css.map": "./build/static/css/main.de48b2da.css.map",
+    "main.60b7cf68.js.map": "./build/static/js/main.60b7cf68.js.map"
   },
   "entrypoints": [
-    "static/css/main.c9d415b6.css",
-    "static/js/main.3aa8b8b7.js"
+    "static/css/main.de48b2da.css",
+    "static/js/main.60b7cf68.js"
   ]
 }
