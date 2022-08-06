@@ -31,10 +31,10 @@
 }
 
 .passwordEyeIcon {
-  margin-left: 220px !important;
   opacity: 80% !important;
   margin-top: 12px !important;
   color: black !important;
-  position: fixed !important;
+  position: absolute !important;
   z-index: 10;
+  right: 10px;
 }

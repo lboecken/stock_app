@@ -15,45 +15,25 @@ import { useOutletContext } from "react-router-dom";
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
   const { signedInUser } = useUser();
-  const [userHoldings, setUserHoldings] = useState([]);
   // const socket = io.connect();
 
   // const {setToken, setSignedInUser} = useOutletContext()
 
+  const { holdings, cashBalance } = useOutletContext();
+  const { totalHoldings, updateHoldings } = holdings;
+
   useEffect(() => {
-    getHoldingsData();
+    updateHoldings();
   }, []);
 
-  async function getHoldingsData() {
-    await axios.get("api/holdings/" + signedInUser).then((res) => {
-      setUserHoldings(res.data);
+  console.log(totalHoldings);
 
-      console.log(res.data);
-    });
-  }
-
-
-
-  // console.log(signedInUser)
-
-  // useEffect(() => {
-
-  // }, [signedInUser])
-
-  //   useEffect(() => {
-  //     let newSocket = io.connect();
-  //     newSocket.on("activateUser", (username) => {
-  //       console.log(username)
-  //     })
-
-  //   })
-
-  async function getUsers() {
-    await axios.get("api/users").then((res) => {
-      setUsers(res.data);
-      console.log(users);
-    });
-  }
+  // async function getUsers() {
+  //   await axios.get("api/users").then((res) => {
+  //     setUsers(res.data);
+  //     console.log(users);
+  //   });
+  // }
 
   return (
     <div className="body-font">
@@ -68,10 +48,9 @@ const Dashboard = () => {
         {/* <div><PortfolioCharts/></div> */}
 
         <div className="row mt-auto mb-5">
-          <div className="">
-            
-              <HoldingsTable userHoldings={userHoldings} />
-          
+          <div>
+            {/* <HoldingsTable userHoldings={userHoldings} /> */}
+            <HoldingsTable userHoldings={totalHoldings} />
           </div>
         </div>
       </div>

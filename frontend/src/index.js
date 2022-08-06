@@ -19,6 +19,7 @@ import TradePage from "./Components/TradePage/TradePage";
 import PortfolioPage from "./Components/PortfolioPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import useHoldings from "./hooks/useHoldings";
+import FetchCashBalance from "./hooks/getCashBalance";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -73,22 +74,32 @@ root.render(
   </React.StrictMode>
 );
 function DefaultLayout() {
-
   const { token, signedInUser } = useOutletContext();
 
-  const {totalHoldings,
-    setTotalHoldings,
-    totalHoldingsValue,
-    setTotalHoldingsValue,
-    updateHoldings} = useHoldings(signedInUser);
-
-  const context = {holdings: {
+  const {
     totalHoldings,
     setTotalHoldings,
     totalHoldingsValue,
     setTotalHoldingsValue,
-    updateHoldings, 
-  }} 
- 
-  return <Outlet context={context}/>;
+    updateHoldings,
+  } = useHoldings(signedInUser);
+
+  const { setUserCashBalance, userCashBalance, updateCashBalance } = FetchCashBalance(signedInUser);
+
+  const context = {
+    holdings: {
+      totalHoldings,
+      setTotalHoldings,
+      totalHoldingsValue,
+      setTotalHoldingsValue,
+      updateHoldings,
+    },
+    cashBalance: {
+      userCashBalance,
+      setUserCashBalance,
+      updateCashBalance
+    },
+  };
+
+  return <Outlet context={context} />;
 }

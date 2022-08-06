@@ -100,6 +100,7 @@ const SignInForm = () => {
                           onChange={(e) => setUsername(e.target.value)}
                           value={username}
                         ></input>
+                    
                       </div>
                       <div class="input-group form-group">
                         <div class="input-group-prepend">
@@ -117,6 +118,7 @@ const SignInForm = () => {
                           placeholder="Password"
                           name="password"
                           id="password"
+                          maxLength="15"
                           onChange={(e) => setPassword(e.target.value)}
                           onKeyUp={(e) => {
                             if (e.key === "Enter") {

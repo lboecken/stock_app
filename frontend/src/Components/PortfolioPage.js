@@ -30,6 +30,8 @@ const PortfolioPage = () => {
     getCashBalance();
   }, []);
 
+  console.log(totalHoldings)
+
   // async function getHoldingsData() {
   //   await axios.get("api/holdings/" + signedInUser).then((res) => {
   //     setTotalHoldingsValue(res.data.total_value);

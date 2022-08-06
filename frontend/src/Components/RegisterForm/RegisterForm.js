@@ -142,7 +142,7 @@ const RegisterForm = () => {
                           <span className="input-group-text">
                             <img
                               className="userIcon"
-                              alt="userIcon"
+                              alt="passswordIcon"
                               src={pwdIcon}
                             />
                           </span>

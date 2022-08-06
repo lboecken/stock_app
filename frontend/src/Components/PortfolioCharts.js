@@ -9,7 +9,6 @@ import axios from "axios";
 // import Fade from "react-reveal/Fade";
 import Flip from 'react-reveal/Flip';
 import { useOutletContext } from "react-router-dom";
-import wallet from "../Images/Wallet_Img.png"
 
 const PortfolioCharts = () => {
   let shares_bar_chart_data = [["Company Symbol", "Shares", { role: "style" }]];
@@ -17,38 +16,32 @@ const PortfolioCharts = () => {
   // const [totalHoldingsValue, setTotalHoldingsValue] = useState(0);
   const { signedInUser } = useUser();
 
-  const { holdings } = useOutletContext();
+  const { holdings, cashBalance } = useOutletContext();
   const { totalHoldings, totalHoldingsValue, updateHoldings } = holdings;
+  const { userCashBalance, updateCashBalance } = cashBalance
+
+  
+  const isMounted = useRef(false);
+  const [loading, setLoading] = useState(true);
+  let totalCapitalGains = totalHoldingsValue - Number(totalHoldings.total_cost);
+  const allHoldings = totalHoldingsValue + userCashBalance;
 
   useEffect(() => {
     // getHoldingsData();
     // updateHoldings();
     // getCashBalance();
+    updateCashBalance()
   }, []);
 
-  // async function getHoldingsData() {
-  //   await axios.get("api/holdings/" + signedInUser).then((res) => {
-  //     setTotalHoldingsValue(res.data.total_value);
-  //     // setTotalHoldings(res.data);
-
-  //     console.log(res.data);
-  //   });
-  // }
-
-  const isMounted = useRef(false);
-  const [loading, setLoading] = useState(true);
-
-  let totalCapitalGains = totalHoldingsValue - Number(totalHoldings.total_cost);
 
   useEffect(() => {
     if (isMounted.current) {
-      console.log("current");
-      console.log(totalHoldingsValue);
-      console.log(totalHoldings.total_cost);
+      // console.log("current");
+      // console.log(totalHoldingsValue);
+      // console.log(totalHoldings.total_cost);
       setLoading(false);
     } else {
       isMounted.current = true;
-      console.log(totalHoldingsValue);
     }
   }, [totalHoldings, totalHoldingsValue]);
 
@@ -88,7 +81,7 @@ const PortfolioCharts = () => {
             <div className="mt-2" style={{ fontSize: "25px" }}>
               Shares Value Distribution
 
-              {totalHoldings ? (
+              {/* {totalHoldings ? (
                 <div className="d-flex justify-content-center">
                   <div className="mr-3" style={{ fontSize: "18px" }}>
                     Value of All Shares:
@@ -99,13 +92,22 @@ const PortfolioCharts = () => {
                 </div>
               ) : (
                 ""
-              )}
+              )} */}
             </div>
             {loading ? (
               <div className="mt-5">
                 <Spinner />
               </div>
             ) : (
+              <div>
+              <div className="d-flex justify-content-center">
+                  <div className="mr-3" style={{ fontSize: "18px" }}>
+                    Value of All Shares:
+                  </div>
+                  <div style={{ fontSize: "18px" }}>
+                    {dollarFormat.format(totalHoldingsValue)}
+                  </div>
+                </div>
               <Chart
                 id="pie"
                 chartType="PieChart"
@@ -114,7 +116,9 @@ const PortfolioCharts = () => {
                 width="100%"
                 height="400px"
               />
-            )}
+            </div>
+            )
+            }
           </TabPanel>
           <TabPanel>
             <div className="mt-2 mb-4" style={{ fontSize: "25px" }}>
@@ -171,7 +175,7 @@ const PortfolioCharts = () => {
               Cash Balance:
             </div>
             <Flip bottom>
-            <div style={{fontSize: "100px"}}>$100,000.00</div>
+            <div style={{fontSize: "100px", color:"green"}}>{dollarFormat.format(userCashBalance)}</div>
             </Flip>
             {/* <img style={{position: "absolute", width: "400px"}} src={wallet}></img> */}
           </TabPanel>
@@ -180,7 +184,7 @@ const PortfolioCharts = () => {
               Total Holdings:
             </div>
             <Flip bottom>
-            <div style={{fontSize: "100px"}}>$100,000.00</div>
+            <div style={{fontSize: "100px", color:"green"}}>{dollarFormat.format(allHoldings)}</div>
             </Flip>
           </TabPanel>
         </Tabs>
