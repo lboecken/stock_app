@@ -64,6 +64,23 @@
   background-color: #e0e0e0 !important;
 }
 
+.pie_chart {
+  border: 1px solid solid rgba(23, 23, 23, 0.2) !important;
+}
+
+.view-portfolio {
+  margin-left: -205px;
+  margin-bottom: 55px;
+}
+
+@media only screen and (max-width: 670px) {
+  
+   .view-portfolio {
+  margin-left: 0px;
+  margin-bottom: 55px;
+}
+  }
+
 /* #account-info .card {
   height: 420px !important;
   height: 335px !important;
@@ -82,3 +99,7 @@
   border: 1px solid solid rgba(23, 23, 23, 0.2) !important;
   box-shadow: 0 4px 38px 0 rgba(0, 0, 0, 0.2), 0 6px 30px 0 rgba(0, 0, 0, 0.19) !important;
 } */
+
+#placeholder-img {
+width: 60vw;
+}

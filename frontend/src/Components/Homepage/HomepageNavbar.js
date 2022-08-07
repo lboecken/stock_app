@@ -13,7 +13,7 @@ const NavBar = ({ pushedButton, setPushedButton, scrollBottom }) => {
       <Navbar.Brand as={Link} to="/" className="justify-content-baseline">
         <Fade>
           <Tilty max="1" scale={1.05}>
-            <img src={logo} alt="penguin-icon" />
+            <img id="homepage-img" src={logo} alt="penguin-icon" />
           </Tilty>
         </Fade>
       </Navbar.Brand>

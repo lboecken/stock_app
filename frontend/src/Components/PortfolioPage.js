@@ -10,7 +10,7 @@ import AnimatedNumber from "react-animated-number";
 import { capitalize } from "./Handlers";
 import PortfolioCharts from "./PortfolioCharts";
 import "./PortfolioPage.css";
-import useHoldings from "../hooks/useHoldings";
+// import useHoldings from "../hooks/useHoldings";
 import { useOutletContext } from "react-router-dom";
 
 const PortfolioPage = () => {
@@ -30,7 +30,7 @@ const PortfolioPage = () => {
     getCashBalance();
   }, []);
 
-  console.log(totalHoldings)
+
 
   // async function getHoldingsData() {
   //   await axios.get("api/holdings/" + signedInUser).then((res) => {

@@ -7,16 +7,10 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 load_dotenv()
 import os
+from flask_cors import CORS
 
 app = create_app()
-
-# cli = FlaskGroup(create_app=create_app)
-# @app.cli.command('resetdb')
-# def recreate_db():
-#     db.drop_all()
-#     db.create_all()
-
-
+CORS(app)
 
 
 @app.route("/", defaults={"path": ""})
@@ -28,3 +22,11 @@ def serve(path):
 if __name__ == "__main__":
     # socketio_socket.run(app, debug=True) 
     app.run( debug=True)
+
+
+
+# cli = FlaskGroup(create_app=create_app)
+# @app.cli.command('resetdb')
+# def recreate_db():
+#     db.drop_all()
+#     db.create_all()

@@ -47,7 +47,7 @@ const DashboardNavBar = () => {
         className="justify-content-baseline"
       >
         <Tilty max="1" scale={1.05}>
-          <img src={logo} alt="penguin-icon" />
+          <img id="dash-icon" src={logo} alt="penguin-icon" />
         </Tilty>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />

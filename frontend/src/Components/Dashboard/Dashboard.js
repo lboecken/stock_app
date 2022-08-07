@@ -1,51 +1,80 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../Dashboard/DashboardNavbar";
 import "../Dashboard/Dashboard.css";
 import DashboardNavBar from "./DashboardNavbar";
 import HoldingsTable from "./HoldingsTable";
-import axios from "axios";
 import useUser from "../useUser";
 import { capitalize } from "../Handlers";
+import Fade from "react-reveal/Fade";
 import AccountOverview from "./AccountOverview";
-import PortfolioCharts from "../PortfolioCharts";
-import { useOutletContext } from "react-router-dom";
-// import io from "socket.io-client";
-// import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import SharesPieChart from "../SharesPieChart";
+import Spinner from "../Spinner";
+import dashboardMsg from "../../Images/dashboard_msg.png"
 
 const Dashboard = () => {
-  const [users, setUsers] = useState([]);
   const { signedInUser } = useUser();
-  // const socket = io.connect();
-
-  // const {setToken, setSignedInUser} = useOutletContext()
-
   const { holdings, cashBalance } = useOutletContext();
-  const { totalHoldings, updateHoldings } = holdings;
+  const { totalHoldings, updateHoldings, totalHoldingsValue } = holdings;
+  const { userCashBalance, updateCashBalance } =
+    cashBalance;
+  const isMounted = useRef(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      console.log("current");
+      setLoading(false);
+    } else {
+      isMounted.current = true;
+    }
+  }, [totalHoldings]);
 
   useEffect(() => {
     updateHoldings();
+    updateCashBalance();
   }, []);
 
   console.log(totalHoldings);
-
-  // async function getUsers() {
-  //   await axios.get("api/users").then((res) => {
-  //     setUsers(res.data);
-  //     console.log(users);
-  //   });
-  // }
+  console.log(userCashBalance);
 
   return (
     <div className="body-font">
       <DashboardNavBar />
-      <div className="container dash-container d-flex flex-column">
+      <div className="container">
         {/* <div className="align-items-start">Dashboard</div> */}
-        <div className="welcome-title">Welcome {capitalize(signedInUser)}!</div>
-        <div className="my-5">
-          <AccountOverview />
-        </div>
+        <div className="mt-3 welcome-title">Welcome {capitalize(signedInUser)}!</div>
+        <div className="row">
+          <div className="my-5 col-lg-4">
+            <AccountOverview
+              totalHoldings={totalHoldings}
+              totalHoldingsValue={totalHoldingsValue}
+              cashBalance={userCashBalance}
+              updateCashBalance={updateCashBalance}
+            />
+          </div>
 
-        {/* <div><PortfolioCharts/></div> */}
+          {loading ? (
+            ""
+          ) : totalHoldings.holdings === undefined ||
+            totalHoldings.holdings.length === 0 ? (
+            // <div>No Current Stock. Go To Trade Page to Buy Your First Stock. </div>
+            <img src={dashboardMsg} style={{opacity:"20%"}}></img>
+          ) : (
+            <Fade bottom duration={1000} delay={100} distance="30px">
+              <div className="col-lg-8 pie-chart">
+                <SharesPieChart />
+
+                <Link to="/portfolio">
+                  <Button className="manage-button mt-1 view-portfolio">
+                    View Full Portfolio
+                  </Button>
+                </Link>
+              </div>
+            </Fade>
+          )}
+        </div>
 
         <div className="row mt-auto mb-5">
           <div>

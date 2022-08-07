@@ -201,10 +201,14 @@ class GetShares(Resource):
         # return jsonify(holdings)
 
         # total = []
-
+        retrieve_cash_balance = get_cash_balance(username)
         holdings = get_share_holdings(username)
         total_cost = 0
         total_value = 0
+        user_cash_balance = 0
+
+        for cash_balance in retrieve_cash_balance:
+            user_cash_balance = cash_balance["cash_balance"]
 
         for holding in holdings:
             total_cost += holding["total_cost_basis"]
@@ -230,6 +234,7 @@ class GetShares(Resource):
             "holdings": holdings,
             "total_value": round(total_value, 2),
             "total_cost": total_cost,
+            "all_holdings_value": round(float(user_cash_balance) + total_value, 2)
         
         })
 

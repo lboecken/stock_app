@@ -82,6 +82,7 @@ function DefaultLayout() {
     totalHoldingsValue,
     setTotalHoldingsValue,
     updateHoldings,
+    allHoldings
   } = useHoldings(signedInUser);
 
   const { setUserCashBalance, userCashBalance, updateCashBalance } = FetchCashBalance(signedInUser);
@@ -93,6 +94,7 @@ function DefaultLayout() {
       totalHoldingsValue,
       setTotalHoldingsValue,
       updateHoldings,
+      allHoldings
     },
     cashBalance: {
       userCashBalance,
