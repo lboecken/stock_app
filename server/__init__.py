@@ -1,4 +1,5 @@
 
+from http import server
 from flask import Flask
 import os
 from server.db_connection import db
@@ -6,6 +7,7 @@ from server.user_model import User
 from server.holdings_model import Holdings
 from server.cash_balance_model import Cash_Balance
 from server.transactions_model import Transactions
+from server.stock_symbols_model import StockList
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
 from dotenv import load_dotenv
@@ -43,6 +45,7 @@ def create_app():
         'Holdings': Holdings, 
         'Transactions': Transactions, 
         'Cash_Balance': Cash_Balance,
+        'StockList': StockList
         }
 
 
