@@ -7,10 +7,10 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 load_dotenv()
 import os
-from flask_cors import CORS
+# from flask_cors import CORS
 
 app = create_app()
-CORS(app)
+# CORS(app)
 
 
 @app.route("/", defaults={"path": ""})

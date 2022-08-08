@@ -156,11 +156,15 @@ class GetSingleUser(Resource):
         return jsonify(getUser(username))
 
 
+
+@api.route("/stocklist")
+class GetStockList(Resource):
+    def get(self):
+        return jsonify()
+
+
 @api.route("/holdings")
 class HoldingsRecord(Resource):
-
- 
-
 
     def post(self):
         req_data = request.get_json()
@@ -246,21 +250,11 @@ class GetShares(Resource):
            
 
 
-      
-    
-
-        
-
 
 
 
 @api.route("/transactions")
 class TransactionsRecord(Resource):
-    # @jwt_required()
-    # def get(self):
-
-    #     return jsonify(getUsers())
-
     def post(self):
         req_data = request.get_json()
         user_id = req_data["user_id"]
