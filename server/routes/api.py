@@ -160,7 +160,29 @@ class GetSingleUser(Resource):
 @api.route("/stocklist")
 class GetStockList(Resource):
     def get(self):
-        return jsonify()
+        # return jsonify(get_stock_symbols())
+            try: 
+                stock_list = get_stock_symbols()
+                company_names = []
+                company_symbols = []
+
+                for x in stock_list:
+                    raw_company_names = (x["company_name"])
+                    raw_symbols = (x["company_symbol"])
+                    company_names.append(raw_company_names)
+                    company_symbols.append(raw_symbols)
+
+                data = []
+
+                for i, j in zip(company_names, company_symbols):
+                    data.append(({"company_name":i,"company_symbol":j, "fullDetails": f"{j} - ({i})"}))
+                    
+
+
+                return jsonify(data)
+            except:
+                # print("Something Went Wrong")
+                return "Something Went Wrong"
 
 
 @api.route("/holdings")

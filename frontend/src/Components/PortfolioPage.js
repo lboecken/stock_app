@@ -28,6 +28,7 @@ const PortfolioPage = () => {
   useEffect(() => {
     updateHoldings();
     getCashBalance();
+    // getAllStocks();
   }, []);
 
 
@@ -48,6 +49,12 @@ const PortfolioPage = () => {
       // console.log(signedInUser);
     });
   }
+
+  // async function getAllStocks() {
+  //   await axios.get("api/stocklist").then((res) => {
+  //     console.log(res.data)
+  //   });
+  // }
 
   return (
     <div className="body-font">

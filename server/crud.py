@@ -5,6 +5,7 @@ from xxlimited import new
 import bcrypt
 from pytest import mark
 from server.db_connection import db
+from server.stock_symbols_model import StockList
 
 # from server.models import *
 # from server.crud import *
@@ -220,3 +221,13 @@ def create_transaction_record(
     return "Transaction Record Created"
 
 
+def get_stock_symbols():
+
+    def dict_helper(objlist):
+        new_dict = [item.obj_to_dict() for item in objlist]
+        return new_dict
+        
+    all_stocks = dict_helper(StockList.query.all())
+    # print(all_stocks[1])
+
+    return all_stocks

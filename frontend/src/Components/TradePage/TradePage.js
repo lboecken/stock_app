@@ -45,11 +45,9 @@ const TradePage = () => {
   // }, [searchValue]);
 
   useEffect(() => {
-    getAllStocks();
+    getStockList();
     getUsers();
     getHoldingsData();
-    // getHoldingsData()
-    // console.log(data)
   }, []);
   // }, [console.log(isData), renderedData]);
 
@@ -89,8 +87,9 @@ const TradePage = () => {
     });
   }
 
-  async function getAllStocks() {
-    await axios.get("api/allstocks").then((res) => {
+
+  async function getStockList() {
+    await axios.get("api/stocklist").then((res) => {
       if (res.data === "Something Went Wrong") {
         // setIsData(false);
         console.log("All Stocks Has No Data...");
@@ -121,7 +120,6 @@ const TradePage = () => {
 
   async function getHoldingsData() {
     await axios.get("api/holdings/" + signedInUser).then((res) => {
-      
       setUserHoldings(res.data);
 
       console.log(res.data);
@@ -172,7 +170,6 @@ const TradePage = () => {
     setStockLogo(searchTerm);
   };
 
-
   const focusInput = () => {
     const selectInput = document.getElementById("input");
     selectInput.focus();
@@ -215,6 +212,7 @@ const TradePage = () => {
               // getLastWeekClosingPrices();
               runSearch();
               onSearch(searchValue);
+              setSearchValue("");
             }
           }}
           autoFocus="True"
@@ -228,6 +226,7 @@ const TradePage = () => {
               // runSearch(searchValue);
               runSearch();
               onSearch(searchValue);
+              setSearchValue("");
             }
           }}
         >
@@ -239,18 +238,19 @@ const TradePage = () => {
           ?.filter((stock) => {
             const searchTerm = searchValue.toLowerCase();
 
-            const fullCompanyName = stock.companyName.toLowerCase();
+            const fullCompanyName = stock.company_name.toLowerCase();
 
-            const fullSymbol = stock.symbol.toLowerCase();
+            const fullSymbol = stock.company_symbol.toLowerCase();
 
             const fullDetails = stock.fullDetails.toLowerCase();
 
             return (
               searchTerm &&
-              /* fullDetails.includes("(" + searchTerm + ")") && */
-              /* fullDetails.includes(searchTerm) && */
-              /* fullSymbol.startsWith("(" + searchTerm + ")") &&  */
-              fullSymbol.startsWith(searchTerm) &&
+              // fullDetails.includes("(" + searchTerm + ")") &&
+              // fullDetails.includes(searchTerm) &&
+
+              (fullSymbol.startsWith(searchTerm) ||
+                fullCompanyName.startsWith(searchTerm)) &&
               searchTerm !== fullSymbol
             );
             {
@@ -268,13 +268,12 @@ const TradePage = () => {
             <div
               className="dropdown-row"
               onClick={() => {
-                onSearch(stock.symbol);
+                onSearch(stock.company_symbol);
                 focusInput();
               }}
-              key={stock.symbol}
+              key={stock.company_symbol}
             >
               {stock.fullDetails}
-              {/* {console.log(stock)} */}
             </div>
           ))}
       </div>
