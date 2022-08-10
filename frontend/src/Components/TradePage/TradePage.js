@@ -39,10 +39,6 @@ const TradePage = () => {
   const [userHoldings, setUserHoldings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   getAllStocks();
-  //   // console.log(data)
-  // }, [searchValue]);
 
   useEffect(() => {
     getStockList();
@@ -352,6 +348,7 @@ const TradePage = () => {
                       userCashBalance={userCashBalance}
                       userId={userId}
                       show={showSellModal}
+                      signedInUser={signedInUser}
                       setSharesToSell={setSharesToSell}
                       sharesToSell={sharesToSell}
                       userShares={userShares}

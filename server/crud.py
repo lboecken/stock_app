@@ -129,7 +129,8 @@ def update_holdings_record(userId, company_symbol, shares, costBasis, transactio
     elif transaction_type == "Sell":
         query.current_shares = (query.current_shares - int(shares))
         if  query.current_shares == 0:
-            query.total_cost_basis = 0
+            # query.total_cost_basis = 0
+            delete_holdings_record(userId, company_symbol)
         
         else: 
             query.total_cost_basis = (query.total_cost_basis - Decimal(costBasis))
@@ -139,6 +140,11 @@ def update_holdings_record(userId, company_symbol, shares, costBasis, transactio
  
 
     return "Holdings Record Updated"
+
+def delete_holdings_record(userId, company_symbol):
+    query = Holdings.query.filter_by(company_symbol=company_symbol, user_id=userId).first()
+    db.session.delete(query)
+    db.session.commit()
 
 
 def get_share_holdings(username):

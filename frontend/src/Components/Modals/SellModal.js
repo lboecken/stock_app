@@ -48,9 +48,12 @@ const SellModal = (props) => {
     }
   };
 
+  console.log()
+
   const createHoldingRecord = () => {
     const HoldingsData = {
       user_id: props.userId,
+      username: props.signedInUser,
       company_name: props.companyName,
       company_symbol: props.stockSymbol,
       current_shares: props.sharesToSell,
@@ -183,6 +186,7 @@ const SellModal = (props) => {
               createHoldingRecord();
               setSharesAvailable(true);
               props.setSharesToSell(0);
+              window.location.reload()
             }
           }}
         >
