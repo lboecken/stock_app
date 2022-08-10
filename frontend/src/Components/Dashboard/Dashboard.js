@@ -36,6 +36,8 @@ const Dashboard = () => {
     updateCashBalance();
   }, []);
 
+  
+
   console.log(totalHoldings);
   console.log(userCashBalance);
 
@@ -59,10 +61,10 @@ const Dashboard = () => {
             ""
           ) : totalHoldings.holdings === undefined ||
             totalHoldings.holdings.length === 0 ? (
-            // <div>No Current Stock. Go To Trade Page to Buy Your First Stock. </div>
+
             <img src={dashboardMsg} style={{opacity:"20%"}}></img>
           ) : (
-            <Fade bottom duration={1000} delay={100} distance="30px">
+            <Fade bottom duration={2000} delay={100} distance="30px">
               <div className="col-lg-8 pie-chart">
                 <SharesPieChart />
 

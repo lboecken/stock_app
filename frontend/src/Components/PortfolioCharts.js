@@ -134,7 +134,7 @@ const PortfolioCharts = () => {
             </div>
             {shares_bar_chart_data.length === 1 ? (
               <div>
-                No Current Stocks. Go To Trade Page to Buy Your First Stock.
+                No Current Share Holdings. Go To Trade Page to Buy Your First Stock.
               </div>
             ) : (
               <Chart

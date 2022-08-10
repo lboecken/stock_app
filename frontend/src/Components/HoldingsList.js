@@ -11,6 +11,7 @@ const HoldingsList = ({
   onSearch,
   getHoldingsData,
   setLoading,
+  loading
 }) => {
   const isMounted = useRef(false);
 
@@ -23,11 +24,12 @@ const HoldingsList = ({
   }, [userHoldings]);
 
   console.log(userHoldings.holdings);
+  console.log(loading)
 
   return (
     <div className="d-flex flex-wrap justify-content-center align-items-center p-2">
-      {userHoldings.holdings === undefined ||
-      userHoldings.holdings.length === 0 ? (
+      {(userHoldings.holdings === undefined  ||
+      userHoldings.holdings.length === 0) && !loading? (
         <img
           id="placeholder-img"
           src={tradepageMsg}

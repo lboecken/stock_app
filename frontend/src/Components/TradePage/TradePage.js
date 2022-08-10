@@ -29,7 +29,7 @@ const TradePage = () => {
   const [allStocks, setAllStocks] = useState([]);
   const [isData, setIsData] = useState(true);
   const [searchValue, setSearchValue] = useState("");
-  const { signedInUser, signOutUser } = useUser();
+  const { signedInUser } = useUser();
   const [userId, setUserId] = useState("");
   const [userCashBalance, setUserCashBalance] = useState("");
   const [sharesToSell, setSharesToSell] = useState(0);
@@ -45,7 +45,6 @@ const TradePage = () => {
     getUsers();
     getHoldingsData();
   }, []);
-  // }, [console.log(isData), renderedData]);
 
   async function getStockDetails() {
     await axios.get("api/details/" + stockSymbol).then((res) => {
@@ -386,6 +385,7 @@ const TradePage = () => {
           onSearch={onSearch}
           getHoldingsData={getHoldingsData}
           setLoading={setLoading}
+          loading={loading}
         />
       </div>
     </div>
