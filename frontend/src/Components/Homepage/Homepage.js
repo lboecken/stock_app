@@ -2,24 +2,16 @@ import React, { useEffect, useState } from "react";
 import "../Homepage/Homepage.css";
 import NavBar from "../Homepage/HomepageNavbar";
 import { Button } from "react-bootstrap";
-// import { Nav } from "react-bootstrap";
-// import { Link, NavLink } from "react-router-dom";
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom";
 import Tilty from "react-tilty";
-// import backgroundVideo from "../Images/penguin-video-3.mp4"
 import SignInForm from "../SignInForm/SignInForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
 
-
 const Homepage = () => {
-
- 
-
   const scrollBottom = () => {
     const element = document.getElementById("buttonb");
-    element.scrollIntoView({block: 'end', behavior: 'smooth'});
-    
+    element.scrollIntoView({ block: "end", behavior: "smooth" });
   };
 
   const [pushedButton, setPushedButton] = useState("");
@@ -34,9 +26,12 @@ const Homepage = () => {
     <div className="maincontainer bg-image-homepage">
       <div className="container-fluid">
         <div className="row no-gutter">
-          <NavBar pushedButton={pushedButton} setPushedButton={setPushedButton} scrollBottom={scrollBottom}/>
+          <NavBar
+            pushedButton={pushedButton}
+            setPushedButton={setPushedButton}
+            scrollBottom={scrollBottom}
+          />
           <div>
-    
             <Fade top duration={1000} delay={100} distance="30px">
               <div className="container">
                 <div className="row">
@@ -46,20 +41,18 @@ const Homepage = () => {
                     </h1>
                     <br></br>
                     <p className="align-items-center justify-content-center mb-4">
-                      Penguins, consectetur adipiscing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua. Ut
-                      enim ad minim veniam, quis nostrud exercitation ullamco
-                      laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                      irure <br></br>dolor in reprehenderiin voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                      sint occaecat cupidatat non
+                      Penguins are known to symbolize positive change and
+                      adaptability. They are masters at maintaining order amidst
+                      chaos. Trade Penguin aims to do just that by offering a
+                      simple way to buy, trade and manage your stock portfolio.
+                      While the stock market will always be unpredictable, Trade
+                      Penguin can help you navigate the chaos with ease and
+                      efficiency so that you can make informed decisions that
+                      spur positive returns.
                     </p>
-                    <p className=" mb-4">
-                      {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore 
-                  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
-                  consequat. Duis aute irure dolor in reprehenderiin voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                  Excepteur sint occaecat cupidatat non */}
-                    </p>
+                    <h2 className="mb-5">
+                      Start Investing Today!
+                    </h2>
                   </div>
                 </div>
               </div>
@@ -67,46 +60,32 @@ const Homepage = () => {
             <Zoom>
               <div className="button-flex ">
                 <Tilty max="1" scale={1.05}>
-                  {/* <Nav.Link as={NavLink} to={setPushedButton("register")} onClick={() => {
-                    
-                  }} >
-                    
-                  </Nav.Link> */}
-      
                   <div className="button-spacing">
-                  <Button className="btn p-3 get-started-btn"
-                    onClick={() => {
-                      setPushedButton("register");
-                      if (pushedButton === "register") {
-                        scrollBottom();
-                      }
-                      
-                    }}
+                    <Button
+                      className="btn p-3 get-started-btn"
+                      onClick={() => {
+                        setPushedButton("register");
+                        if (pushedButton === "register") {
+                          scrollBottom();
+                        }
+                      }}
                     >
-
                       New Here? <br></br>
                       Get Started!
                     </Button>
                   </div>
-                   
                 </Tilty>
 
                 <Tilty max="1" scale={1.05}>
-                  {/* <Nav.Link
-                    as={NavLink}
-                    to="/signin"
-                    className="text-nowrap"
-                  ></Nav.Link> */}
-
+                  
                   <div className="button-spacing">
                     <Button
                       className="btn p-3 get-started-btn"
                       onClick={() => {
                         setPushedButton("signin");
                         if (pushedButton === "signin") {
-                        scrollBottom();
-                      }
-                        
+                          scrollBottom();
+                        }
                       }}
                     >
                       Returning?<br></br>
@@ -123,14 +102,13 @@ const Homepage = () => {
             </div>
           ) : pushedButton === "register" ? (
             <div id="buttonb">
-            <RegisterForm />
+              <RegisterForm />
             </div>
           ) : (
             ""
           )}
         </div>
       </div>
-  
     </div>
   );
 };

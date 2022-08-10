@@ -16,6 +16,5 @@ class StockList(db.Model):
             "company_symbol": self.company_symbol,
             "company_name": self.company_name
            
-
         }
         

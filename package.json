@@ -1,6 +1,27 @@
 {
+  "name": "stock_app",
+  "version": "1.0.0",
+  "description": "Trading application that allows the user to buy and trade stocks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm start",
+    "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheyjax116/stock_app.git"
+  },
+  "author": "Crystal Word",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cheyjax116/stock_app/issues"
+  },
+  "homepage": "https://github.com/cheyjax116/stock_app#readme",
+
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "react-google-charts": "^4.0.0"
+    "heroku": "^7.60.1",
+    "npm": "^8.7.0"
   }
 }
