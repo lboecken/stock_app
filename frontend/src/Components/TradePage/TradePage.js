@@ -143,6 +143,7 @@ const TradePage = () => {
       companyName: stock?.companyName,
       latestPrice: stock?.latestPrice,
       priceChange: stock?.priceChange,
+      changePercent: stock?.changePercent,
       symbol: stock?.symbol,
       logo: stockLogo?.url,
       lastWeekClosingPrices: finalClosePrices,
@@ -293,6 +294,7 @@ const TradePage = () => {
                   latestPrice={data[0]?.latestPrice}
                   companySymbol={data[0]?.symbol}
                   stockSymbol={data[0]?.logo}
+                  changePercent={data[0]?.changePercent}
                 />
                 <div className="d-flex justify-content-center mt-3">
                   <div className="stock-button-spacing">

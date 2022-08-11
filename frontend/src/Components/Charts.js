@@ -9,10 +9,12 @@ const Charts = ({
   priceChange,
   latestPrice,
   companySymbol,
-  stockSymbol
+  stockSymbol,
+  changePercent
 }) => {
   let trendingUp = "";
   let trend = "";
+  let percentSign = "%"
 
   if (Math.sign(priceChange) === -1) {
     trendingUp = false;
@@ -61,7 +63,7 @@ const Charts = ({
 
             <div className="trend-padding">
            
-              {trend} {dollarFormat.format(priceChange)}
+              {trend} {dollarFormat.format(priceChange)} {`(${(changePercent * 100).toFixed(2)}${percentSign})`}
             </div>
           </div>
         </div>

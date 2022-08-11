@@ -11,8 +11,9 @@ def get_stock_info(symbol, stock_token):
         latestPrice = r.json()["latestPrice"]
         symbol = r.json()["symbol"]
         priceChange = r.json()["change"]
+        changePercent = r.json()["changePercent"]
 
-        data = [{"companyName":company, "latestPrice":latestPrice, "symbol":symbol, "priceChange":priceChange}]
+        data = [{"companyName":company, "latestPrice":latestPrice, "symbol":symbol, "priceChange":priceChange, "changePercent": changePercent}]
         # print(data)
         return data
     except:
