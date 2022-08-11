@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import { truncate, dollarFormat } from "./Handlers";
-import testLogo from "../Images/test-logo.png";
+
 
 const Charts = ({
   stock_data,
@@ -9,6 +9,7 @@ const Charts = ({
   priceChange,
   latestPrice,
   companySymbol,
+  stockSymbol
 }) => {
   let trendingUp = "";
   let trend = "";
@@ -42,7 +43,7 @@ const Charts = ({
           
           <div className="col-sm mt-2">
 
-          <img className="logo-size" src={testLogo}></img>
+          <img className="logo-size" src={stockSymbol}></img>
           </div>
           <div className="col-sm mt-2">
             <div>{truncate(companyName)}</div>

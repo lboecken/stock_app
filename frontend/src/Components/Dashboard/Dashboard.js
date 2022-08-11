@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (isMounted.current) {
-      console.log("current");
+     
       setLoading(false);
     } else {
       isMounted.current = true;
@@ -37,9 +37,6 @@ const Dashboard = () => {
   }, []);
 
   
-
-  console.log(totalHoldings);
-  console.log(userCashBalance);
 
   return (
     <div className="body-font">

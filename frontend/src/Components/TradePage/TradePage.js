@@ -65,7 +65,7 @@ const TradePage = () => {
         setStockLogo(res.data);
         setIsData(true);
       }
-      // console.log(res.data);
+     
     });
   }
 
@@ -184,6 +184,8 @@ const TradePage = () => {
     );
   });
 
+
+
   return (
     <div className="body-font">
       <DashboardNavBar />
@@ -290,6 +292,7 @@ const TradePage = () => {
                   priceChange={data[0]?.priceChange}
                   latestPrice={data[0]?.latestPrice}
                   companySymbol={data[0]?.symbol}
+                  stockSymbol={data[0]?.logo}
                 />
                 <div className="d-flex justify-content-center mt-3">
                   <div className="stock-button-spacing">
@@ -310,7 +313,7 @@ const TradePage = () => {
                       latestPrice={data[0]?.latestPrice}
                       companyName={data[0]?.companyName}
                       stockSymbol={data[0]?.symbol}
-                      stockLogo={stockLogo}
+                      stockLogo={data[0]?.logo}
                       userCashBalance={userCashBalance}
                       setSharesToBuy={setSharesToBuy}
                       sharesToBuy={sharesToBuy}
@@ -344,7 +347,7 @@ const TradePage = () => {
                       latestPrice={data[0]?.latestPrice}
                       companyName={data[0]?.companyName}
                       stockSymbol={data[0]?.symbol}
-                      stockLogo={stockLogo}
+                      stockLogo={data[0]?.logo}
                       userCashBalance={userCashBalance}
                       userId={userId}
                       show={showSellModal}

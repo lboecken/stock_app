@@ -49,7 +49,6 @@ const PortfolioCharts = () => {
    
   });
 
-  console.log(shares_bar_chart_data);
 
   const options = {
     chartArea: { width: "50%", height: "70%" },

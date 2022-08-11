@@ -13,7 +13,7 @@ const HoldingsTable = ({ userHoldings }) => {
 
   useEffect(() => {
     if (isMounted.current) {
-      console.log("current");
+    
       setLoading(false);
     } else {
       isMounted.current = true;

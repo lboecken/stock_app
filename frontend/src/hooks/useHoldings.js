@@ -11,7 +11,7 @@ export default function useHoldings (signedInUser) {
             setTotalHoldings(res.data);
             setAllHoldings(res.data.all_holdings_value)
       
-            console.log(res.data);
+            // console.log(res.data);
           });
     }
 
