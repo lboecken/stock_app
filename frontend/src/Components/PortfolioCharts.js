@@ -5,7 +5,6 @@ import "react-tabs/style/react-tabs.css";
 import Spinner from "./Spinner";
 import useUser from "./useUser";
 import { dollarFormat, chartColors } from "./Handlers";
-import axios from "axios";
 // import Fade from "react-reveal/Fade";
 import Flip from "react-reveal/Flip";
 import SharesPieChart from "./SharesPieChart";
@@ -14,7 +13,6 @@ import { useOutletContext } from "react-router-dom";
 const PortfolioCharts = () => {
   let shares_bar_chart_data = [["Company Symbol", "Shares", { role: "style" }]];
   let shares_pie_chart_data = [["Symbol", "Cost_Basis"]];
-  // const [totalHoldingsValue, setTotalHoldingsValue] = useState(0);
   const { signedInUser } = useUser();
 
   const { holdings, cashBalance } = useOutletContext();
@@ -35,9 +33,7 @@ const PortfolioCharts = () => {
 
   useEffect(() => {
     if (isMounted.current) {
-      // console.log("current");
-      // console.log(totalHoldingsValue);
-      // console.log(totalHoldings.total_cost);
+     
       setLoading(false);
     } else {
       isMounted.current = true;
@@ -50,10 +46,7 @@ const PortfolioCharts = () => {
       holdings?.current_shares,
       chartColors[index],
     ]);
-    // shares_pie_chart_data.push([
-    //   holdings?.company_symbol,
-    //   Number(holdings?.total_cost_basis),
-    // ]);
+   
   });
 
   console.log(shares_bar_chart_data);
@@ -99,34 +92,7 @@ const PortfolioCharts = () => {
               </div>
             )}
 
-            {/* <div className="mt-2" style={{ fontSize: "25px" }}>
-              Shares Value Distribution
-            </div>
-            {loading ? (
-              <div className="mt-5">
-                <Spinner />
-              </div>
-            ) : (
-              <div>
-              <div className="d-flex justify-content-center">
-                  <div className="mr-3" style={{ fontSize: "18px" }}>
-                    Value of All Shares:
-                  </div>
-                  <div style={{ fontSize: "18px" }}>
-                    {dollarFormat.format(totalHoldingsValue)}
-                  </div>
-                </div>
-              <Chart
-                id="pie"
-                chartType="PieChart"
-                data={shares_pie_chart_data}
-                // options={options}
-                width="100%"
-                height="400px"
-              />
-            </div>
-            )
-            } */}
+          
           </TabPanel>
           <TabPanel>
             <div className="mt-2 mb-4" style={{ fontSize: "25px" }}>
@@ -149,7 +115,7 @@ const PortfolioCharts = () => {
           <TabPanel>
             <div className="mt-2 mb-2" style={{ fontSize: "25px" }}>
               Total Capital Gains
-              {/* Total Capital Gains */}
+            
             </div>
             <div className="mr-3" style={{ fontSize: "18px" }}>
               (Total Cost Basis vs. Current Market Value)
@@ -187,7 +153,7 @@ const PortfolioCharts = () => {
                 {dollarFormat.format(userCashBalance)}
               </div>
             </Flip>
-            {/* <img style={{position: "absolute", width: "400px"}} src={wallet}></img> */}
+            
           </TabPanel>
           <TabPanel>
             <div className="mt-2 mb-2" style={{ fontSize: "25px" }}>

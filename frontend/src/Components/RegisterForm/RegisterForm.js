@@ -10,7 +10,6 @@ import userIcon from "../../Images/userIcon.png";
 import pwdIcon from "../../Images/passwordIcon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import io from "socket.io-client";
 
 const RegisterForm = () => {
   const [username, setUsername] = useState("");
@@ -24,7 +23,6 @@ const RegisterForm = () => {
     setPasswordShown(!passwordShown);
   };
 
-  // const socket = io.connect();
 
   const pushToken = (data) => {
     axios
@@ -67,7 +65,6 @@ const RegisterForm = () => {
         .then((res) => {
           pushToken(data);
           localStorage.setItem("user", username);
-          // socket.emit("activateUser", { username: username });
         })
         .catch((error) => {
           console.log("There was an error!", error);

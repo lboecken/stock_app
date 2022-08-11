@@ -43,7 +43,6 @@ const SignInForm = () => {
       .then((res) => {
         localStorage.setItem("token", res.data.access_token);
         localStorage.setItem("user", username);
-        // socket.emit("activateUser", { username: username });
         navigate("/dashboard");
         window.location.reload();
       })

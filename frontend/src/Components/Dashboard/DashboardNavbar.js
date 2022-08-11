@@ -30,7 +30,6 @@ const DashboardNavBar = () => {
       .then((res) => {
         removeToken();
         signOutUser();
-        // socket.emit("deactivateUser", { username: signedInUser });
         navigate("/");
         window.location.reload();
       })

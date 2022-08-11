@@ -16,17 +16,7 @@ const SharesPieChart = () => {
   const { holdings, cashBalance } = useOutletContext();
   const { totalHoldings, totalHoldingsValue, updateHoldings } = holdings;
 
-//   const isMounted = useRef(false);
-//   const [loading, setLoading] = useState(true);
 
-
-//   useEffect(() => {
-//     if (isMounted.current) {
-//       setLoading(false);
-//     } else {
-//       isMounted.current = true;
-//     }
-//   }, [totalHoldings, totalHoldingsValue]);
 
   totalHoldings?.holdings?.map((holdings) => {
     shares_pie_chart_data.push([

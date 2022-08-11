@@ -33,14 +33,6 @@ const PortfolioPage = () => {
 
 
 
-  // async function getHoldingsData() {
-  //   await axios.get("api/holdings/" + signedInUser).then((res) => {
-  //     setTotalHoldingsValue(res.data.total_value);
-  //     setTotalHoldings(res.data);
-
-  //     console.log(res.data);
-  //   });
-  // }
 
   async function getCashBalance() {
     await axios.get("api/cash_balance/" + signedInUser).then((res) => {
@@ -50,11 +42,7 @@ const PortfolioPage = () => {
     });
   }
 
-  // async function getAllStocks() {
-  //   await axios.get("api/stocklist").then((res) => {
-  //     console.log(res.data)
-  //   });
-  // }
+
 
   return (
     <div className="body-font">
@@ -66,14 +54,13 @@ const PortfolioPage = () => {
         </div>
 
         <div className="d-flex mb-3 justify-content-center align-items-center">
-          {/* Cash Balance
-      Total Holdings */}
+        
         </div>
         <div className="">
           <PortfolioCharts totalHoldings={totalHoldings} />
         </div>
 
-        {/* <div>Total Holdings:{dollarFormat.format(totalholdings)}</div> */}
+
       </Fade>
     </div>
   );

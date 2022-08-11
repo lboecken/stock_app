@@ -12,7 +12,6 @@ import axios from "axios";
 import Chart from "../Charts";
 import { DateTime } from "luxon";
 import Fade from "react-reveal/Fade";
-import testLogo from "../../Images/test-logo.png";
 import useUser from "../useUser";
 import { truncate } from "../Handlers";
 import Spinner from "../Spinner";
@@ -87,11 +86,11 @@ const TradePage = () => {
     await axios.get("api/stocklist").then((res) => {
       if (res.data === "Something Went Wrong") {
         // setIsData(false);
-        console.log("All Stocks Has No Data...");
+        // console.log("All Stocks Has No Data...");
       } else {
         setAllStocks(res.data);
         setIsData(true);
-        console.log("All Stocks Has Data!");
+        // console.log("All Stocks Has Data!");
       }
       // console.log(res.data);
     });
@@ -99,7 +98,7 @@ const TradePage = () => {
 
   async function getUsers() {
     await axios.get("api/users/" + signedInUser).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       // console.log(res.data[0].id)
       setUserId(res.data[0].id);
     });
@@ -117,7 +116,7 @@ const TradePage = () => {
     await axios.get("api/holdings/" + signedInUser).then((res) => {
       setUserHoldings(res.data);
 
-      console.log(res.data);
+      // console.log(res.data);
     });
   }
 
@@ -311,6 +310,7 @@ const TradePage = () => {
                       latestPrice={data[0]?.latestPrice}
                       companyName={data[0]?.companyName}
                       stockSymbol={data[0]?.symbol}
+                      stockLogo={stockLogo}
                       userCashBalance={userCashBalance}
                       setSharesToBuy={setSharesToBuy}
                       sharesToBuy={sharesToBuy}
@@ -344,6 +344,7 @@ const TradePage = () => {
                       latestPrice={data[0]?.latestPrice}
                       companyName={data[0]?.companyName}
                       stockSymbol={data[0]?.symbol}
+                      stockLogo={stockLogo}
                       userCashBalance={userCashBalance}
                       userId={userId}
                       show={showSellModal}

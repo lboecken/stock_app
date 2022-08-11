@@ -113,7 +113,7 @@ const BuyModal = (props) => {
         <ModalTitle className="mx-auto">
           
        <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center align-self-center">
-          <div className="title-margins"><img className="modal-logo-size" src={testLogo}></img></div> 
+          <div className="title-margins"><img className="modal-logo-size" src={props.StockLogo}></img></div> 
          
           <div className="justify-content-center align-items-center align-self-center">{truncateModals(props.companyName)}</div>
           <div className="">{props.stockSymbol}</div> 

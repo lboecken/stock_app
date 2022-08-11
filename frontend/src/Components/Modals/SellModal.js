@@ -97,7 +97,7 @@ const SellModal = (props) => {
         <ModalTitle className="mx-auto">
           <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center align-self-center">
             <div className="title-margins">
-              <img className="modal-logo-size" src={testLogo}></img>
+              <img className="modal-logo-size" src={props.stockLogo}></img>
             </div>
 
             <div className="justify-content-center align-items-center align-self-center">
@@ -128,7 +128,6 @@ const SellModal = (props) => {
           </div>
         </div>
 
-        {/* <input placeholder="Number of Shares to Sell" type="number" className=></input> */}
         <div>Number of Shares to Sell:</div>
         <div id="spinner" className="mt-3">
           <InputSpinner
@@ -142,14 +141,12 @@ const SellModal = (props) => {
             size="lg"
             onChange={(value) => {
               props.setSharesToSell(value);
-              // setSharesToSell(value);
-              // console.log(props.sharesToSell)
-              // console.log(sharesAvailable)
+              
 
               if (value > props.userShares) {
                 setSharesAvailable(false);
 
-                // console.log("value is greater than shares owned");
+               
               } else if (value <= props.userShares) {
                 setSharesAvailable(true);
               }

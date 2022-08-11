@@ -13,7 +13,7 @@ from datetime import timedelta
 from dotenv import load_dotenv
 load_dotenv('.env')
 
-# socketio_socket = SocketIO()
+
 
 
 def create_app():
@@ -25,7 +25,8 @@ def create_app():
     # from server.commands import userbp
     # app.register_blueprint(userbp)
     app.register_blueprint(api_blueprint)
-    app.config["IEX_API_KEY_SANDBOX"] = os.environ.get("IEX_API_KEY_SANDBOX")
+    # app.config["IEX_API_KEY_SANDBOX"] = os.environ.get("IEX_API_KEY_SANDBOX")
+    app.config["IEX_API_KEY"] = os.environ.get("IEX_API_KEY")
     # print(os.environ.get("IEX_API_KEY_SANDBOX"))
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost:5432/stock_app_backup'
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI")
@@ -35,7 +36,7 @@ def create_app():
     # app.host = f"localhost"
     app.host = os.environ.get("DB_HOST")
     db.init_app(app)
-    # socketio_socket.init_app(app)
+
 
     @app.shell_context_processor
     def ctx():

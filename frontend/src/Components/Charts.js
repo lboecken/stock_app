@@ -39,9 +39,7 @@ const Charts = ({
     <>
       <div className="container">
         <div className="row card-header border-bottom pb-2">
-          {/* <div className="card-header d-flex justify-content-between"> */}
-
-          {/* <div className="col-4 d-flex justify-content-between"> */}
+          
           <div className="col-sm mt-2">
 
           <img className="logo-size" src={testLogo}></img>
@@ -61,7 +59,7 @@ const Charts = ({
             <div> Price Change </div>
 
             <div className="trend-padding">
-              {/* <div className="col-4 trend-padding"> */}
+           
               {trend} {dollarFormat.format(priceChange)}
             </div>
           </div>

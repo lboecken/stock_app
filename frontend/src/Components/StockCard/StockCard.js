@@ -63,31 +63,7 @@ const StockCard = ({
                         </Button>
                       </div>
                     </div>
-                    {/* <div>
-                      <Button
-                        className="mb-2 button-colors"
-                        onClick={handleShowBuy}
-                      >
-                        Buy Shares
-                      </Button>
-
-                      <BuyModal
-                        show={showBuyModal}
-                        onHide={() => setShowBuyModal(false)}
-                      />
-                    </div> */}
-                    {/* <div>
-                      <Button
-                        className="mb-4 button-colors"
-                        onClick={handleShowSell}
-                      >
-                        Sell Shares
-                      </Button>
-                      <SellModal
-                        show={showSellModal}
-                        onHide={() => setShowSellModal(false)}
-                      />
-                    </div> */}
+                    
                   </div>
                 </div>
               </div>

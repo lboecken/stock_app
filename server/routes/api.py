@@ -13,14 +13,13 @@ from flask_jwt_extended import (
 )
 from server.api_requests import *
 
-# from server import socketio_socket
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api")
 api = Api(api_blueprint)
 
 
-stock_token = os.environ.get("IEX_API_KEY_SANDBOX")
-# stock_token = os.environ.get("IEX_API_KEY")
+# stock_token = os.environ.get("IEX_API_KEY_SANDBOX")
+stock_token = os.environ.get("IEX_API_KEY")
 # url_suffix = f"?token={stock_token}"
 # base_url = f"https://cloud.iexapis.com/stable/"
 # stock/aapl/quote?
@@ -33,8 +32,8 @@ class GetData(Resource):
         }
 
         try: 
-            # r = requests.get(f"https://cloud.iexapis.com/stable/stock/{symbol}/logo?token={stock_token}")
-            r = requests.get(f"https://sandbox.iexapis.com/stable/stock/{symbol}/logo?token={stock_token}")
+            r = requests.get(f"https://cloud.iexapis.com/stable/stock/{symbol}/logo?token={stock_token}")
+            # r = requests.get(f"https://sandbox.iexapis.com/stable/stock/{symbol}/logo?token={stock_token}")
             data = r.json()
             return data
         except:
@@ -49,21 +48,6 @@ class GetData(Resource):
       
         # searchedStock = request.args.get("searchTerm")
 
-        # try: 
-        #     # r = requests.get(f"https://cloud.iexapis.com/stable/stock/{symbol}/quote?token={stock_token}")
-        #     r = requests.get(f"https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={stock_token}")
-
-        #     company = r.json()["companyName"]
-        #     latestPrice = r.json()["latestPrice"]
-        #     symbol = r.json()["symbol"]
-        #     priceChange = r.json()["change"]
-
-        #     data = [{"companyName":company, "latestPrice":latestPrice, "symbol":symbol, "priceChange":priceChange}]
-          
-        #     return data
-        # except:
-        #     return "Something Went Wrong"
-
 
 
 
@@ -75,8 +59,8 @@ class GetData(Resource):
         }
 
         try: 
-            # r = requests.get(f"https://cloud.iexapis.com/stable/stock/{symbol}/chart/7d?token={stock_token}")
-            r = requests.get(f"https://sandbox.iexapis.com/stable/stock/{symbol}/chart/7d?token={stock_token}")
+            r = requests.get(f"https://cloud.iexapis.com/stable/stock/{symbol}/chart/7d?token={stock_token}")
+            # r = requests.get(f"https://sandbox.iexapis.com/stable/stock/{symbol}/chart/7d?token={stock_token}")
 
             raw_data = r.json()
             dates = []
@@ -160,7 +144,7 @@ class GetSingleUser(Resource):
 @api.route("/stocklist")
 class GetStockList(Resource):
     def get(self):
-        # return jsonify(get_stock_symbols())
+      
             try: 
                 stock_list = get_stock_symbols()
                 company_names = []
@@ -197,8 +181,7 @@ class HoldingsRecord(Resource):
         current_shares = req_data["current_shares"]
         total_cost_basis = req_data["total_cost_basis"]
         transaction_type = req_data["transaction_type"] 
-        # calculate in backend... crud file.
-        # total cost_basis is initally purchase amount
+     
 
         verification = verify_holdings(company_symbol, user_id)
 
@@ -221,12 +204,7 @@ class GetTotalHoldings(Resource):
 class GetShares(Resource):
     def get(self, username):
 
-        # for each object... get details and add to object the latest price 
- 
-        # get_latest_price = get_stock_info(symbol, stock_token)
-        # return jsonify(holdings)
-
-        # total = []
+      
         retrieve_cash_balance = get_cash_balance(username)
         holdings = get_share_holdings(username)
         total_cost = 0
@@ -238,9 +216,7 @@ class GetShares(Resource):
 
         for holding in holdings:
             total_cost += holding["total_cost_basis"]
-            # market_value = holding["current_price"] * holding["current_shares"]
-            # capital_gains = market_value - holding["total_cost_basis"]
-            # total_value += holding[current_price]
+          
             
             get_latest_price = get_stock_info(holding["company_symbol"], stock_token)
 
@@ -354,10 +330,3 @@ class Logout(Resource):
         return response
 
 
-# @socketio_socket.on("activateUser")
-# def activate(user):
-
-#     username = user["username"]
-#     socketio_socket.emit("activateUser", username)
-
-#     return username
