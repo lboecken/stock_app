@@ -1,20 +1,17 @@
 {
   "files": {
-    "main.css": "./build/static/css/main.25febf79.css",
-    "main.js": "./build/static/js/main.90c123e8.js",
-    "static/media/penguin-color-bg.png": "./build/static/media/penguin-color-bg.c8dae2ff04082528147a.png",
-    "static/media/penguin-ht-1.png": "./build/static/media/penguin-ht-1.73b08c2d122433dd213b.png",
-    "static/media/penguin-logo.png": "./build/static/media/penguin-logo.edd9e0ab4690d07fc0ca.png",
-    "static/media/dashboard_msg.png": "./build/static/media/dashboard_msg.3725253c78f9a51162a0.png",
-    "static/media/tradepage_msg.png": "./build/static/media/tradepage_msg.31e920d238724bcc8517.png",
-    "static/media/spinner.gif": "./build/static/media/spinner.11d9cde8ebaeadb07ba7.gif",
-    "static/media/penguin-logo-full.png": "./build/static/media/penguin-logo-full.7fc7a8194b5b1ed0558d.png",
-    "index.html": "./build/index.html",
-    "main.25febf79.css.map": "./build/static/css/main.25febf79.css.map",
-    "main.90c123e8.js.map": "./build/static/js/main.90c123e8.js.map"
+    "main.js": "/js/bundle.js",
+    "static/media/penguin-color-bg.png": "/static/media/penguin-color-bg.c8dae2ff04082528147a.png",
+    "static/media/penguin-ht-1.png": "/static/media/penguin-ht-1.73b08c2d122433dd213b.png",
+    "static/media/penguin-logo.png": "/static/media/penguin-logo.edd9e0ab4690d07fc0ca.png",
+    "static/media/dashboard_msg.png": "/static/media/dashboard_msg.3725253c78f9a51162a0.png",
+    "static/media/tradepage_msg.png": "/static/media/tradepage_msg.31e920d238724bcc8517.png",
+    "static/media/spinner.gif": "/static/media/spinner.11d9cde8ebaeadb07ba7.gif",
+    "static/media/penguin-logo-full.png": "/static/media/penguin-logo-full.7fc7a8194b5b1ed0558d.png",
+    "index.html": "/index.html",
+    "bundle.js.map": "/js/bundle.js.map"
   },
   "entrypoints": [
-    "static/css/main.25febf79.css",
-    "static/js/main.90c123e8.js"
+    "js/bundle.js"
   ]
 }

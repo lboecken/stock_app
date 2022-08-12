@@ -1,6 +1,22 @@
-IEX_API_KEY="YOUR IEX_API_KEY"
-FLASK_APP="FLASK APP FILE LOCATION"
+# CONFIG SOURCE
+FLASK_CONFIG='server.config.DevelopmentConfig'
+
+
+# CONFIG VALUES
+IEX_API_KEY="YOUR IEX API KEY"
 FLASK_ENV="development"
-LOCALDB_HOST="YOUR HOST"
-LOCALDB_PORT="YOUR PORT"
 JWT_SECRET_KEY="YOUR JWT SECRET KEY TOKEN"
+DB_URI=postgresql://postgres@localhost:5432/<DB_NAME_HERE>
+
+
+# To setup project
+#   Setup python virtual env & activate in your preferred manner
+#   run 'pip install -r requirements.txt'
+#   Setup .env file according to above pattern. IEX API KEY & DB_NAME are the only things that need changing
+#   export FLASK_APP=./main.py
+#   run 'flask shell'. This starts a python shell with the flask application spun up inside of it.
+#   run 'db.create_all()' inside this shell. This will setup the database. exit the shell using 'quit()'
+#   run 'npm i --prefix frontend'
+#   run both 'npm run watch --prefix frontend & flask start' to start server and create frontend build files
+#       this is for linux / mac os to run the first command in background. May not work on windows.
+#       
