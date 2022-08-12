@@ -6,7 +6,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  useOutlet,
   useOutletContext,
   Navigate,
   Outlet,
@@ -69,8 +68,6 @@ root.render(
         </Routes>
       </>
     </BrowserRouter>
-
-    {/* <App /> */}
   </React.StrictMode>
 );
 function DefaultLayout() {

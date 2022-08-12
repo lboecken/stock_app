@@ -30,7 +30,7 @@ const SignInForm = () => {
     };
 
     axios
-      .post("/api/token", data, {
+      .post("api/db/token", data, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

@@ -33,7 +33,7 @@ const SellModal = (props) => {
     };
     if (props.sharesToSell > 0) {
       axios
-        .post("/api/transactions", transactionData, {
+        .post("/db/transactions", transactionData, {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const SellModal = (props) => {
     };
     if (props.sharesToSell > 0) {
       axios
-        .post("/api/holdings", HoldingsData, {
+        .post("/db/holdings", HoldingsData, {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

@@ -10,7 +10,6 @@ import {
 import InputSpinner from "react-bootstrap-input-spinner";
 import { useState, useEffect } from "react";
 import "./Modals.css";
-import testLogo from "../../Images/test-logo.png";
 import axios from "axios";
 import { truncateModals, dollarFormat } from "../Handlers";
 
@@ -45,7 +44,7 @@ const BuyModal = (props) => {
     if (props.sharesToBuy > 0) {
 
     axios
-      .post("/api/transactions", transactionData, {
+      .post("/db/transactions", transactionData, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -73,7 +72,7 @@ const BuyModal = (props) => {
     if (props.sharesToBuy > 0) {
 
     axios
-      .post("/api/holdings", HoldingsData, {
+      .post("/db/holdings", HoldingsData, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

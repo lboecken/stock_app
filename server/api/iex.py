@@ -1,7 +1,9 @@
 import requests
+import os
 
+stock_token = os.environ.get("IEX_API_KEY")
 
-def get_stock_info(symbol, stock_token):
+def get_stock_info(symbol):
 
     try:
         r = requests.get(

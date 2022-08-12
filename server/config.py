@@ -2,7 +2,6 @@ import os
 from datetime import timedelta
 
 
-
 class BaseConfig:
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -16,9 +15,9 @@ class TestingConfig(BaseConfig):
 
 
 class DevelopmentConfig(BaseConfig):
-    ENV="development"
+    ENV = "development"
     SQLALCHEMY_DATABASE_URI = os.getenv("DB_URI")
-    DEBUG=True
+    DEBUG = True
 
 
 class ProductionConfig(BaseConfig):

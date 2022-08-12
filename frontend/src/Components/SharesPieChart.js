@@ -1,21 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { Chart } from "react-google-charts";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-// import Spinner from "./Spinner";
 import useUser from "./useUser";
-import { dollarFormat } from "./Handlers";
-// import Fade from "react-reveal/Fade";
 import { useOutletContext } from "react-router-dom";
 
 const SharesPieChart = () => {
   let shares_pie_chart_data = [["Symbol", "Cost_Basis"]];
-
-  const { signedInUser } = useUser();
-
-  const { holdings, cashBalance } = useOutletContext();
-  const { totalHoldings, totalHoldingsValue, updateHoldings } = holdings;
-
+  const { holdings } = useOutletContext();
+  const { totalHoldings } = holdings;
 
 
   totalHoldings?.holdings?.map((holdings) => {

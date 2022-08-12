@@ -21,7 +21,7 @@ const DashboardNavBar = () => {
     };
 
     axios
-      .post("/api/logout", data, {
+      .post("/db/logout", data, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

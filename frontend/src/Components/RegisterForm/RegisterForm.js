@@ -26,7 +26,7 @@ const RegisterForm = () => {
 
   const pushToken = (data) => {
     axios
-      .post("/api/token", data, {
+      .post("/db/token", data, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const RegisterForm = () => {
 
     if (username.length >= 6 && password.length >= 6) {
       axios
-        .post("/api/users", data, {
+        .post("/db/users", data, {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

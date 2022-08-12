@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { dollarFormat } from "../Handlers";
 import useUser from "../useUser";
-import axios from "axios";
 import AnimatedNumber from "react-animated-number";
 import { useOutletContext } from "react-router-dom";
 const AccountOverview = () => {

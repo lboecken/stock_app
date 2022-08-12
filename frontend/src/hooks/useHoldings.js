@@ -6,7 +6,7 @@ export default function useHoldings (signedInUser) {
     const [totalHoldings, setTotalHoldings] = useState("");
     const [allHoldings, setAllHoldings] = useState("");
     async function updateHoldings () {
-        await axios.get("api/holdings/" + signedInUser).then((res) => {
+        await axios.get("api/db/holdings/" + signedInUser).then((res) => {
             setTotalHoldingsValue(res.data.total_value);
             setTotalHoldings(res.data);
             setAllHoldings(res.data.all_holdings_value)

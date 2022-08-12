@@ -46,7 +46,7 @@ const TradePage = () => {
   }, []);
 
   async function getStockDetails() {
-    await axios.get("api/details/" + stockSymbol).then((res) => {
+    await axios.get("api/stocks/details/" + stockSymbol).then((res) => {
       if (res.data === "Something Went Wrong") {
         setIsData(false);
         // console.log("Stock Details Has No Data...");
@@ -58,7 +58,7 @@ const TradePage = () => {
   }
 
   async function getStockLogo() {
-    await axios.get("api/logo/" + stockLogo).then((res) => {
+    await axios.get("api/stocks/logo/" + stockLogo).then((res) => {
       if (res.data === "Something Went Wrong") {
         setIsData(false);
       } else {
@@ -70,7 +70,7 @@ const TradePage = () => {
   }
 
   async function getLastWeekClosingPrices() {
-    await axios.get("api/lastweek/" + stockSymbol).then((res) => {
+    await axios.get("api/stocks/lastweek/" + stockSymbol).then((res) => {
       if (res.data === "Something Went Wrong") {
         setIsData(false);
       } else {
@@ -83,7 +83,7 @@ const TradePage = () => {
 
 
   async function getStockList() {
-    await axios.get("api/stocklist").then((res) => {
+    await axios.get("api/db/stocklist").then((res) => {
       if (res.data === "Something Went Wrong") {
         // setIsData(false);
         // console.log("All Stocks Has No Data...");
@@ -97,7 +97,7 @@ const TradePage = () => {
   }
 
   async function getUsers() {
-    await axios.get("api/users/" + signedInUser).then((res) => {
+    await axios.get("api/db/users/" + signedInUser).then((res) => {
       // console.log(res.data);
       // console.log(res.data[0].id)
       setUserId(res.data[0].id);
@@ -105,7 +105,7 @@ const TradePage = () => {
   }
 
   async function getCashBalance() {
-    await axios.get("api/cash_balance/" + signedInUser).then((res) => {
+    await axios.get("api/db/cash_balance/" + signedInUser).then((res) => {
       // console.log(res.data[0].cash_balance);
       setUserCashBalance(Number(res.data[0].cash_balance));
       // console.log(signedInUser);
@@ -113,7 +113,7 @@ const TradePage = () => {
   }
 
   async function getHoldingsData() {
-    await axios.get("api/holdings/" + signedInUser).then((res) => {
+    await axios.get("api/db/holdings/" + signedInUser).then((res) => {
       setUserHoldings(res.data);
 
       // console.log(res.data);
