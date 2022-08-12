@@ -1,17 +1,13 @@
-from hmac import trans_36
-import json
 from decimal import Decimal
-from xxlimited import new
 import bcrypt
-from pytest import mark
-from server.db_connection import db
-from server.stock_symbols_model import StockList
+from server.db.conn import db
+from server.models.stock_symbols import StockList
 
 
-from server.user_model import User
-from server.holdings_model import Holdings
-from server.cash_balance_model import Cash_Balance
-from server.transactions_model import Transactions
+from server.models.user_model import User
+from server.models.holdings import Holdings
+from server.models.cash_balance import Cash_Balance
+from server.models.transactions import Transactions
 
 
 def create_user_connection(username, password):

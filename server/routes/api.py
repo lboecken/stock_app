@@ -2,12 +2,12 @@ from flask import jsonify, request, Blueprint
 from flask_restx import Api, Resource
 import os
 import requests
-from server.crud import *
+from server.db.crud import *
 from flask_jwt_extended import (
     create_access_token,
     unset_jwt_cookies,
 )
-from server.api_requests import *
+from server.api.iex import *
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api")
 api = Api(api_blueprint)

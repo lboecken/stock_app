@@ -1,4 +1,4 @@
-from server.db_connection import db
+from server.db.conn import db
 
 
 class Cash_Balance(db.Model):
