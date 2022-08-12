@@ -1,16 +1,7 @@
-
 from flask import send_from_directory
 from server import create_app
 
-from flask_sqlalchemy import SQLAlchemy
-
-from dotenv import load_dotenv
-load_dotenv()
-import os
-
-
 app = create_app()
-
 
 
 @app.route("/", defaults={"path": ""})
@@ -20,8 +11,4 @@ def serve(path):
 
 
 if __name__ == "__main__":
-    app.run( debug=True)
-
-
-
-
+    app.run(debug=True)

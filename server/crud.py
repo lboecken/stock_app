@@ -7,8 +7,7 @@ from pytest import mark
 from server.db_connection import db
 from server.stock_symbols_model import StockList
 
-# from server.models import *
-# from server.crud import *
+
 from server.user_model import User
 from server.holdings_model import Holdings
 from server.cash_balance_model import Cash_Balance
@@ -29,7 +28,7 @@ def create_user_connection(username, password):
     return "User Created"
 
 
-def getUser(username): 
+def getUser(username):
     def dict_helper(objlist):
         new_dict = [item.obj_to_dict() for item in objlist]
         return new_dict
@@ -37,10 +36,11 @@ def getUser(username):
     def single_user(obj):
         new_item = [obj.obj_to_dict()]
         return new_item
-    # users = dict_helper(User.query.all())
+
     signed_in_user = single_user(User.query.filter_by(username=username).first())
-    # print(signed_in_user)
+
     return signed_in_user
+
 
 def activate_user(username):
     sign_in_user = User.query.filter_by(username=username).first()
@@ -53,11 +53,11 @@ def deactivate_user(username):
     sign_in_user.signedin = "No"
     db.session.commit()
 
+
 def checkUser(username):
     checked_user = User.query.filter_by(username=username).first()
     db.session.commit()
     return checked_user
-
 
 
 def create_cash_balance_record(userid, username):
@@ -68,27 +68,27 @@ def create_cash_balance_record(userid, username):
 
     return "Cash Balance Intialized"
 
-def get_cash_balance(username):
 
+def get_cash_balance(username):
     def single_cash_balance(obj):
         new_item = [obj.obj_to_dict()]
         return new_item
 
-    check_balance = single_cash_balance(Cash_Balance.query.filter_by(username=username).first()) 
-    return (check_balance)
-
+    check_balance = single_cash_balance(
+        Cash_Balance.query.filter_by(username=username).first()
+    )
+    return check_balance
 
 
 def update_cash_balance(user_id, costBasis, transaction_type):
 
-     query = Cash_Balance.query.filter_by(user_id=user_id).first()
-     if transaction_type == "Buy":
-         query.cash_balance = query.cash_balance - Decimal(costBasis)
-     elif transaction_type == "Sell":
-         query.cash_balance = query.cash_balance + Decimal(costBasis)
-    #  query.cash_balance = Decimal(12000)
-     db.session.commit()
-     
+    query = Cash_Balance.query.filter_by(user_id=user_id).first()
+    if transaction_type == "Buy":
+        query.cash_balance = query.cash_balance - Decimal(costBasis)
+    elif transaction_type == "Sell":
+        query.cash_balance = query.cash_balance + Decimal(costBasis)
+
+    db.session.commit()
 
 
 def create_holdings_record(
@@ -98,7 +98,7 @@ def create_holdings_record(
     company_symbol,
     current_shares,
     total_cost_basis,
-    transaction_type
+    transaction_type,
 ):
     new_holdings_record = Holdings(
         user_id=userid,
@@ -107,9 +107,8 @@ def create_holdings_record(
         company_symbol=company_symbol,
         current_shares=current_shares,
         total_cost_basis=total_cost_basis,
-
     )
-    update_cash_balance(userid, Decimal(total_cost_basis), transaction_type) 
+    update_cash_balance(userid, Decimal(total_cost_basis), transaction_type)
     db.session.add(new_holdings_record)
     db.session.commit()
 
@@ -117,89 +116,86 @@ def create_holdings_record(
 
 
 def update_holdings_record(userId, company_symbol, shares, costBasis, transaction_type):
-    query = Holdings.query.filter_by(company_symbol=company_symbol, user_id=userId).first()
+    query = Holdings.query.filter_by(
+        company_symbol=company_symbol, user_id=userId
+    ).first()
 
     if transaction_type == "Buy":
         print("Buy Transaction")
-        query.current_shares = (query.current_shares + int(shares))
-        query.total_cost_basis = (query.total_cost_basis + Decimal(costBasis))
-        update_cash_balance(userId, costBasis, transaction_type) 
+        query.current_shares = query.current_shares + int(shares)
+        query.total_cost_basis = query.total_cost_basis + Decimal(costBasis)
+        update_cash_balance(userId, costBasis, transaction_type)
         db.session.commit()
 
     elif transaction_type == "Sell":
-        query.current_shares = (query.current_shares - int(shares))
-        if  query.current_shares == 0:
-            # query.total_cost_basis = 0
-            delete_holdings_record(userId, company_symbol)
-        
-        else: 
-            query.total_cost_basis = (query.total_cost_basis - Decimal(costBasis))
+        query.current_shares = query.current_shares - int(shares)
+        if query.current_shares == 0:
 
-        update_cash_balance(userId, costBasis,transaction_type) 
+            delete_holdings_record(userId, company_symbol)
+
+        else:
+            query.total_cost_basis = query.total_cost_basis - Decimal(costBasis)
+
+        update_cash_balance(userId, costBasis, transaction_type)
         db.session.commit()
- 
 
     return "Holdings Record Updated"
 
+
 def delete_holdings_record(userId, company_symbol):
-    query = Holdings.query.filter_by(company_symbol=company_symbol, user_id=userId).first()
+    query = Holdings.query.filter_by(
+        company_symbol=company_symbol, user_id=userId
+    ).first()
     db.session.delete(query)
     db.session.commit()
 
 
 def get_share_holdings(username):
-#    def the_shares(obj):
-#         new_item = [obj.obj_to_dict()]
-#         return new_item
-
-   def dict_helper(objlist):
+    def dict_helper(objlist):
         new_dict = [item.obj_to_dict() for item in objlist]
         return new_dict
-    
-   marketvalue = 0
-   share_holdings = dict_helper(Holdings.query.filter_by(username=username).all())
 
-   for obj in share_holdings:
-    marketvalue: marketvalue
-  
-   return share_holdings
+    marketvalue = 0
+    share_holdings = dict_helper(Holdings.query.filter_by(username=username).all())
+
+    for obj in share_holdings:
+        marketvalue: marketvalue
+
+    return share_holdings
 
 
 def get_total_holdings(user_id):
-     
-     def dict_helper(objlist):
+    def dict_helper(objlist):
         new_dict = [item.obj_to_dict() for item in objlist]
         return new_dict
-    
-     holdings = dict_helper(Holdings.query.filter_by(user_id=user_id).all()) 
-     holdings_calculation = []
-     
-     for obj in holdings:
+
+    holdings = dict_helper(Holdings.query.filter_by(user_id=user_id).all())
+    holdings_calculation = []
+
+    for obj in holdings:
         holdings_calculation.append(obj["total_cost_basis"])
-       
-    
+
         print(holdings_calculation)
-        
-    
-     return sum(holdings_calculation)
-        
+
+    return sum(holdings_calculation)
+
 
 def verify_holdings(company_symbol, user_id):
-
     def holdings_object(obj):
         if obj == None:
             return "No Holdings Record"
-        else: 
+        else:
             new_item = [obj.obj_to_dict()]
             return new_item
-    
-    query = holdings_object(Holdings.query.filter_by(company_symbol=company_symbol, user_id=user_id).first()) 
+
+    query = holdings_object(
+        Holdings.query.filter_by(company_symbol=company_symbol, user_id=user_id).first()
+    )
     if query == None:
         return "No Holdings Record"
-    else: 
+    else:
         return query
-   
-   
+
 
 def create_transaction_record(
     userid,
@@ -208,7 +204,7 @@ def create_transaction_record(
     shares,
     cost_basis,
     transaction_type,
-    transaction_total
+    transaction_total,
 ):
 
     new_transaction_record = Transactions(
@@ -219,7 +215,6 @@ def create_transaction_record(
         cost_basis=cost_basis,
         transaction_type=transaction_type,
         transaction_total=transaction_total,
-    
     )
     db.session.add(new_transaction_record)
     db.session.commit()
@@ -228,12 +223,10 @@ def create_transaction_record(
 
 
 def get_stock_symbols():
-
     def dict_helper(objlist):
         new_dict = [item.obj_to_dict() for item in objlist]
         return new_dict
-        
+
     all_stocks = dict_helper(StockList.query.all())
-    # print(all_stocks[1])
 
     return all_stocks
